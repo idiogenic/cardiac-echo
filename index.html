@@ -256,11 +256,26 @@
             }
         };
 
-        const showPage = (pageId) => {
+        // --- NAVIGATION ---
+        const renderPage = (pageId) => {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             currentPageId = pageId;
             exitEditMode(true);
+        };
+
+        const showPage = (pageId) => {
+            renderPage(pageId);
+            // Only push a new state if we are navigating away from the home page
+            if (pageId !== 'home-page') {
+                history.pushState({page: pageId}, '');
+            }
+        };
+
+        // --- BROWSER BACK BUTTON HANDLER ---
+        window.onpopstate = function(event) {
+            // When the back button is pressed, always go back to the home page.
+            renderPage('home-page');
         };
 
         const setupEventListeners = () => {
@@ -270,7 +285,10 @@
                 });
             });
             document.querySelectorAll('.back-btn').forEach(btn => {
-                btn.addEventListener('click', () => showPage('home-page'));
+                btn.addEventListener('click', () => {
+                    // Use the history API to go back, which will trigger onpopstate
+                    history.back();
+                });
             });
             document.querySelectorAll('.page').forEach(page => {
                 page.querySelector('.edit-btn')?.addEventListener('click', enterEditMode);
