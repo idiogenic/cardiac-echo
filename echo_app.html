@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Echo Protocols</title>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FFFFFF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="apple-mobile-web-app-title" content="Echo">
+    
+    <style>
+        /* --- 1. CSS STYLES --- */
+        :root {
+            --background-color: #FFFFFF;
+            --text-color: #000000;
+            --border-color: #000000;
+            --button-bg-color: #f0f0f0;
+            --button-active-bg: #dcdcdc;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overscroll-behavior: none;
+        }
+        .page {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            overflow-y: auto;
+            flex-direction: column;
+        }
+        .page.active {
+            display: flex;
+        }
+        .main-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            justify-content: center;
+            height: 100%;
+        }
+        .btn {
+            padding: 20px;
+            font-size: 1.2rem;
+            text-align: center;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: var(--button-bg-color);
+            color: var(--text-color);
+            width: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn:active {
+            background-color: var(--button-active-bg);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-shrink: 0;
+        }
+        .header h1 {
+            font-size: 1.8rem;
+        }
+        .back-btn, .edit-btn, .save-btn {
+            font-size: 1.1rem;
+            padding: 8px 15px;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background-color: transparent;
+            color: var(--text-color);
+            -webkit-tap-highlight-color: transparent;
+            white-space: nowrap;
+        }
+        .content {
+            font-size: 1rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            flex-grow: 1;
+        }
+        .content strong {
+            font-weight: bold;
+        }
+        .content h2 {
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+        .hidden {
+            display: none !important;
+        }
+        textarea.editor {
+            width: 100%;
+            height: 100%;
+            flex-grow: 1;
+            background-color: #f8f9fa;
+            color: var(--text-color);
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            padding: 10px;
+        }
+        .edit-help {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px dashed #adb5bd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="home-page" class="page active">
+        <div class="main-menu">
+            <div class="btn" data-page="pocus-page">POCUS</div>
+            <div class="btn" data-page="limited-lv-page">Limited LV Assessment</div>
+            <div class="btn" data-page="limited-rv-page">Limited RV Assessment</div>
+            <div class="btn" data-page="limited-valve-page">Limited Valve Assessment</div>
+        </div>
+    </div>
+    <div id="pocus-page" class="page">
+        <div class="header">
+            <button class="back-btn">&lt; Back</button>
+            <h1>POCUS</h1>
+            <button class="edit-btn">Edit</button>
+        </div>
+        <div id="pocus-content" class="content"></div>
+        <textarea id="pocus-editor" class="editor hidden"></textarea>
+        <p id="pocus-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
+        <div class="header hidden" id="pocus-save-controls">
+             <button class="save-btn">Save</button>
+        </div>
+    </div>
+    <div id="limited-lv-page" class="page">
+        <div class="header">
+            <button class="back-btn">&lt; Back</button>
+            <h1>Limited LV</h1>
+            <button class="edit-btn">Edit</button>
+        </div>
+        <div id="limited-lv-content" class="content"></div>
+        <textarea id="limited-lv-editor" class="editor hidden"></textarea>
+        <p id="limited-lv-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
+        <div class="header hidden" id="limited-lv-save-controls">
+            <button class="save-btn">Save</button>
+        </div>
+    </div>
+    <div id="limited-rv-page" class="page">
+        <div class="header">
+            <button class="back-btn">&lt; Back</button>
+            <h1>Limited RV</h1>
+            <button class="edit-btn">Edit</button>
+        </div>
+        <div id="limited-rv-content" class="content"></div>
+        <textarea id="limited-rv-editor" class="editor hidden"></textarea>
+        <p id="limited-rv-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
+        <div class="header hidden" id="limited-rv-save-controls">
+            <button class="save-btn">Save</button>
+        </div>
+    </div>
+    <div id="limited-valve-page" class="page">
+        <div class="header">
+            <button class="back-btn">&lt; Back</button>
+            <h1>Limited Valve</h1>
+            <button class="edit-btn">Edit</button>
+        </div>
+        <div id="limited-valve-content" class="content"></div>
+        <textarea id="limited-valve-editor" class="editor hidden"></textarea>
+        <p id="limited-valve-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
+        <div class="header hidden" id="limited-valve-save-controls">
+            <button class="save-btn">Save</button>
+        </div>
+    </div>
+
+    <script>
+    // --- 3. JAVASCRIPT LOGIC ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const defaultContent = {
+            pocus: `PLAX\n**20cm, exclude effusions**\n* LVEDD\n* Colour flow doppler mitral and aortic valves\n* LVOT diameter\n* Aortic valve opening\n\nPLAX - RV inflow\n* TR jet assessment\n* RVSP estimation`,
+            'limited-lv': `PLAX (pericardial effusion)\n* LVEDD\n* LVOTd\n* Assess mitral valve for regurg - regurg is a contraindication to a biplane EF\n\nPSAX\n* Assess for RWMAs - divided into 6 sectors\n\nApical 5 chamber view\n* LVOT VTI\n\nApical 4 chamber view\n* Biplane EF`,
+            'limited-rv': `PLAX (pericardial effusion)\n* Tricuspid regurg, continuous wave doppler over the TR jet -> freeze > measure peak velocity -> **4V2 = PASP**\n\nPSAX - mid pap\n* Check for septal flattening\n  * During systole suggests pressure overload\n  * During diastole suggests volume overload`,
+            'limited-valve': `Mitral valve\n* Add details here...\n\nTriscupid valve\n* Add details here...\n\nAortic valve\n* Add details here...\n\nPulmonic valve\n* Add details here...`
+        };
+        const contentElements = {
+            pocus: document.getElementById('pocus-content'),
+            'limited-lv': document.getElementById('limited-lv-content'),
+            'limited-rv': document.getElementById('limited-rv-content'),
+            'limited-valve': document.getElementById('limited-valve-content')
+        };
+        const editorElements = {
+            pocus: document.getElementById('pocus-editor'),
+            'limited-lv': document.getElementById('limited-lv-editor'),
+            'limited-rv': document.getElementById('limited-rv-editor'),
+            'limited-valve': document.getElementById('limited-valve-editor')
+        };
+        const editHelpElements = {
+            pocus: document.getElementById('pocus-edit-help'),
+            'limited-lv': document.getElementById('limited-lv-edit-help'),
+            'limited-rv': document.getElementById('limited-rv-edit-help'),
+            'limited-valve': document.getElementById('limited-valve-edit-help')
+        }
+        let currentPageId = 'home-page';
+
+        const init = () => {
+            loadAllContent();
+            setupEventListeners();
+            registerServiceWorker();
+        };
+
+        const parseMarkdown = (text) => {
+            return text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .split('\n').map(line => {
+                    const trimmedLine = line.trim();
+                    if (trimmedLine.startsWith('* ')) {
+                        const indent = line.search(/\S/);
+                        const indentSpaces = '&nbsp;'.repeat(indent);
+                        return `${indentSpaces}&bull; ${trimmedLine.substring(2)}`;
+                    }
+                    if (trimmedLine.length > 0 && !trimmedLine.includes('->') && !trimmedLine.includes('=')) {
+                        const isHeading = !/[:*]/.test(line) && line.length < 50;
+                        if (isHeading) return `<h2>${trimmedLine}</h2>`;
+                    }
+                    return line;
+                }).join('<br>').replace(/<br>\s*<br>/g, '<br><br>');
+        };
+
+        const loadContent = (protocol) => {
+            const savedContent = localStorage.getItem(`echo_app_content_${protocol}`);
+            const content = savedContent || defaultContent[protocol];
+            contentElements[protocol].innerHTML = parseMarkdown(content);
+            editorElements[protocol].value = content;
+        };
+        
+        const loadAllContent = () => {
+            for (const protocol in defaultContent) {
+                if(contentElements[protocol]) loadContent(protocol);
+            }
+        };
+
+        const showPage = (pageId) => {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            currentPageId = pageId;
+            exitEditMode(true);
+        };
+
+        const setupEventListeners = () => {
+            document.querySelectorAll('.btn[data-page]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (!btn.classList.contains('disabled')) showPage(btn.dataset.page);
+                });
+            });
+            document.querySelectorAll('.back-btn').forEach(btn => {
+                btn.addEventListener('click', () => showPage('home-page'));
+            });
+            document.querySelectorAll('.page').forEach(page => {
+                page.querySelector('.edit-btn')?.addEventListener('click', enterEditMode);
+                page.querySelector('.save-btn')?.addEventListener('click', saveContent);
+            });
+        };
+        
+        const enterEditMode = () => {
+            const protocol = currentPageId.replace('-page', '');
+            contentElements[protocol].classList.add('hidden');
+            editorElements[protocol].classList.remove('hidden');
+            editHelpElements[protocol].classList.remove('hidden');
+            document.querySelector(`#${currentPageId} .edit-btn`).classList.add('hidden');
+            document.getElementById(`${protocol}-save-controls`).classList.remove('hidden');
+        };
+
+        const saveContent = () => {
+            const protocol = currentPageId.replace('-page', '');
+            const newContent = editorElements[protocol].value;
+            localStorage.setItem(`echo_app_content_${protocol}`, newContent);
+            loadContent(protocol);
+            exitEditMode();
+        };
+
+        const exitEditMode = (force = false) => {
+            document.querySelectorAll('.page').forEach(page => {
+                const protocol = page.id.replace('-page', '');
+                if (contentElements[protocol]) {
+                    contentElements[protocol].classList.remove('hidden');
+                    editorElements[protocol].classList.add('hidden');
+                    editHelpElements[protocol].classList.add('hidden');
+                    page.querySelector('.edit-btn')?.classList.remove('hidden');
+                    document.getElementById(`${protocol}-save-controls`)?.classList.add('hidden');
+                }
+            });
+        };
+
+        const registerServiceWorker = () => {
+            if ('serviceWorker' in navigator) {
+                const swContent = `
+                    const CACHE_NAME = 'echo-app-cache-v1';
+                    const urlsToCache = ['./', 'manifest.json', 'icon-512x512.png'];
+                    self.addEventListener('install', e => e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(urlsToCache))));
+                    self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));
+                `;
+                const blob = new Blob([swContent], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                navigator.serviceWorker.register(swUrl)
+                    .then(reg => console.log('Service Worker registered.'))
+                    .catch(err => console.error('Service Worker registration failed:', err));
+            }
+        };
+        
+        init();
+    });
+    </script>
+</body>
+</html>
