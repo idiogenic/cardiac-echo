@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Echo Protocols</title>
-
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#FFFFFF">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FFFFFF">
     <meta name="apple-mobile-web-app-title" content="Echo">
-    
     <style>
         /* --- 1. CSS STYLES --- */
         :root {
@@ -83,7 +81,6 @@
             border-radius: 5px;
             background-color: transparent;
             color: var(--text-color);
-            -webkit-tap-highlight-color: transparent;
             white-space: nowrap;
         }
         .content {
@@ -191,14 +188,69 @@
     </div>
 
     <script>
-    // --- 3. JAVASCRIPT LOGIC ---
+    // JavaScript Logic
     document.addEventListener('DOMContentLoaded', () => {
         const defaultContent = {
-            pocus: `PLAX\n**20cm, exclude effusions**\n* LVEDD\n* Colour flow doppler mitral and aortic valves\n* LVOT diameter\n* Aortic valve opening\n\nPLAX - RV inflow\n* TR jet assessment\n* RVSP estimation`,
-            'limited-lv': `PLAX (pericardial effusion)\n* LVEDD\n* LVOTd\n* Assess mitral valve for regurg - regurg is a contraindication to a biplane EF\n\nPSAX\n* Assess for RWMAs - divided into 6 sectors\n\nApical 5 chamber view\n* LVOT VTI\n\nApical 4 chamber view\n* Biplane EF`,
-            'limited-rv': `PLAX (pericardial effusion)\n* Tricuspid regurg, continuous wave doppler over the TR jet -> freeze > measure peak velocity -> **4V2 = PASP**\n\nPSAX - mid pap\n* Check for septal flattening\n  * During systole suggests pressure overload\n  * During diastole suggests volume overload`,
-            'limited-valve': `Mitral valve\n* Add details here...\n\nTriscupid valve\n* Add details here...\n\nAortic valve\n* Add details here...\n\nPulmonic valve\n* Add details here...`
+            pocus: `PLAX
+**20cm, exclude effusions**
+* LVEDD
+* Colour flow doppler mitral and aortic valves
+* LVOT diameter
+* Aortic valve opening
+
+PLAX - RV inflow
+* TR jet assessment
+* RVSP estimation`,
+            'limited-lv': `PLAX (pericardial effusion)
+* LVEDD
+* LVOTd
+* Assess mitral valve for regurg - regurg is a contraindication to a biplane EF
+
+PSAX
+* Assess for RWMAs - divided into 6 sectors
+
+Apical 5 chamber view
+* LVOT VTI
+
+Apical 4 chamber view
+* Biplane EF`,
+            'limited-rv': `PLAX
+* set depth to 20cm, check for pericardial effusion)
+* Tricuspid regurg, continuous wave doppler over the TR jet -> freeze > measure peak velocity -> **4V2 = PASP**
+
+PSAX - mid pap
+* Check for septal flattening
+* During systole suggests pressure overload
+* During diastole suggests volume overload
+
+PSAX - aortic
+* TR jet peak velocity via cont wave doppler -> 4V2=PASP
+* Pulmonary artery acceleration time - continuous wave doppler through the pulmonary valve, measure the time from beginning of ejection to peak ejection
+  * >120msec is normal
+  * <120msec = elevated PVR
+  * < 80msec = highly elevated PVR
+
+Apical 4 chamber view
+* Tricuspid valve TR jet peak velocity
+* RV chamber quantification at end diastole
+  * Basal diameter ( should be <4.2)
+  * Mid diameter (should be <3.5)
+  * Major axis (should be <8.6)
+* RV Fractional area change (>35% normal, <35% abnormal, <18% severely abnormal)
+* TAPSE - M-mode through the lateral part of the tricuspid annulus (<17mm suggests dysfunction)`,
+            'limited-valve': `Mitral valve
+* Add details here...
+
+Triscupid valve
+* Add details here...
+
+Aortic valve
+* Add details here...
+
+Pulmonic valve
+* Add details here...`
         };
+        
         const contentElements = {
             pocus: document.getElementById('pocus-content'),
             'limited-lv': document.getElementById('limited-lv-content'),
@@ -256,7 +308,6 @@
             }
         };
 
-        // --- NAVIGATION ---
         const renderPage = (pageId) => {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
@@ -266,15 +317,12 @@
 
         const showPage = (pageId) => {
             renderPage(pageId);
-            // Only push a new state if we are navigating away from the home page
             if (pageId !== 'home-page') {
                 history.pushState({page: pageId}, '');
             }
         };
 
-        // --- BROWSER BACK BUTTON HANDLER ---
         window.onpopstate = function(event) {
-            // When the back button is pressed, always go back to the home page.
             renderPage('home-page');
         };
 
@@ -286,7 +334,6 @@
             });
             document.querySelectorAll('.back-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    // Use the history API to go back, which will trigger onpopstate
                     history.back();
                 });
             });
