@@ -601,6 +601,8 @@ Expected post-scan findings
             loadAllContent();
             setupEventListeners();
             registerServiceWorker();
+            // Set the initial history state for the home page
+            history.replaceState({page: 'home-page', parent: null}, '');
         };
 
         const parseMarkdown = (text) => {
@@ -642,28 +644,15 @@ Expected post-scan findings
         };
 
         const showPage = (pageId) => {
+            const parentPageId = currentPageId;
             renderPage(pageId);
-            // This now handles sub-menu navigation as well
-            if (pageId !== 'home-page') {
-                history.pushState({page: pageId}, '');
-            }
+            history.pushState({page: pageId, parent: parentPageId}, '');
         };
 
+        // --- BROWSER BACK BUTTON HANDLER ---
         window.onpopstate = function(event) {
-            const pageHistory = (history.state && history.state.page) ? history.state.page : '';
-
-            if (currentPageId === 'pathology-menu-page') {
-                renderPage('home-page');
-            } else if (currentPageId !== 'home-page' && currentPageId !== 'pathology-menu-page') {
-                 // Check if the current page is a pathology sub-page
-                 if (document.getElementById(currentPageId).closest('#pathology-menu-page')) {
-                     renderPage('pathology-menu-page');
-                 } else {
-                     renderPage('home-page');
-                 }
-            } else {
-                renderPage('home-page');
-            }
+            const pageIdToShow = (event.state && event.state.page) ? event.state.page : 'home-page';
+            renderPage(pageIdToShow);
         };
 
         const setupEventListeners = () => {
