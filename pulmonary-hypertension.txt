@@ -7,11 +7,10 @@ Pulmonary Hypertension
 * Freeze and measure or M-mode
 * Assess collapsibility
 <details>
-<summary>
-* Estimate RAP</summary>
-<div>
-<p>&bull; ![alt text](RAP.png)</p>
-</div>
+  <summary>estimate RAP</summary>
+  <div>
+    <img src="RAP.png" alt="Diagram for RAP estimation">
+  </div>
 </details>
 ## Post scan expected data
 * **RVSP = 4V² + RAP**
@@ -20,3 +19,4 @@ Pulmonary Hypertension
 * mPAP > 20mmHg = pulm HTN
 
 * RVSP > 30mmHg = pulm HTN
+
