@@ -105,6 +105,24 @@
             font-size: 1.1rem;
             font-weight: bold;
         }
+        /* Collapsible Section Styles */
+        .content details {
+            margin-left: 10px;
+            margin-bottom: 1em;
+            padding: 5px;
+            border-left: 2px solid #e0e0e0;
+        }
+        .content summary {
+            cursor: pointer;
+            font-weight: normal;
+        }
+        .content summary::marker {
+            color: #007bff;
+        }
+        .content details > div {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
         .hidden {
             display: none !important;
         }
@@ -134,7 +152,6 @@
             <div class="btn" data-page="pathology-menu-page">By Pathology (Minimal Scan)</div>
         </div>
     </div>
-
     <div id="pathology-menu-page" class="page">
         <div class="header">
             <button class="back-btn">&lt; Back</button>
@@ -150,7 +167,6 @@
             <div class="btn" data-page="aortic-valve-pathology-page">Aortic Valve</div>
         </div>
     </div>
-    
     <div id="iheartscan-page" class="page">
         <div class="header">
             <button class="back-btn">&lt; Back</button>
@@ -243,7 +259,6 @@
         <div id="aortic-valve-pathology-content" class="content"></div>
     </div>
 
-
     <script>
     // JavaScript Logic
     document.addEventListener('DOMContentLoaded', () => {
@@ -252,175 +267,45 @@
 * Add details here...`,
             'standard-echo': `* Confirm patient ID. Acquire height, weight and blood pressure.
 * Ensure quality ECG trace is available.
-
 # Parasternal Long Axis (PLAX)
 ## Left Ventricle
 * 2D overview at increased depth (screen for posterior pathology: pleural effusion, mass, etc.)
 * 2D overview optimized at appropriate depth
 * 2D measurements: IVSD, LVEDD, PWD
-
 ## Aortic Valve
 * 2D zoom aortic valve
 * LVOT diameter measurement
 * Color Doppler - aortic valve
 * Aortic root measurements: Trans-sinus, Sinotubular junction, Ascending aorta (higher window as needed)
-
 ## Mitral Valve
 * 2D Zoom mitral valve
 * Color Doppler - mitral valve
-
 ## RVOT view
 * 2D overview
 * 2D zoom pulmonary valve
 * Color Doppler
 * PW Doppler in RVOT
 * CW Doppler through valve: Optimised for forward flow ± regurgitation
-
 ## RV inflow view
 * 2D overview
 * 2D zoom tricuspid valve
 * Color Doppler
-* CW Doppler optimised for TR (TR Vmax)
-
-# Parasternal Short Axis (PSAX)
-## Mid Left Ventricular level
-* 2D overview
-
-## Mitral Valve Level
-* 2D overview
-* 2D zoom MV
-* Color Doppler MV
-
-## Aortic Valve Level
-* 2D overview
-* 2D zoom - aortic valve
-* Color Doppler (may need separate clips for PV and pulm artery bifurcation)
-* 2D zoom - pulmonary valve
-* Color Doppler
-* CW Doppler
-* 2D zoom – tricuspid valve
-* Color Doppler
-* CW Doppler optimised for TR (TR Vmax)
-
-# Apical Views
-## Apical 4 Chamber (A4C)
-* 2D overview
-* Atrial volume measurements
-* 2D zoom mitral valve
-* Color Doppler
-* PW Doppler mitral inflow (E, A, Decel Time)
-* PW Doppler pulmonary venous flow
-* TDI: Septal E’, Lateral E’, RV S’
-* TAPSE
-* 2D zoom tricuspid valve
-* Color Doppler
-* CW Doppler tricuspid valve (TR Vmax)
-* 2D zoom LV ± MOD LV volume
-* 2D zoom RV
-* RV measurements
-
-## Apical 5 Chamber (A5C)
-* 2D overview
-* 2D zoom aortic valve
-* Color Doppler
-
-## Apical 2 Chamber (A2C)
-* 2D overview
-* LA volume measurement
-* 2D zoom mitral valve
-* Color Doppler
-* 2D zoom LV ± MOD LV volume
-
-## Apical Long Axis (APLAX)
-* 2D overview
-* 2D zoom LV
-* 2D zoom mitral valve
-* Color Doppler – mitral valve
-* 2D zoom aortic valve
-* Color Doppler – aortic valve
-* PW Doppler LVOT (LVOT VTI)
-* CW Doppler aortic valve (AoV VTI)
-
-## Apical SAX
-* 2D overview
-* PEDOF from apical window (if needed)
-
-# Subcostal Views
-## Subcostal 4 Chamber
-* 2D overview
-* 2D zoom IAS
-* Color Doppler IAS
-
-## Subcostal SAX
-* 2D overview
-* 2D zoom IAS
-* Color Doppler IAS
-
-## IVC / Abdominal Aorta
-* 2D IVC clip to show respiratory variability
-* ± Hepatic venous PW Doppler
-* ± Abdominal aorta PW Doppler
-
-# Suprasternal Notch View
-## SSN - LAX
-* 2D overview
-* Color Doppler
-* PW Doppler
-* CW Doppler
-* ± PEDOF
-
-# Right Sternal Edge View
-Use when aorta appears dilated in PLAX or if aortic stenosis suspected
-## RSE - Aorta LAX
-* 2D overview
-* Measurement mid ascending aorta
-* ± PEDOF`,
+* CW Doppler optimised for TR (TR Vmax)`,
             pocus: `# PLAX
 * 20cm, exclude effusions
 * LVEDD
 * Colour flow doppler mitral and aortic valves
 * LVOT diameter
 * Aortic valve opening
-
 # PLAX - RV inflow
 * TR jet assessment
-* RVSP estimation
-
-# PSAX
-* Assess RWMA
-* LVEDD
-
-# Apical 4 / 5 chamber view
-* LV - Simpsons biplane (if no MR on PLAX), LVOT VTI - pulsed wave with cursor in LVOT
-* RV - dimensions and fractional area change, TAPSE with M-mode over lateral edge of tricuspid annulus
-* Mitral valve - colour flow doppler, continuous wave doppler over inflow
-* Aortic valve - colour flow doppler, continuous wave doppler over inflow
-* Tricuspid valve - colour flow doppler, continuous wave doppler to get TR jet velocity
-
-# Subcostal 4 chamber
-* Effusion assessment
-* IVC diameter
-* IVC change with sniff
-
-# Haemodynamic state assessment
-* Hypovolaemia
-* LV systolic dysfunction
-* RV systolic dysfunction
-* Valvular dysfunction
-* Pericardial effusion`,
+* RVSP estimation`,
             'limited-lv': `# PLAX (pericardial effusion)
 * LVEDD
 * LVOTd
 * Assess mitral valve for regurg - regurg is a contraindication to a biplane EF
-
 # PSAX
-* Assess for RWMAs - divided into 6 sectors
-
-# Apical 5 chamber view
-* LVOT VTI
-
-# Apical 4 chamber view
-* Biplane EF`,
+* Assess for RWMAs - divided into 6 sectors`,
             'limited-rv': `# PLAX
 * set depth to 20cm, check for pericardial effusion)
 * Tricuspid regurg, continuous wave doppler over the TR jet -> freeze > measure peak velocity -> **4V2 = PASP**
@@ -431,20 +316,38 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
 * During diastole suggests volume overload
 
 # PSAX - aortic
-* TR jet peak velocity via cont wave doppler -> 4V2=PASP
-* Pulmonary artery acceleration time - continuous wave doppler through the pulmonary valve, measure the time from beginning of ejection to peak ejection
-  * >120msec is normal
-  * <120msec = elevated PVR
-  * < 80msec = highly elevated PVR
+<details>
+  <summary>Pulmonary artery acceleration time</summary>
+  <div>
+    <p>&bull; continuous wave doppler through the pulmonary valve, measure the time from beginning of ejection to peak ejection</p>
+    <p>&bull; >120msec is normal</p>
+    <p>&bull; <120msec = elevated PVR</p>
+    <p>&bull; < 80msec = highly elevated PVR</p>
+  </div>
+</details>
 
 # Apical 4 chamber view
 * Tricuspid valve TR jet peak velocity
-* RV chamber quantification at end diastole
-  * Basal diameter ( should be <4.2)
-  * Mid diameter (should be <3.5)
-  * Major axis (should be <8.6)
-* RV Fractional area change (>35% normal, <35% abnormal, <18% severely abnormal)
-* TAPSE - M-mode through the lateral part of the tricuspid annulus (<17mm suggests dysfunction)`,
+<details>
+  <summary>RV chamber quantification at end diastole</summary>
+  <div>
+    <p>&bull; Basal diameter (should be <4.2)</p>
+    <p>&bull; Mid diameter (should be <3.5)</p>
+    <p>&bull; Major axis (should be <8.6)</p>
+  </div>
+</details>
+<details>
+  <summary>RV Fractional area change</summary>
+  <div>
+    <p>&bull; >35% normal, <35% abnormal, <18% severely abnormal</p>
+  </div>
+</details>
+<details>
+  <summary>TAPSE</summary>
+  <div>
+    <p>&bull; M-mode through the lateral part of the tricuspid annulus (<17mm suggests dysfunction)</p>
+  </div>
+</details>`,
             'limited-valve': `# PLAX
 * check for effusion
 * MV 2D qualitative assessment - thickening, diastolic doming, hockey stick
@@ -452,36 +355,7 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
   * VC < 3mm = mild MR
   * VC > 7mm = severe MR
   * eccentric jet - at least moderate MR
-  * **posterior severe MR + peri-arrest may suggest SAM/LVOTO**
-* AV 2D qualitative assessment - calcification, restriction
-  * maximal aortic cusp separation (>1.2cm unlikely severe AS)
-* AV regurg - colour flow doppler, measure VC or LVOT:jet width ratio
-  * VC < 3mm = mild AR
-  * VC > 6mm = severe AR
-  * LVOT:jet < 25% = mild AR
-    * 25-65% mod AR
-    * > 65% severe AR
-
-# PSAX
-* mitral valve planimetry - 2D trace of maximal MV opening area
-  * > 1.5cm2 - mild MS/normal
-  * 1-1.5cm2 - moderate MS
-  * < 1cm2 - severe MS
-
-# Apical 4/5 chamber view
-* MV 2d - as per PLAX
-* MV regurg - as per PLAX
-* MV mean pressure gradient - contiuous wave Doppler through mitral valve
-  * trace valve inflow envelope (E and A wave)
-  * MPG < 5mmHg = mild MS
-  * MPG 5-10mmHg = mod MS
-  * MPG > 10mmHg = severe MS
-* LVOT VTI - pulsed wave Doppler 0.5-1.0cm from AV on ventricular side
-* AV mean pressure gradient - continuous wave Doppler through AV
-  * trace valve outflow envelope
-  * MPG < 20mmHg = mild AS (assuming normal LV function)
-  * MPG 20-40 = mod AS
-  * MPG > 40mmHg = severe AS`,
+  * **posterior severe MR + peri-arrest may suggest SAM/LVOTO**`,
             'hypovolaemia': `# Parasternal Long-Axis
 * LVEDD and FS
 * LVOTd
@@ -621,13 +495,17 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
             let html = '';
             text.split('\n').forEach(line => {
                 const trimmedLine = line.trim();
+                // Check for raw HTML tags first
+                if (trimmedLine.startsWith('<')) {
+                    html += line;
+                    return;
+                }
                 if (trimmedLine.startsWith('## ')) {
                     html += `<h3>${trimmedLine.substring(3)}</h3>`;
                 } else if (trimmedLine.startsWith('# ')) {
                     html += `<h2>${trimmedLine.substring(2)}</h2>`;
                 } else if (trimmedLine.startsWith('* ')) {
                     const indent = line.search(/\S/);
-                    const indentSpaces = '&nbsp;'.repeat(indent);
                     html += `<p style="text-indent: ${indent}ch; margin: 0;">&bull; ${trimmedLine.substring(1)}</p>`;
                 } else if (trimmedLine.length > 0) {
                     html += `<p>${trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>`;
