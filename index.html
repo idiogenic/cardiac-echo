@@ -437,13 +437,120 @@ Apical 4/5 chamber view
   * MPG < 20mmHg = mild AS (assuming normal LV function)
   * MPG 20-40 = mod AS
   * MPG > 40mmHg = severe AS`,
-            'hypovolaemia': `Hypovolaemia Protocol\n* Add details here...`,
-            'cardiogenic-shock': `Cardiogenic Shock Protocol\n* Add details here...`,
-            'tamponade': `Tamponade Protocol\n* Add details here...`,
-            'pulmonary-hypertension': `Pulmonary Hypertension Protocol\n* Add details here...`,
-            'pulmonary-embolus': `Pulmonary Embolus Protocol\n* Add details here...`,
-            'mitral-valve-pathology': `Mitral Valve Pathology Protocol\n* Add details here...`,
-            'aortic-valve-pathology': `Aortic Valve Pathology Protocol\n* Add details here...`
+            'hypovolaemia': `Hypovolaemia vs Vasodilation Scan
+Parasternal Long-Axis
+* LVEDD and FS
+* LVOTd
+
+Parasternal short Axis
+* FAC
+
+Apical 5 Chamber
+* LVOT VTI
+
+Post-scan expected data - hypovolaemia:
+* LVEDD low
+* FS / FAC high or normal
+* Cardiac output by doppler VTI low
+
+Post-scan expected data – vasodilation
+* LVEDD normal
+* FS / FAC high`,
+            'cardiogenic-shock': `Cardiogenic Shock Scan
+Parasternal Long-Axis
+* LVOTd
+* LVEDD
+* Mitral valve regurgitation assessment
+
+Parasternal Short-Axis (mid-papillary)
+* Regional wall motion assessment
+
+A4C/5C
+* LVOT VTI
+* RV TAPSE
+
+Post-scan expected data:
+* LVEDD normal or high
+* Cardiac output by LVOT VTI low
+* Regional wall motion abnormality
+* Normal or concurrent RV failure (TAPSE)
+* If previously reported “normal EF%” must exclude moderate to severe MR
+* CO by doppler will supersede this as this is forward flow only`,
+            'tamponade': `Tamponade Scan
+Parasternal Long-Axis View
+* Effusion between LV posterior wall and Aorta
+
+Any view
+* Effusion >2cm
+
+A4C
+* Tamponade physiology
+* RV collapse in diastole, RA collapse in systole
+
+Subcostal view
+* Tamponade physiology
+* RV collapse in diastole, RA collapse in systole
+* IVC plethora (>2.1cm)`,
+            'pulmonary-hypertension': `Pulmonary Hypertension Scan
+Apical 4-chamber view
+* CWD across tricuspid valve for pulmonary pressures
+* Trace regurgitant jet - V
+* RV TAPSE and visual assessment
+
+Subcostal IVC
+* Freeze and measure or M-mode
+* Assess collapsibility
+* Estimate RAP
+
+Post scan expected data
+* **RVSP = 4V² + RAP**
+* **SPAP ~ RVSP**
+* **mPAP ~ 0.6 x SPAP + 2**
+* mPAP > 20mmHg = pulm HTN
+* RVSP > 30mmHg = pulm HTN`,
+            'pulmonary-embolus': `Pulmonary Embolus Protocol
+* Add details here...`,
+            'mitral-valve-pathology': `Mitral Valve Scan
+Apical 4-Chamber view
+* Mitral valve regurgitation assessment
+* CWD across mitral valve
+* LA volume
+* CWD across tricuspid valve for pulmonary pressures
+* RV TAPSE
+
+Expected post-scan findings
+Stenosis
+* High MPG
+* High LA volume
+* +/- pulmonary hypertension
+* +/- RV dysfunction
+
+Regurgitation
+* Eccentric jet, > 20% LA
+* +/- pulmonary hypertension
+* +/- RV dysfunction`,
+            'aortic-valve-pathology': `Aortic Valve Scan
+Parasternal Long-axis view
+* AV valve leaflet opening >1.2cm
+* LVOTd
+* IVS / posterior wall dimension
+
+Parasternal SAX view
+* Assess LV function
+* Visual / FAC
+* Posterior wall dimension
+
+A5C
+* LVOT VTI
+* AVA / LV function
+* AV CWD
+
+Expected post-scan findings
+* Restricted valve-leaflet opening
+* High valve MPG or Velocity
+* Small AVA
+* LVH
+* Assess in context of LV function`
         };
         
         const contentElements = {
@@ -543,13 +650,19 @@ Apical 4/5 chamber view
         };
 
         window.onpopstate = function(event) {
-            // When back is pressed, go to the previous logical menu
-            // This is a simplification; a real app might need a more complex history stack
-            const previousPage = document.referrer;
-            if (currentPageId.includes('-pathology') || currentPageId.includes('shock') || currentPageId.includes('embolus')) {
-                 renderPage('pathology-menu-page');
+            const pageHistory = (history.state && history.state.page) ? history.state.page : '';
+
+            if (currentPageId === 'pathology-menu-page') {
+                renderPage('home-page');
+            } else if (currentPageId !== 'home-page' && currentPageId !== 'pathology-menu-page') {
+                 // Check if the current page is a pathology sub-page
+                 if (document.getElementById(currentPageId).closest('#pathology-menu-page')) {
+                     renderPage('pathology-menu-page');
+                 } else {
+                     renderPage('home-page');
+                 }
             } else {
-                 renderPage('home-page');
+                renderPage('home-page');
             }
         };
 
