@@ -10,7 +10,6 @@
     <meta name="theme-color" content="#FFFFFF">
     <meta name="apple-mobile-web-app-title" content="Echo">
     <style>
-        /* --- 1. CSS STYLES --- */
         :root {
             --background-color: #FFFFFF;
             --text-color: #000000;
@@ -18,641 +17,185 @@
             --button-bg-color: #f0f0f0;
             --button-active-bg: #dcdcdc;
         }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        html, body {
-            height: 100%;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            overscroll-behavior: none;
-        }
-        .page {
-            display: none;
-            width: 100%;
-            height: 100%;
-            padding: 20px;
-            overflow-y: auto;
-            flex-direction: column;
-        }
-        .page.active {
-            display: flex;
-        }
-        .main-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            justify-content: center;
-            flex-grow: 1;
-        }
-        .btn {
-            padding: 20px;
-            font-size: 1.2rem;
-            text-align: center;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            cursor: pointer;
-            background-color: var(--button-bg-color);
-            color: var(--text-color);
-            width: 100%;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .btn:active {
-            background-color: var(--button-active-bg);
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-shrink: 0;
-        }
-        .header h1 {
-            font-size: 1.5rem;
-            text-align: right;
-        }
-        .back-btn {
-            font-size: 1.1rem;
-            padding: 8px 15px;
-            cursor: pointer;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            background-color: transparent;
-            color: var(--text-color);
-            white-space: nowrap;
-        }
-        .content {
-            font-size: 1rem;
-            line-height: 1.6;
-            flex-grow: 1;
-        }
-        .content p {
-            margin-bottom: 0.5em;
-        }
-        .content h2 { /* Major Headings */
-            margin-top: 2em;
-            margin-bottom: 1em;
-            font-size: 1.3rem;
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 5px;
-        }
-        .content h3 { /* Sub Headings */
-            margin-top: 1.5em;
-            margin-bottom: 0.5em;
-            font-size: 1.1rem;
-            font-weight: bold;
-        }
-        /* Collapsible Section Styles */
-        .content details {
-            margin-bottom: 1em;
-            padding-left: 10px;
-            border-left: 2px solid #e0e0e0;
-        }
-        .content summary {
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .content details > div {
-            padding-left: 20px;
-            margin-top: 10px;
-        }
-        /* Inline Tappable Styles */
-        .tappable-ref {
-            cursor: pointer;
-            color: #0056b3;
-            text-decoration: underline;
-            text-decoration-style: dotted;
-        }
-        .hidden-ref {
-            display: none;
-            font-style: italic;
-            color: #555;
-            background-color: #f0f0f0;
-            padding: 2px 5px;
-            border-radius: 4px;
-            margin-left: 5px;
-        }
-        .hidden {
-            display: none !important;
-        }
-        .disclaimer {
-            font-size: 0.75rem;
-            color: #6c757d;
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 0 20px;
-            flex-shrink: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: var(--background-color); color: var(--text-color); }
+        .page { display: none; width: 100%; height: 100%; padding: 20px; overflow-y: auto; flex-direction: column; }
+        .page.active { display: flex; }
+        .main-menu { display: flex; flex-direction: column; gap: 15px; justify-content: center; flex-grow: 1; }
+        .btn { padding: 20px; font-size: 1.2rem; text-align: center; border: 2px solid var(--border-color); border-radius: 8px; cursor: pointer; background-color: var(--button-bg-color); color: var(--text-color); width: 100%; -webkit-tap-highlight-color: transparent; }
+        .btn:active { background-color: var(--button-active-bg); }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
+        .header h1 { font-size: 1.5rem; text-align: right; }
+        .back-btn { font-size: 1.1rem; padding: 8px 15px; cursor: pointer; border: 1px solid var(--border-color); border-radius: 5px; background-color: transparent; color: var(--text-color); white-space: nowrap; }
+        .content { font-size: 1rem; line-height: 1.6; flex-grow: 1; }
+        .content p { margin-bottom: 0.5em; }
+        .content h2 { margin-top: 2em; margin-bottom: 1em; font-size: 1.3rem; border-bottom: 2px solid #ccc; padding-bottom: 5px; }
+        .content h3 { margin-top: 1.5em; margin-bottom: 0.5em; font-size: 1.1rem; font-weight: bold; }
+        .content details { margin-bottom: 1em; padding-left: 10px; border-left: 2px solid #e0e0e0; }
+        .content summary { cursor: pointer; font-weight: bold; }
+        .content details > div { padding-left: 20px; margin-top: 10px; }
+        .content table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+        .content th, .content td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        .content th { background-color: #f2f2f2; }
+        .content img { max-width: 100%; height: auto; margin: 1em 0; }
+        .tappable-ref { cursor: pointer; color: #0056b3; text-decoration: underline; text-decoration-style: dotted; }
+        .hidden-ref { display: none; font-style: italic; color: #555; background-color: #f0f0f0; padding: 2px 5px; border-radius: 4px; margin-left: 5px; }
+        .hidden { display: none !important; }
+        .disclaimer { font-size: 0.75rem; color: #6c757d; text-align: center; margin-bottom: 30px; padding: 0 20px; flex-shrink: 0; }
     </style>
 </head>
 <body>
 
     <div id="home-page" class="page active">
-        <p class="disclaimer">
-            These protocols are not endorsed by any professional bodies. Use at your own risk.
-        </p>
+        <p class="disclaimer">These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
         <div class="main-menu">
-            <div class="btn" data-page="iheartscan-page">iHeartScan</div>
-            <div class="btn" data-page="standard-echo-page">Standard Echocardiography Protocol</div>
-            <div class="btn" data-page="pocus-page">POCUS</div>
-            <div class="btn" data-page="limited-lv-page">Limited LV Assessment</div>
-            <div class="btn" data-page="limited-rv-page">Limited RV Assessment</div>
-            <div class="btn" data-page="limited-valve-page">Limited Scan Protocol for Mitral and Aortic Valves</div>
-            <div class="btn" data-page="pathology-menu-page">By Pathology (Minimal Scan)</div>
+            <div class="btn" data-page="iheartscan">iHeartScan</div>
+            <div class="btn" data-page="standard-echo">Standard Echocardiography Protocol</div>
+            <div class="btn" data-page="pocus">POCUS</div>
+            <div class="btn" data-page="limited-lv">Limited LV Assessment</div>
+            <div class="btn" data-page="limited-rv">Limited RV Assessment</div>
+            <div class="btn" data-page="limited-valve">Limited Scan Protocol for Mitral and Aortic Valves</div>
+            <div class="btn" data-page="pathology-menu">By Pathology (Minimal Scan)</div>
         </div>
     </div>
+
     <div id="pathology-menu-page" class="page">
         <div class="header">
             <button class="back-btn">&lt; Back</button>
-            <h1>By Pathology</h1>
+            <h1 id="pathology-menu-title"></h1>
         </div>
-        <div class="main-menu">
-            <div class="btn" data-page="hypovolaemia-page">Hypovolaemia</div>
-            <div class="btn" data-page="cardiogenic-shock-page">Cardiogenic Shock</div>
-            <div class="btn" data-page="tamponade-page">Tamponade</div>
-            <div class="btn" data-page="pulmonary-hypertension-page">Pulmonary Hypertension</div>
-            <div class="btn" data-page="pulmonary-embolus-page">Pulmonary Embolus</div>
-            <div class="btn" data-page="mitral-valve-pathology-page">Mitral Valve</div>
-            <div class="btn" data-page="aortic-valve-pathology-page">Aortic Valve</div>
-        </div>
+        <div id="pathology-menu-content" class="content"></div>
     </div>
-    <div id="iheartscan-page" class="page">
+
+    <div id="content-page" class="page">
         <div class="header">
             <button class="back-btn">&lt; Back</button>
-            <h1>iHeartScan</h1>
+            <h1 id="content-page-title"></h1>
         </div>
-        <div id="iheartscan-content" class="content"></div>
-    </div>
-    <div id="standard-echo-page" class="page">
-        <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1>Standard Echo Protocol</h1>
-        </div>
-        <div id="standard-echo-content" class="content"></div>
-    </div>
-    <div id="pocus-page" class="page">
-        <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1>POCUS</h1>
-        </div>
-        <div id="pocus-content" class="content"></div>
-    </div>
-    <div id="limited-lv-page" class="page">
-        <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1>Limited LV</h1>
-        </div>
-        <div id="limited-lv-content" class="content"></div>
-    </div>
-    <div id="limited-rv-page" class="page">
-        <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1>Limited RV</h1>
-        </div>
-        <div id="limited-rv-content" class="content"></div>
-    </div>
-    <div id="limited-valve-page" class="page">
-        <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1>Mitral & Aortic Valves</h1>
-        </div>
-        <div id="limited-valve-content" class="content"></div>
-    </div>
-    <div id="hypovolaemia-page" class="page">
-        <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1>Hypovolaemia vs Vasodilation</h1>
-        </div>
-        <div id="hypovolaemia-content" class="content"></div>
-    </div>
-    <div id="cardiogenic-shock-page" class="page">
-        <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1>Cardiogenic Shock</h1>
-        </div>
-        <div id="cardiogenic-shock-content" class="content"></div>
-    </div>
-    <div id="tamponade-page" class="page">
-        <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1>Tamponade</h1>
-        </div>
-        <div id="tamponade-content" class="content"></div>
-    </div>
-    <div id="pulmonary-hypertension-page" class="page">
-        <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1>Pulmonary Hypertension</h1>
-        </div>
-        <div id="pulmonary-hypertension-content" class="content"></div>
-    </div>
-    <div id="pulmonary-embolus-page" class="page">
-        <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1>Pulmonary Embolus</h1>
-        </div>
-        <div id="pulmonary-embolus-content" class="content"></div>
-    </div>
-    <div id="mitral-valve-pathology-page" class="page">
-        <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1>Mitral Valve</h1>
-        </div>
-        <div id="mitral-valve-pathology-content" class="content"></div>
-    </div>
-    <div id="aortic-valve-pathology-page" class="page">
-        <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1>Aortic Valve</h1>
-        </div>
-        <div id="aortic-valve-pathology-content" class="content"></div>
+        <div id="content-page-content" class="content"></div>
     </div>
 
     <script>
-    // JavaScript Logic
     document.addEventListener('DOMContentLoaded', () => {
-        const defaultContent = {
-            'iheartscan': `# iHeartScan Protocol
-* Add details here...`,
-            'standard-echo': `* Confirm patient ID. Acquire height, weight and blood pressure.
-* Ensure quality ECG trace is available.
-# Parasternal Long Axis (PLAX)
-## Left Ventricle
-* 2D overview at increased depth
-* 2D overview optimized at appropriate depth
-* 2D measurements: IVSD, LVEDD, PWD
-## Aortic Valve
-* 2D zoom aortic valve
-* LVOT diameter measurement
-* Color Doppler - aortic valve
-* Aortic root measurements: Trans-sinus, Sinotubular junction, Ascending aorta
-## Mitral Valve
-* 2D Zoom mitral valve
-* Color Doppler - mitral valve
-## RVOT view
-* 2D overview
-* 2D zoom pulmonary valve
-* Color Doppler
-* PW Doppler in RVOT
-* CW Doppler through valve
-## RV inflow view
-* 2D overview
-* 2D zoom tricuspid valve
-* Color Doppler
-* CW Doppler optimised for TR (TR Vmax)
-# Parasternal Short Axis (PSAX)
-## Mid Left Ventricular level
-* 2D overview
-## Mitral Valve Level
-* 2D overview
-* 2D zoom MV
-* Color Doppler MV
-## Aortic Valve Level
-* 2D overview
-* 2D zoom - aortic valve
-* Color Doppler
-* 2D zoom - pulmonary valve
-* Color Doppler
-* CW Doppler
-* 2D zoom – tricuspid valve
-* Color Doppler
-* CW Doppler optimised for TR (TR Vmax)
-# Apical Views
-## Apical 4 Chamber (A4C)
-* 2D overview
-* Atrial volume measurements
-* 2D zoom mitral valve 
-* Color Doppler
-* PW Doppler mitral inflow (E, A, Decel Time)
-* PW Doppler pulmonary venous flow
-* TDI: Septal E’, Lateral E’, RV S’
-* TAPSE
-* 2D zoom tricuspid valve 
-* Color Doppler
-* CW Doppler tricuspid valve (TR Vmax)
-* 2D zoom LV ± MOD LV volume
-* 2D zoom RV 
-* RV measurements
-## Apical 5 Chamber (A5C)
-* 2D overview
-* 2D zoom aortic valve 
-* Color Doppler
-## Apical 2 Chamber (A2C)
-* 2D overview
-* LA volume measurement
-* 2D zoom mitral valve 
-* Color Doppler
-* 2D zoom LV ± MOD LV volume
-## Apical Long Axis (APLAX)
-* 2D overview
-* 2D zoom LV 
-* 2D zoom mitral valve
-* Color Doppler – mitral valve
-* 2D zoom aortic valve 
-* Color Doppler – aortic valve
-* PW Doppler LVOT (LVOT VTI)
-* CW Doppler aortic valve (AoV VTI)
-## Apical SAX
-* 2D overview
-* PEDOF from apical window (if needed)
-# Subcostal Views
-## Subcostal 4 Chamber
-* 2D overview
-* 2D zoom IAS
-* Color Doppler IAS
-## Subcostal SAX
-* 2D overview
-* 2D zoom IAS
-* Color Doppler IAS
-## IVC / Abdominal Aorta
-* 2D IVC clip to show respiratory variability
-* ± Hepatic venous PW Doppler
-* ± Abdominal aorta PW Doppler
-# Suprasternal Notch View
-## SSN - LAX
-* 2D overview
-* Color Doppler
-* PW Doppler
-* CW Doppler
-* ± PEDOF
-# Right Sternal Edge View
-Use when aorta appears dilated in PLAX or if aortic stenosis suspected
-## RSE - Aorta LAX
-* 2D overview
-* Measurement mid ascending aorta
-* ± PEDOF`,
-            pocus: `# PLAX
-* 20cm, exclude effusions
-* LVEDD
-* Colour flow doppler mitral and aortic valves
-* LVOT diameter
-* Aortic valve opening
-# PLAX - RV inflow
-* TR jet assessment
-* RVSP estimation
-# PSAX 
-* Assess RWMA
-* LVEDD
-# Apical 4 / 5 chamber view
-* LV - Simpsons biplane (if no MR on PLAX), LVOT VTI - pulsed wave with cursor in LVOT
-* RV - dimensions and fractional area change, TAPSE with M-mode over lateral edge of tricuspid annulus
-* Mitral valve - colour flow doppler, continuous wave doppler over inflow
-* Aortic valve - colour flow doppler, continuous wave doppler over inflow
-* Tricuspid valve - colour flow doppler, continuous wave doppler to get TR jet velocity
-# Subcostal 4 chamber
-* Effusion assessment
-* IVC diameter
-* IVC change with sniff
-# Haemodynamic state assessment
-* Hypovolaemia
-* LV systolic dysfunction
-* RV systolic dysfunction
-* Valvular dysfunction
-* Pericardial effusion`,
-            'limited-lv': `# PLAX (pericardial effusion)
-* LVEDD
-* LVOTd
-* Assess mitral valve for regurg - regurg is a contraindication to a biplane EF
-# PSAX
-* Assess for RWMAs - divided into 6 sectors
-# Apical 5 chamber view
-* LVOT VTI
-# Apical 4 chamber view
-* Biplane EF`,
-            'limited-rv': `# PLAX
-* set depth to 20cm, check for pericardial effusion
-* Tricuspid regurg, continuous wave doppler over the TR jet -> freeze > measure peak velocity -> **4V2 = PASP**
-# PSAX - mid pap
-* Check for septal flattening
-* During systole suggests pressure overload
-* During diastole suggests volume overload
-# PSAX - aortic
-<p>&bull; <span class="tappable-ref">TR jet peak velocity via cont wave doppler</span><span class="hidden-ref">-> **4V2 = PASP**</span></p>
-* Pulmonary artery acceleration time - continuous wave doppler through the pulmonary valve, measure the time from beginning of ejection to peak ejection
-<details>
-  <summary>Reference Ranges</summary>
-  <div>
-    <p>&bull; >120msec is normal</p>
-    <p>&bull; <120msec = elevated PVR</p>
-    <p>&bull; < 80msec = highly elevated PVR</p>
-  </div>
-</details>
-# Apical 4 chamber view
-* Tricuspid valve TR jet peak velocity
-* RV chamber quantification at end diastole
-  <p style="margin: 0 0 0.5em 20px;">&bull; <span class="tappable-ref">Basal diameter</span><span class="hidden-ref">(should be <4.2)</span></p>
-  <p style="margin: 0 0 0.5em 20px;">&bull; <span class="tappable-ref">Mid diameter</span><span class="hidden-ref">(should be <3.5)</span></p>
-  <p style="margin: 0 0 0.5em 20px;">&bull; <span class="tappable-ref">Major axis</span><span class="hidden-ref">(should be <8.6)</span></p>
-<details>
-  <summary>RV Fractional area change</summary>
-  <div>
-    <p>&bull; >35% normal, <35% abnormal, <18% severely abnormal</p>
-  </div>
-</details>
-<p>&bull; <span class="tappable-ref">TAPSE</span> - M-mode through the lateral part of the tricuspid annulus<span class="hidden-ref">(<17mm suggests dysfunction)</span></p>`,
-            'limited-valve': `# PLAX
-* check for effusion
-* MV 2D qualitative assessment - thickening, diastolic doming, hockey stick
-* MV regurgitation - colour flow doppler
-  * VC < 3mm = mild MR
-  * VC > 7mm = severe MR
-  * eccentric jet - at least moderate MR
-  * **posterior severe MR + peri-arrest may suggest SAM/LVOTO**
-* AV 2D qualitative assessment - calcification, restriction
-  * maximal aortic cusp separation (>1.2cm unlikely severe AS)
-* AV regurg - colour flow doppler, measure VC or LVOT:jet width ratio
-  * VC < 3mm = mild AR
-  * VC > 6mm = severe AR
-  * LVOT:jet < 25% = mild AR
-    * 25-65% mod AR
-    * > 65% severe AR
-# PSAX
-* mitral valve planimetry - 2D trace of maximal MV opening area
-  * > 1.5cm2 - mild MS/normal
-  * 1-1.5cm2 - moderate MS
-  * < 1cm2 - severe MS
-# Apical 4/5 chamber view
-* MV 2d - as per PLAX
-* MV regurg - as per PLAX
-* MV mean pressure gradient - contiuous wave Doppler through mitral valve
-  * trace valve inflow envelope (E and A wave)
-  * MPG < 5mmHg = mild MS
-  * MPG 5-10mmHg = mod MS
-  * MPG > 10mmHg = severe MS
-* LVOT VTI - pulsed wave Doppler 0.5-1.0cm from AV on ventricular side
-* AV mean pressure gradient - continuous wave Doppler through AV
-  * trace valve outflow envelope
-  * MPG < 20mmHg = mild AS (assuming normal LV function)
-  * MPG 20-40 = mod AS
-  * MPG > 40mmHg = severe AS`,
-            'hypovolaemia': `# Parasternal Long-Axis
-* LVEDD and FS
-* LVOTd
-# Parasternal short Axis
-* FAC
-# Apical 5 Chamber
-* LVOT VTI
-## Post-scan expected data - hypovolaemia:
-* LVEDD low
-* FS / FAC high or normal
-* Cardiac output by doppler VTI low
-## Post-scan expected data – vasodilation
-* LVEDD normal
-* FS / FAC high`,
-            'cardiogenic-shock': `# Parasternal Long-Axis
-* LVOTd
-* LVEDD
-* Mitral valve regurgitation assessment
-# Parasternal Short-Axis (mid-papillary)
-* Regional wall motion assessment
-# A4C/5C
-* LVOT VTI
-* RV TAPSE
-## Post-scan expected data:
-* LVEDD normal or high
-* Cardiac output by LVOT VTI low
-* Regional wall motion abnormality
-* Normal or concurrent RV failure (TAPSE)
-* If previously reported “normal EF%” must exclude moderate to severe MR
-  * CO by doppler will supersede this as this is forward flow only`,
-            'tamponade': `# Parasternal Long-Axis View
-* Effusion between LV posterior wall and Aorta
-# Any view
-* Effusion >2cm
-# A4C
-* Tamponade physiology
-* RV collapse in diastole, RA collapse in systole
-# Subcostal view
-* Tamponade physiology
-* RV collapse in diastole, RA collapse in systole
-* IVC plethora (>2.1cm)`,
-            'pulmonary-hypertension': `# Apical 4-chamber view
-* CWD across tricuspid valve for pulmonary pressures
-* Trace regurgitant jet - V
-* RV TAPSE and visual assessment
-# Subcostal IVC
-* Freeze and measure or M-mode
-* Assess collapsibility
-* Estimate RAP
-## Post scan expected data
-* **RVSP = 4V² + RAP**
-* **SPAP ~ RVSP**
-* **mPAP ~ 0.6 x SPAP + 2**
-* mPAP > 20mmHg = pulm HTN
-* RVSP > 30mmHg = pulm HTN`,
-            'pulmonary-embolus': `# Pulmonary Embolus Protocol
-* Add details here...`,
-            'mitral-valve-pathology': `# Apical 4-Chamber view
-* Mitral valve regurgitation assessment
-* CWD across mitral valve
-* LA volume
-* CWD across tricuspid valve for pulmonary pressures
-* RV TAPSE
-## Expected post-scan findings
-**Stenosis**
-* High MPG
-* High LA volume
-* +/- pulmonary hypertension
-* +/- RV dysfunction
-**Regurgitation**
-* Eccentric jet, > 20% LA
-* +/- pulmonary hypertension
-* +/- RV dysfunction`,
-            'aortic-valve-pathology': `# Parasternal Long-axis view
-* AV valve leaflet opening >1.2cm
-* LVOTd
-* IVS / posterior wall dimension
-# Parasternal SAX view
-* Assess LV function
-* Visual / FAC
-* Posterior wall dimension
-# A5C
-* LVOT VTI
-* AVA / LV function
-* AV CWD
-## Expected post-scan findings
-* Restricted valve-leaflet opening
-* High valve MPG or Velocity
-* Small AVA
-* LVH
-* Assess in context of LV function`
-        };
-        
-        const contentElements = {
-            'iheartscan': document.getElementById('iheartscan-content'),
-            'standard-echo': document.getElementById('standard-echo-content'),
-            pocus: document.getElementById('pocus-content'),
-            'limited-lv': document.getElementById('limited-lv-content'),
-            'limited-rv': document.getElementById('limited-rv-content'),
-            'limited-valve': document.getElementById('limited-valve-content'),
-            'hypovolaemia': document.getElementById('hypovolaemia-content'),
-            'cardiogenic-shock': document.getElementById('cardiogenic-shock-content'),
-            'tamponade': document.getElementById('tamponade-content'),
-            'pulmonary-hypertension': document.getElementById('pulmonary-hypertension-content'),
-            'pulmonary-embolus': document.getElementById('pulmonary-embolus-content'),
-            'mitral-valve-pathology': document.getElementById('mitral-valve-pathology-content'),
-            'aortic-valve-pathology': document.getElementById('aortic-valve-pathology-content')
-        };
-        
         let currentPageId = 'home-page';
+        const contentCache = {};
 
         const init = () => {
-            loadAllContent();
             setupEventListeners();
             registerServiceWorker();
-            history.replaceState({page: 'home-page', parent: null}, '');
+            history.replaceState({ page: 'home-page' }, '', '#home');
         };
-
+        
         const parseMarkdown = (text) => {
+            const lines = text.split('\n');
             let html = '';
-            text.split('\n').forEach(line => {
+            let isTable = false;
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
                 const trimmedLine = line.trim();
-                if (trimmedLine.startsWith('<')) {
-                    html += line;
-                    return;
+
+                if (trimmedLine.startsWith('<')) { html += line; continue; }
+
+                // Table syntax
+                if (trimmedLine.includes('|')) {
+                    if (!isTable) {
+                        html += '<table>';
+                        // Check for header row
+                        if (lines[i + 1] && lines[i + 1].includes('---')) {
+                            html += '<thead><tr>';
+                            trimmedLine.split('|').forEach(cell => {
+                                if (cell.trim()) html += `<th>${cell.trim()}</th>`;
+                            });
+                            html += '</tr></thead><tbody>';
+                            i++; // Skip the '---' line
+                            isTable = true;
+                        } else {
+                            html += '<tbody><tr>';
+                            trimmedLine.split('|').forEach(cell => {
+                                if (cell.trim()) html += `<td>${cell.trim()}</td>`;
+                            });
+                            html += '</tr>';
+                            isTable = true;
+                        }
+                    } else {
+                         html += '<tr>';
+                         trimmedLine.split('|').forEach(cell => {
+                            if (cell.trim()) html += `<td>${cell.trim()}</td>`;
+                         });
+                         html += '</tr>';
+                    }
+                    continue;
                 }
-                if (trimmedLine.startsWith('## ')) {
-                    html += `<h3>${trimmedLine.substring(3)}</h3>`;
-                } else if (trimmedLine.startsWith('# ')) {
-                    html += `<h2>${trimmedLine.substring(2)}</h2>`;
-                } else if (trimmedLine.startsWith('* ')) {
+                
+                if (isTable) { html += '</tbody></table>'; isTable = false; }
+                
+                if (trimmedLine.startsWith('## ')) html += `<h3>${trimmedLine.substring(3)}</h3>`;
+                else if (trimmedLine.startsWith('# ')) html += `<h2>${trimmedLine.substring(2)}</h2>`;
+                else if (trimmedLine.startsWith('![')) {
+                    const altMatch = trimmedLine.match(/!\[(.*?)\]/);
+                    const srcMatch = trimmedLine.match(/\((.*?)\)/);
+                    if (altMatch && srcMatch) html += `<img src="${srcMatch[1]}" alt="${altMatch[1]}">`;
+                }
+                else if (trimmedLine.startsWith('* ')) {
                     const indent = line.search(/\S/);
-                    html += `<p style="margin-left: ${indent * 10}px;">&bull; ${trimmedLine.substring(1)}</p>`;
-                } else if (trimmedLine.length > 0) {
-                    html += `<p>${trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>`;
+                    html += `<p style="margin-left: ${indent * 10}px;">&bull; ${trimmedLine.substring(1).replace(/\*(.*?)\*/g, '<em>$1</em>')}</p>`;
                 }
-            });
+                else if (trimmedLine.length > 0) {
+                    html += `<p>${trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>')}</p>`;
+                }
+            }
+            if (isTable) { html += '</tbody></table>'; }
             return html;
         };
 
-        const loadContent = (protocol) => {
-            if (!contentElements[protocol]) return;
-            const content = defaultContent[protocol];
-            contentElements[protocol].innerHTML = parseMarkdown(content);
+        const loadContent = async (pageId) => {
+            if (contentCache[pageId]) return contentCache[pageId];
+            
+            try {
+                const response = await fetch(`${pageId}.txt`);
+                if (!response.ok) throw new Error('Content not found');
+                const text = await response.text();
+                
+                const lines = text.split('\n');
+                const title = lines.shift();
+                const body = lines.join('\n');
+                
+                const parsedContent = { title, body: parseMarkdown(body) };
+                contentCache[pageId] = parsedContent;
+                return parsedContent;
+            } catch (error) {
+                console.error(`Failed to load content for ${pageId}:`, error);
+                return { title: 'Error', body: '<p>Could not load protocol content.</p>' };
+            }
+        };
+
+        const renderPage = async (pageId) => {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            currentPageId = pageId;
+
+            if (pageId === 'home-page') {
+                document.getElementById('home-page').classList.add('active');
+                return;
+            }
+            
+            const isSubMenu = pageId === 'pathology-menu';
+            const pageToShow = isSubMenu ? document.getElementById('pathology-menu-page') : document.getElementById('content-page');
+            const titleElement = isSubMenu ? document.getElementById('pathology-menu-title') : document.getElementById('content-page-title');
+            const contentElement = isSubMenu ? document.getElementById('pathology-menu-content') : document.getElementById('content-page-content');
+            
+            contentElement.innerHTML = '<p>Loading...</p>';
+            titleElement.textContent = 'Loading...';
+            pageToShow.classList.add('active');
+
+            const content = await loadContent(pageId);
+            titleElement.textContent = content.title;
+            contentElement.innerHTML = content.body;
         };
         
-        const loadAllContent = () => {
-            for (const protocol in defaultContent) {
-                if(contentElements[protocol]) loadContent(protocol);
-            }
-        };
-
-        const renderPage = (pageId) => {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const pageElement = document.getElementById(pageId);
-            if (pageElement) {
-                pageElement.classList.add('active');
-                currentPageId = pageId;
-            }
-        };
-
         const showPage = (pageId) => {
-            const parentPageId = currentPageId;
+            history.pushState({ page: pageId }, '', `#${pageId}`);
             renderPage(pageId);
-            history.pushState({page: pageId, parent: parentPageId}, '');
         };
 
         window.onpopstate = function(event) {
@@ -661,17 +204,17 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
         };
 
         const setupEventListeners = () => {
-            document.querySelectorAll('.btn[data-page]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    if (!btn.classList.contains('disabled')) showPage(btn.dataset.page);
-                });
-            });
-            document.querySelectorAll('.back-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    history.back();
-                });
-            });
             document.body.addEventListener('click', function(event) {
+                const target = event.target.closest('.btn[data-page]');
+                if (target) {
+                    showPage(target.dataset.page);
+                    return;
+                }
+                const backButton = event.target.closest('.back-btn');
+                if (backButton) {
+                    history.back();
+                    return;
+                }
                 if (event.target.classList.contains('tappable-ref')) {
                     const hiddenSpan = event.target.nextElementSibling;
                     if (hiddenSpan && hiddenSpan.classList.contains('hidden-ref')) {
@@ -684,17 +227,7 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
         
         const registerServiceWorker = () => {
             if ('serviceWorker' in navigator) {
-                const swContent = `
-                    const CACHE_NAME = 'echo-app-cache-v1';
-                    const urlsToCache = ['./', 'manifest.json', 'icon-512x512.png'];
-                    self.addEventListener('install', e => e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(urlsToCache))));
-                    self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));
-                `;
-                const blob = new Blob([swContent], { type: 'application/javascript' });
-                const swUrl = URL.createObjectURL(blob);
-                navigator.serviceWorker.register(swUrl)
-                    .then(reg => console.log('Service Worker registered.'))
-                    .catch(err => console.error('Service Worker registration failed:', err));
+                navigator.serviceWorker.register('sw.js').then(reg => console.log('Service Worker registered.')).catch(err => console.error('SW registration failed:', err));
             }
         };
         
