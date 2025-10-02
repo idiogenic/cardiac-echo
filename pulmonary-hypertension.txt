@@ -1,15 +1,22 @@
 Pulmonary Hypertension
 # Apical 4-chamber view
-* CWD across tricuspid valve for pulmonary pressures
-* Trace regurgitant jet - V
+* continuous wave doppler across tricuspid valve for pulmonary pressures
+* Trace regurgitant jet
 * RV TAPSE and visual assessment
 # Subcostal IVC
 * Freeze and measure or M-mode
 * Assess collapsibility
-* Estimate RAP
+<details>
+<summary>
+* Estimate RAP</summary>
+<div>
+<p>&bull; ![alt text](RAP.png)</p>
+</div>
+</details>
 ## Post scan expected data
 * **RVSP = 4V² + RAP**
 * **SPAP ~ RVSP**
 * **mPAP ~ 0.6 x SPAP + 2**
 * mPAP > 20mmHg = pulm HTN
+
 * RVSP > 30mmHg = pulm HTN
