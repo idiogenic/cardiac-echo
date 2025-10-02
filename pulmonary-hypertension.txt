@@ -8,7 +8,7 @@ Pulmonary Hypertension
 <details>
   <summary>assess collapsibility and estimate RAP</summary>
   <div>
-    <img src="RAP.png" alt="Diagram for RAP estimation">
+    <img src="RAP.png">
   </div>
 </details>
 ## Post scan expected data
@@ -18,5 +18,6 @@ Pulmonary Hypertension
 * mPAP > 20mmHg = pulm HTN
 
 * RVSP > 30mmHg = pulm HTN
+
 
 
