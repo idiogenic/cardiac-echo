@@ -1,0 +1,32 @@
+Limited RV Assessment
+# PLAX
+* set depth to 20cm, check for pericardial effusion
+* Tricuspid regurg, continuous wave doppler over the TR jet -> freeze > measure peak velocity -> **4V2 = PASP**
+# PSAX - mid pap
+* Check for septal flattening
+* During systole suggests pressure overload
+* During diastole suggests volume overload
+# PSAX - aortic
+<p>&bull; <span class="tappable-ref">TR jet peak velocity via cont wave doppler</span><span class="hidden-ref">-> **4V2 = PASP**</span></p>
+* Pulmonary artery acceleration time - continuous wave doppler through the pulmonary valve, measure the time from beginning of ejection to peak ejection
+<details>
+  <summary>Reference Ranges</summary>
+  <div>
+    <p>&bull; >120msec is normal</p>
+    <p>&bull; <120msec = elevated PVR</p>
+    <p>&bull; < 80msec = highly elevated PVR</p>
+  </div>
+</details>
+# Apical 4 chamber view
+* Tricuspid valve TR jet peak velocity
+* RV chamber quantification at end diastole
+  <p style="margin: 0 0 0.5em 20px;">&bull; <span class="tappable-ref">Basal diameter</span><span class="hidden-ref">(should be <4.2)</span></p>
+  <p style="margin: 0 0 0.5em 20px;">&bull; <span class="tappable-ref">Mid diameter</span><span class="hidden-ref">(should be <3.5)</span></p>
+  <p style="margin: 0 0 0.5em 20px;">&bull; <span class="tappable-ref">Major axis</span><span class="hidden-ref">(should be <8.6)</span></p>
+<details>
+  <summary>RV Fractional area change</summary>
+  <div>
+    <p>&bull; >35% normal, <35% abnormal, <18% severely abnormal</p>
+  </div>
+</details>
+<p>&bull; <span class="tappable-ref">TAPSE</span> - M-mode through the lateral part of the tricuspid annulus<span class="hidden-ref">(<17mm suggests dysfunction)</span></p>

@@ -1,0 +1,10 @@
+By Pathology
+<div class="main-menu">
+    <div class="btn" data-page="hypovolaemia">Hypovolaemia</div>
+    <div class="btn" data-page="cardiogenic-shock">Cardiogenic Shock</div>
+    <div class="btn" data-page="tamponade">Tamponade</div>
+    <div class="btn" data-page="pulmonary-hypertension">Pulmonary Hypertension</div>
+    <div class="btn" data-page="pulmonary-embolus">Pulmonary Embolus</div>
+    <div class="btn" data-page="mitral-valve-pathology">Mitral Valve</div>
+    <div class="btn" data-page="aortic-valve-pathology">Aortic Valve</div>
+</div>

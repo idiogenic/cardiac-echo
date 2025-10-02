@@ -1,0 +1,36 @@
+Limited Scan Protocol for Mitral and Aortic Valves
+# PLAX
+* check for effusion
+* MV 2D qualitative assessment - thickening, diastolic doming, hockey stick
+* MV regurgitation - colour flow doppler
+  * VC < 3mm = mild MR
+  * VC > 7mm = severe MR
+  * eccentric jet - at least moderate MR
+  * **posterior severe MR + peri-arrest may suggest SAM/LVOTO**
+* AV 2D qualitative assessment - calcification, restriction
+  * maximal aortic cusp separation (>1.2cm unlikely severe AS)
+* AV regurg - colour flow doppler, measure VC or LVOT:jet width ratio
+  * VC < 3mm = mild AR
+  * VC > 6mm = severe AR
+  * LVOT:jet < 25% = mild AR
+    * 25-65% mod AR
+    * > 65% severe AR
+# PSAX
+* mitral valve planimetry - 2D trace of maximal MV opening area
+  * > 1.5cm2 - mild MS/normal
+  * 1-1.5cm2 - moderate MS
+  * < 1cm2 - severe MS
+# Apical 4/5 chamber view
+* MV 2d - as per PLAX
+* MV regurg - as per PLAX
+* MV mean pressure gradient - contiuous wave Doppler through mitral valve
+  * trace valve inflow envelope (E and A wave)
+  * MPG < 5mmHg = mild MS
+  * MPG 5-10mmHg = mod MS
+  * MPG > 10mmHg = severe MS
+* LVOT VTI - pulsed wave Doppler 0.5-1.0cm from AV on ventricular side
+* AV mean pressure gradient - continuous wave Doppler through AV
+  * trace valve outflow envelope
+  * MPG < 20mmHg = mild AS (assuming normal LV function)
+  * MPG 20-40 = mod AS
+  * MPG > 40mmHg = severe AS

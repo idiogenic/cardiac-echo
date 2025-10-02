@@ -1,0 +1,19 @@
+Aortic Valve Pathology
+# Parasternal Long-axis view
+* AV valve leaflet opening >1.2cm
+* LVOTd
+* IVS / posterior wall dimension
+# Parasternal SAX view
+* Assess LV function
+* Visual / FAC
+* Posterior wall dimension
+# A5C
+* LVOT VTI
+* AVA / LV function
+* AV CWD
+## Expected post-scan findings
+* Restricted valve-leaflet opening
+* High valve MPG or Velocity
+* Small AVA
+* LVH
+* Assess in context of LV function

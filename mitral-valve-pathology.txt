@@ -1,0 +1,17 @@
+Mitral Valve Pathology
+# Apical 4-Chamber view
+* Mitral valve regurgitation assessment
+* CWD across mitral valve
+* LA volume
+* CWD across tricuspid valve for pulmonary pressures
+* RV TAPSE
+## Expected post-scan findings
+**Stenosis**
+* High MPG
+* High LA volume
+* +/- pulmonary hypertension
+* +/- RV dysfunction
+**Regurgitation**
+* Eccentric jet, > 20% LA
+* +/- pulmonary hypertension
+* +/- RV dysfunction

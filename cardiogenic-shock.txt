@@ -1,0 +1,17 @@
+Cardiogenic Shock
+# Parasternal Long-Axis
+* LVOTd
+* LVEDD
+* Mitral valve regurgitation assessment
+# Parasternal Short-Axis (mid-papillary)
+* Regional wall motion assessment
+# A4C/5C
+* LVOT VTI
+* RV TAPSE
+## Post-scan expected data:
+* LVEDD normal or high
+* Cardiac output by LVOT VTI low
+* Regional wall motion abnormality
+* Normal or concurrent RV failure (TAPSE)
+* If previously reported “normal EF%” must exclude moderate to severe MR
+  * CO by doppler will supersede this as this is forward flow only

@@ -1,0 +1,15 @@
+Hypovolaemia vs Vasodilation
+# Parasternal Long-Axis
+* LVEDD and FS
+* LVOTd
+# Parasternal short Axis
+* FAC
+# Apical 5 Chamber
+* LVOT VTI
+## Post-scan expected data - hypovolaemia:
+* LVEDD low
+* FS / FAC high or normal
+* Cardiac output by doppler VTI low
+## Post-scan expected data – vasodilation
+* LVEDD normal
+* FS / FAC high

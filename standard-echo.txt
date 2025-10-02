@@ -1,0 +1,108 @@
+Standard Echocardiography Protocol
+* Confirm patient ID. Acquire height, weight and blood pressure.
+* Ensure quality ECG trace is available.
+# Parasternal Long Axis (PLAX)
+## Left Ventricle
+* 2D overview at increased depth
+* 2D overview optimized at appropriate depth
+* 2D measurements: IVSD, LVEDD, PWD
+## Aortic Valve
+* 2D zoom aortic valve
+* LVOT diameter measurement
+* Color Doppler - aortic valve
+* Aortic root measurements: Trans-sinus, Sinotubular junction, Ascending aorta
+## Mitral Valve
+* 2D Zoom mitral valve
+* Color Doppler - mitral valve
+## RVOT view
+* 2D overview
+* 2D zoom pulmonary valve
+* Color Doppler
+* PW Doppler in RVOT
+* CW Doppler through valve
+## RV inflow view
+* 2D overview
+* 2D zoom tricuspid valve
+* Color Doppler
+* CW Doppler optimised for TR (TR Vmax)
+# Parasternal Short Axis (PSAX)
+## Mid Left Ventricular level
+* 2D overview
+## Mitral Valve Level
+* 2D overview
+* 2D zoom MV
+* Color Doppler MV
+## Aortic Valve Level
+* 2D overview
+* 2D zoom - aortic valve
+* Color Doppler
+* 2D zoom - pulmonary valve
+* Color Doppler
+* CW Doppler
+* 2D zoom – tricuspid valve
+* Color Doppler
+* CW Doppler optimised for TR (TR Vmax)
+# Apical Views
+## Apical 4 Chamber (A4C)
+* 2D overview
+* Atrial volume measurements
+* 2D zoom mitral valve 
+* Color Doppler
+* PW Doppler mitral inflow (E, A, Decel Time)
+* PW Doppler pulmonary venous flow
+* TDI: Septal E’, Lateral E’, RV S’
+* TAPSE
+* 2D zoom tricuspid valve 
+* Color Doppler
+* CW Doppler tricuspid valve (TR Vmax)
+* 2D zoom LV ± MOD LV volume
+* 2D zoom RV 
+* RV measurements
+## Apical 5 Chamber (A5C)
+* 2D overview
+* 2D zoom aortic valve 
+* Color Doppler
+## Apical 2 Chamber (A2C)
+* 2D overview
+* LA volume measurement
+* 2D zoom mitral valve 
+* Color Doppler
+* 2D zoom LV ± MOD LV volume
+## Apical Long Axis (APLAX)
+* 2D overview
+* 2D zoom LV 
+* 2D zoom mitral valve
+* Color Doppler – mitral valve
+* 2D zoom aortic valve 
+* Color Doppler – aortic valve
+* PW Doppler LVOT (LVOT VTI)
+* CW Doppler aortic valve (AoV VTI)
+## Apical SAX
+* 2D overview
+* PEDOF from apical window (if needed)
+# Subcostal Views
+## Subcostal 4 Chamber
+* 2D overview
+* 2D zoom IAS
+* Color Doppler IAS
+## Subcostal SAX
+* 2D overview
+* 2D zoom IAS
+* Color Doppler IAS
+## IVC / Abdominal Aorta
+* 2D IVC clip to show respiratory variability
+* ± Hepatic venous PW Doppler
+* ± Abdominal aorta PW Doppler
+# Suprasternal Notch View
+## SSN - LAX
+* 2D overview
+* Color Doppler
+* PW Doppler
+* CW Doppler
+* ± PEDOF
+# Right Sternal Edge View
+Use when aorta appears dilated in PLAX or if aortic stenosis suspected
+## RSE - Aorta LAX
+* 2D overview
+* Measurement mid ascending aorta
+* ± PEDOF
