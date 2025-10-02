@@ -87,7 +87,6 @@
         .content {
             font-size: 1rem;
             line-height: 1.6;
-            white-space: pre-wrap;
             flex-grow: 1;
         }
         .content p {
@@ -376,69 +375,69 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
 * 2D overview
 * Measurement mid ascending aorta
 * ± PEDOF`,
-            pocus: `PLAX
+            pocus: `# PLAX
 * 20cm, exclude effusions
 * LVEDD
 * Colour flow doppler mitral and aortic valves
 * LVOT diameter
 * Aortic valve opening
 
-PLAX - RV inflow
+# PLAX - RV inflow
 * TR jet assessment
 * RVSP estimation
 
-PSAX
+# PSAX
 * Assess RWMA
 * LVEDD
 
-Apical 4 / 5 chamber view
+# Apical 4 / 5 chamber view
 * LV - Simpsons biplane (if no MR on PLAX), LVOT VTI - pulsed wave with cursor in LVOT
 * RV - dimensions and fractional area change, TAPSE with M-mode over lateral edge of tricuspid annulus
 * Mitral valve - colour flow doppler, continuous wave doppler over inflow
 * Aortic valve - colour flow doppler, continuous wave doppler over inflow
 * Tricuspid valve - colour flow doppler, continuous wave doppler to get TR jet velocity
 
-Subcostal 4 chamber
+# Subcostal 4 chamber
 * Effusion assessment
 * IVC diameter
 * IVC change with sniff
 
-Haemodynamic state assessment
+# Haemodynamic state assessment
 * Hypovolaemia
 * LV systolic dysfunction
 * RV systolic dysfunction
 * Valvular dysfunction
 * Pericardial effusion`,
-            'limited-lv': `PLAX (pericardial effusion)
+            'limited-lv': `# PLAX (pericardial effusion)
 * LVEDD
 * LVOTd
 * Assess mitral valve for regurg - regurg is a contraindication to a biplane EF
 
-PSAX
+# PSAX
 * Assess for RWMAs - divided into 6 sectors
 
-Apical 5 chamber view
+# Apical 5 chamber view
 * LVOT VTI
 
-Apical 4 chamber view
+# Apical 4 chamber view
 * Biplane EF`,
-            'limited-rv': `PLAX
+            'limited-rv': `# PLAX
 * set depth to 20cm, check for pericardial effusion)
 * Tricuspid regurg, continuous wave doppler over the TR jet -> freeze > measure peak velocity -> **4V2 = PASP**
 
-PSAX - mid pap
+# PSAX - mid pap
 * Check for septal flattening
 * During systole suggests pressure overload
 * During diastole suggests volume overload
 
-PSAX - aortic
+# PSAX - aortic
 * TR jet peak velocity via cont wave doppler -> 4V2=PASP
 * Pulmonary artery acceleration time - continuous wave doppler through the pulmonary valve, measure the time from beginning of ejection to peak ejection
   * >120msec is normal
   * <120msec = elevated PVR
   * < 80msec = highly elevated PVR
 
-Apical 4 chamber view
+# Apical 4 chamber view
 * Tricuspid valve TR jet peak velocity
 * RV chamber quantification at end diastole
   * Basal diameter ( should be <4.2)
@@ -446,7 +445,7 @@ Apical 4 chamber view
   * Major axis (should be <8.6)
 * RV Fractional area change (>35% normal, <35% abnormal, <18% severely abnormal)
 * TAPSE - M-mode through the lateral part of the tricuspid annulus (<17mm suggests dysfunction)`,
-            'limited-valve': `PLAX
+            'limited-valve': `# PLAX
 * check for effusion
 * MV 2D qualitative assessment - thickening, diastolic doming, hockey stick
 * MV regurgitation - colour flow doppler
@@ -463,13 +462,13 @@ Apical 4 chamber view
     * 25-65% mod AR
     * > 65% severe AR
 
-PSAX
+# PSAX
 * mitral valve planimetry - 2D trace of maximal MV opening area
   * > 1.5cm2 - mild MS/normal
   * 1-1.5cm2 - moderate MS
   * < 1cm2 - severe MS
 
-Apical 4/5 chamber view
+# Apical 4/5 chamber view
 * MV 2d - as per PLAX
 * MV regurg - as per PLAX
 * MV mean pressure gradient - contiuous wave Doppler through mitral valve
@@ -483,68 +482,68 @@ Apical 4/5 chamber view
   * MPG < 20mmHg = mild AS (assuming normal LV function)
   * MPG 20-40 = mod AS
   * MPG > 40mmHg = severe AS`,
-            'hypovolaemia': `Parasternal Long-Axis
+            'hypovolaemia': `# Parasternal Long-Axis
 * LVEDD and FS
 * LVOTd
 
-Parasternal short Axis
+# Parasternal short Axis
 * FAC
 
-Apical 5 Chamber
+# Apical 5 Chamber
 * LVOT VTI
 
-**Post-scan expected data - hypovolaemia:**
+## Post-scan expected data - hypovolaemia:
 * LVEDD low
 * FS / FAC high or normal
 * Cardiac output by doppler VTI low
 
-**Post-scan expected data – vasodilation**
+## Post-scan expected data – vasodilation
 * LVEDD normal
 * FS / FAC high`,
-            'cardiogenic-shock': `Parasternal Long-Axis
+            'cardiogenic-shock': `# Parasternal Long-Axis
 * LVOTd
 * LVEDD
 * Mitral valve regurgitation assessment
 
-Parasternal Short-Axis (mid-papillary)
+# Parasternal Short-Axis (mid-papillary)
 * Regional wall motion assessment
 
-A4C/5C
+# A4C/5C
 * LVOT VTI
 * RV TAPSE
 
-**Post-scan expected data:**
+## Post-scan expected data:
 * LVEDD normal or high
 * Cardiac output by LVOT VTI low
 * Regional wall motion abnormality
 * Normal or concurrent RV failure (TAPSE)
 * If previously reported “normal EF%” must exclude moderate to severe MR
   * CO by doppler will supersede this as this is forward flow only`,
-            'tamponade': `Parasternal Long-Axis View
+            'tamponade': `# Parasternal Long-Axis View
 * Effusion between LV posterior wall and Aorta
 
-Any view
+# Any view
 * Effusion >2cm
 
-A4C
+# A4C
 * Tamponade physiology
 * RV collapse in diastole, RA collapse in systole
 
-Subcostal view
+# Subcostal view
 * Tamponade physiology
 * RV collapse in diastole, RA collapse in systole
 * IVC plethora (>2.1cm)`,
-            'pulmonary-hypertension': `Apical 4-chamber view
+            'pulmonary-hypertension': `# Apical 4-chamber view
 * CWD across tricuspid valve for pulmonary pressures
 * Trace regurgitant jet - V
 * RV TAPSE and visual assessment
 
-Subcostal IVC
+# Subcostal IVC
 * Freeze and measure or M-mode
 * Assess collapsibility
 * Estimate RAP
 
-Post scan expected data
+## Post scan expected data
 * **RVSP = 4V² + RAP**
 * **SPAP ~ RVSP**
 * **mPAP ~ 0.6 x SPAP + 2**
@@ -552,14 +551,14 @@ Post scan expected data
 * RVSP > 30mmHg = pulm HTN`,
             'pulmonary-embolus': `Pulmonary Embolus Protocol
 * Add details here...`,
-            'mitral-valve-pathology': `Apical 4-Chamber view
+            'mitral-valve-pathology': `# Apical 4-Chamber view
 * Mitral valve regurgitation assessment
 * CWD across mitral valve
 * LA volume
 * CWD across tricuspid valve for pulmonary pressures
 * RV TAPSE
 
-Expected post-scan findings
+## Expected post-scan findings
 **Stenosis**
 * High MPG
 * High LA volume
@@ -570,22 +569,22 @@ Expected post-scan findings
 * Eccentric jet, > 20% LA
 * +/- pulmonary hypertension
 * +/- RV dysfunction`,
-            'aortic-valve-pathology': `Parasternal Long-axis view
+            'aortic-valve-pathology': `# Parasternal Long-axis view
 * AV valve leaflet opening >1.2cm
 * LVOTd
 * IVS / posterior wall dimension
 
-Parasternal SAX view
+# Parasternal SAX view
 * Assess LV function
 * Visual / FAC
 * Posterior wall dimension
 
-A5C
+# A5C
 * LVOT VTI
 * AVA / LV function
 * AV CWD
 
-Expected post-scan findings
+## Expected post-scan findings
 * Restricted valve-leaflet opening
 * High valve MPG or Velocity
 * Small AVA
@@ -628,19 +627,18 @@ Expected post-scan findings
                     html += `<h2>${trimmedLine.substring(2)}</h2>`;
                 } else if (trimmedLine.startsWith('* ')) {
                     const indent = line.search(/\S/);
-                    html += `<p style="margin-left: ${indent * 10}px;">&bull; ${trimmedLine.substring(2)}</p>`;
+                    const indentSpaces = '&nbsp;'.repeat(indent);
+                    html += `<p style="text-indent: ${indent}ch; margin: 0;">&bull; ${trimmedLine.substring(1)}</p>`;
                 } else if (trimmedLine.length > 0) {
                     html += `<p>${trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>`;
-                } else {
-                    html += '<br>';
                 }
             });
-            return html.replace(/<br>/g, '');
+            return html;
         };
 
         const loadContent = (protocol) => {
             if (!contentElements[protocol]) return;
-            const content = defaultContent[protocol]; // Removed localStorage for read-only version
+            const content = defaultContent[protocol];
             contentElements[protocol].innerHTML = parseMarkdown(content);
         };
         
@@ -652,8 +650,11 @@ Expected post-scan findings
 
         const renderPage = (pageId) => {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            currentPageId = pageId;
+            const pageElement = document.getElementById(pageId);
+            if (pageElement) {
+                pageElement.classList.add('active');
+                currentPageId = pageId;
+            }
         };
 
         const showPage = (pageId) => {
