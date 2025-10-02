@@ -141,6 +141,7 @@
         </p>
         <div class="main-menu">
             <div class="btn" data-page="iheartscan-page">iHeartScan</div>
+            <div class="btn" data-page="standard-echo-page">Standard Echocardiography Protocol</div>
             <div class="btn" data-page="pocus-page">POCUS</div>
             <div class="btn" data-page="limited-lv-page">Limited LV Assessment</div>
             <div class="btn" data-page="limited-rv-page">Limited RV Assessment</div>
@@ -175,6 +176,19 @@
         <textarea id="iheartscan-editor" class="editor hidden"></textarea>
         <p id="iheartscan-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
         <div class="header hidden" id="iheartscan-save-controls">
+             <button class="save-btn">Save</button>
+        </div>
+    </div>
+    <div id="standard-echo-page" class="page">
+        <div class="header">
+            <button class="back-btn">&lt; Back</button>
+            <h1>Standard Echo Protocol</h1>
+            <button class="edit-btn">Edit</button>
+        </div>
+        <div id="standard-echo-content" class="content"></div>
+        <textarea id="standard-echo-editor" class="editor hidden"></textarea>
+        <p id="standard-echo-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
+        <div class="header hidden" id="standard-echo-save-controls">
              <button class="save-btn">Save</button>
         </div>
     </div>
@@ -330,6 +344,131 @@
         const defaultContent = {
             'iheartscan': `iHeartScan Protocol
 * Add details here...`,
+            [cite_start]'standard-echo': `* Confirm patient ID. Acquire height, weight and blood pressure. [cite: 2]
+* [cite_start]Ensure quality ECG trace is available. [cite: 3]
+
+[cite_start]Parasternal Long Axis (PLAX) [cite: 4]
+[cite_start]**Left Ventricle** [cite: 5]
+* [cite_start]2D overview at increased depth (screen for posterior pathology: pleural effusion, mass, etc.) [cite: 6]
+* [cite_start]2D overview optimized at appropriate depth [cite: 7]
+* [cite_start]2D measurements: IVSD, LVEDD, PWD [cite: 8]
+
+[cite_start]**Aortic Valve** [cite: 9]
+* [cite_start]2D zoom aortic valve [cite: 10]
+* [cite_start]LVOT diameter measurement [cite: 11]
+* [cite_start]Color Doppler - aortic valve [cite: 12]
+* [cite_start]Aortic root measurements: Trans-sinus, Sinotubular junction, Ascending aorta (higher window as needed) [cite: 13]
+
+[cite_start]**Mitral Valve** [cite: 14]
+* [cite_start]2D Zoom mitral valve [cite: 15]
+* [cite_start]Color Doppler - mitral valve [cite: 16]
+
+[cite_start]**RVOT view** [cite: 17]
+* [cite_start]2D overview [cite: 18]
+* [cite_start]2D zoom pulmonary valve [cite: 19]
+* [cite_start]Color Doppler [cite: 20]
+* [cite_start]PW Doppler in RVOT [cite: 21]
+* [cite_start]CW Doppler through valve: Optimised for forward flow ± regurgitation [cite: 22]
+
+[cite_start]**RV inflow view** [cite: 23]
+* [cite_start]2D overview [cite: 24]
+* [cite_start]2D zoom tricuspid valve [cite: 25]
+* [cite_start]Color Doppler [cite: 26]
+* [cite_start]CW Doppler optimised for TR (TR Vmax) [cite: 27]
+
+[cite_start]Parasternal Short Axis (PSAX) [cite: 28]
+[cite_start]**Mid Left Ventricular level** [cite: 29]
+* [cite_start]2D overview [cite: 30]
+
+[cite_start]**Mitral Valve Level** [cite: 31]
+* [cite_start]2D overview [cite: 32]
+* [cite_start]2D zoom MV [cite: 33]
+* [cite_start]Color Doppler MV [cite: 34]
+
+[cite_start]**Aortic Valve Level** [cite: 35]
+* [cite_start]2D overview [cite: 36]
+* [cite_start]2D zoom - aortic valve [cite: 37]
+* [cite_start]Color Doppler (may need separate clips for PV and pulm artery bifurcation) [cite: 38]
+* [cite_start]2D zoom - pulmonary valve [cite: 39]
+* [cite_start]Color Doppler [cite: 40]
+* [cite_start]CW Doppler [cite: 41]
+* [cite_start]2D zoom – tricuspid valve [cite: 42]
+* [cite_start]Color Doppler [cite: 43]
+* [cite_start]CW Doppler optimised for TR (TR Vmax) [cite: 44]
+
+[cite_start]Apical Views [cite: 45]
+[cite_start]**Apical 4 Chamber (A4C)** [cite: 46]
+* [cite_start]2D overview [cite: 47]
+* [cite_start]Atrial volume measurements [cite: 48]
+* [cite_start]2D zoom mitral valve [cite: 49]
+* [cite_start]Color Doppler [cite: 50]
+* [cite_start]PW Doppler mitral inflow (E, A, Decel Time) [cite: 51]
+* [cite_start]PW Doppler pulmonary venous flow [cite: 52]
+* [cite_start]TDI: Septal E’, Lateral E’, RV S’ [cite: 53]
+* [cite_start]TAPSE [cite: 54]
+* [cite_start]2D zoom tricuspid valve [cite: 55]
+* [cite_start]Color Doppler [cite: 56]
+* [cite_start]CW Doppler tricuspid valve (TR Vmax) [cite: 57]
+* [cite_start]2D zoom LV ± MOD LV volume [cite: 58]
+* [cite_start]2D zoom RV [cite: 59]
+* [cite_start]RV measurements [cite: 60]
+
+[cite_start]**Apical 5 Chamber (A5C)** [cite: 61]
+* [cite_start]2D overview [cite: 62]
+* [cite_start]2D zoom aortic valve [cite: 63]
+* [cite_start]Color Doppler [cite: 64]
+
+[cite_start]**Apical 2 Chamber (A2C)** [cite: 65]
+* [cite_start]2D overview [cite: 66]
+* [cite_start]LA volume measurement [cite: 67]
+* [cite_start]2D zoom mitral valve [cite: 68]
+* [cite_start]Color Doppler [cite: 69]
+* [cite_start]2D zoom LV ± MOD LV volume [cite: 70]
+
+[cite_start]**Apical Long Axis (APLAX)** [cite: 71]
+* [cite_start]2D overview [cite: 72]
+* [cite_start]2D zoom LV [cite: 73]
+* [cite_start]2D zoom mitral valve [cite: 74]
+* [cite_start]Color Doppler – mitral valve [cite: 75]
+* [cite_start]2D zoom aortic valve [cite: 76]
+* [cite_start]Color Doppler – aortic valve [cite: 77]
+* [cite_start]PW Doppler LVOT (LVOT VTI) [cite: 78]
+* [cite_start]CW Doppler aortic valve (AoV VTI) [cite: 79]
+
+[cite_start]**Apical SAX** [cite: 80]
+* [cite_start]2D overview [cite: 81]
+* [cite_start]PEDOF from apical window (if needed) [cite: 82]
+
+[cite_start]Subcostal Views [cite: 83]
+[cite_start]**Subcostal 4 Chamber** [cite: 84]
+* [cite_start]2D overview [cite: 85]
+* [cite_start]2D zoom IAS [cite: 86]
+* [cite_start]Color Doppler IAS [cite: 87]
+
+[cite_start]**Subcostal SAX** [cite: 88]
+* [cite_start]2D overview [cite: 89]
+* [cite_start]2D zoom IAS [cite: 90]
+* [cite_start]Color Doppler IAS [cite: 91]
+
+[cite_start]**IVC / Abdominal Aorta** [cite: 92]
+* [cite_start]2D IVC clip to show respiratory variability [cite: 93]
+* [cite_start]± Hepatic venous PW Doppler [cite: 94]
+* [cite_start]± Abdominal aorta PW Doppler [cite: 95]
+
+[cite_start]Suprasternal Notch View [cite: 96]
+[cite_start]**SSN - LAX** [cite: 97]
+* [cite_start]2D overview [cite: 98]
+* [cite_start]Color Doppler [cite: 99]
+* [cite_start]PW Doppler [cite: 100]
+* [cite_start]CW Doppler [cite: 101]
+* [cite_start]± PEDOF [cite: 102]
+
+[cite_start]Right Sternal Edge View [cite: 103]
+[cite_start]Use when aorta appears dilated in PLAX or if aortic stenosis suspected [cite: 104]
+[cite_start]**RSE - Aorta LAX** [cite: 105]
+* [cite_start]2D overview [cite: 106]
+* [cite_start]Measurement mid ascending aorta [cite: 107]
+* [cite_start]± PEDOF [cite: 108]`,
             pocus: `PLAX
 * 20cm, exclude effusions
 * LVEDD
@@ -669,7 +808,7 @@ Expected post-scan findings
             document.querySelectorAll('.page').forEach(page => {
                 page.querySelector('.edit-btn')?.addEventListener('click', enterEditMode);
                 page.querySelector('.save-btn')?.addEventListener('click', saveContent);
-});
+            });
         };
         
         const enterEditMode = () => {
