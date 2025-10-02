@@ -90,15 +90,21 @@
             white-space: pre-wrap;
             flex-grow: 1;
         }
-        .content strong {
-            font-weight: bold;
+        .content p {
+            margin-bottom: 0.5em;
         }
-        .content h2 {
+        .content h2 { /* Major Headings */
+            margin-top: 2em;
+            margin-bottom: 1em;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+        }
+        .content h3 { /* Sub Headings */
             margin-top: 1.5em;
             margin-bottom: 0.5em;
-            font-size: 1.2rem;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
         }
         .hidden {
             display: none !important;
@@ -248,45 +254,45 @@
             'standard-echo': `* Confirm patient ID. Acquire height, weight and blood pressure.
 * Ensure quality ECG trace is available.
 
-Parasternal Long Axis (PLAX)
-**Left Ventricle**
+# Parasternal Long Axis (PLAX)
+## Left Ventricle
 * 2D overview at increased depth (screen for posterior pathology: pleural effusion, mass, etc.)
 * 2D overview optimized at appropriate depth
 * 2D measurements: IVSD, LVEDD, PWD
 
-**Aortic Valve**
+## Aortic Valve
 * 2D zoom aortic valve
 * LVOT diameter measurement
 * Color Doppler - aortic valve
 * Aortic root measurements: Trans-sinus, Sinotubular junction, Ascending aorta (higher window as needed)
 
-**Mitral Valve**
+## Mitral Valve
 * 2D Zoom mitral valve
 * Color Doppler - mitral valve
 
-**RVOT view**
+## RVOT view
 * 2D overview
 * 2D zoom pulmonary valve
 * Color Doppler
 * PW Doppler in RVOT
 * CW Doppler through valve: Optimised for forward flow ± regurgitation
 
-**RV inflow view**
+## RV inflow view
 * 2D overview
 * 2D zoom tricuspid valve
 * Color Doppler
 * CW Doppler optimised for TR (TR Vmax)
 
-Parasternal Short Axis (PSAX)
-**Mid Left Ventricular level**
+# Parasternal Short Axis (PSAX)
+## Mid Left Ventricular level
 * 2D overview
 
-**Mitral Valve Level**
+## Mitral Valve Level
 * 2D overview
 * 2D zoom MV
 * Color Doppler MV
 
-**Aortic Valve Level**
+## Aortic Valve Level
 * 2D overview
 * 2D zoom - aortic valve
 * Color Doppler (may need separate clips for PV and pulm artery bifurcation)
@@ -297,8 +303,8 @@ Parasternal Short Axis (PSAX)
 * Color Doppler
 * CW Doppler optimised for TR (TR Vmax)
 
-Apical Views
-**Apical 4 Chamber (A4C)**
+# Apical Views
+## Apical 4 Chamber (A4C)
 * 2D overview
 * Atrial volume measurements
 * 2D zoom mitral valve
@@ -314,19 +320,19 @@ Apical Views
 * 2D zoom RV
 * RV measurements
 
-**Apical 5 Chamber (A5C)**
+## Apical 5 Chamber (A5C)
 * 2D overview
 * 2D zoom aortic valve
 * Color Doppler
 
-**Apical 2 Chamber (A2C)**
+## Apical 2 Chamber (A2C)
 * 2D overview
 * LA volume measurement
 * 2D zoom mitral valve
 * Color Doppler
 * 2D zoom LV ± MOD LV volume
 
-**Apical Long Axis (APLAX)**
+## Apical Long Axis (APLAX)
 * 2D overview
 * 2D zoom LV
 * 2D zoom mitral valve
@@ -336,37 +342,37 @@ Apical Views
 * PW Doppler LVOT (LVOT VTI)
 * CW Doppler aortic valve (AoV VTI)
 
-**Apical SAX**
+## Apical SAX
 * 2D overview
 * PEDOF from apical window (if needed)
 
-Subcostal Views
-**Subcostal 4 Chamber**
+# Subcostal Views
+## Subcostal 4 Chamber
 * 2D overview
 * 2D zoom IAS
 * Color Doppler IAS
 
-**Subcostal SAX**
+## Subcostal SAX
 * 2D overview
 * 2D zoom IAS
 * Color Doppler IAS
 
-**IVC / Abdominal Aorta**
+## IVC / Abdominal Aorta
 * 2D IVC clip to show respiratory variability
 * ± Hepatic venous PW Doppler
 * ± Abdominal aorta PW Doppler
 
-Suprasternal Notch View
-**SSN - LAX**
+# Suprasternal Notch View
+## SSN - LAX
 * 2D overview
 * Color Doppler
 * PW Doppler
 * CW Doppler
 * ± PEDOF
 
-Right Sternal Edge View
+# Right Sternal Edge View
 Use when aorta appears dilated in PLAX or if aortic stenosis suspected
-**RSE - Aorta LAX**
+## RSE - Aorta LAX
 * 2D overview
 * Measurement mid ascending aorta
 * ± PEDOF`,
@@ -613,28 +619,28 @@ Expected post-scan findings
         };
 
         const parseMarkdown = (text) => {
-            return text
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .split('\n').map(line => {
-                    const trimmedLine = line.trim();
-                    if (trimmedLine.startsWith('* ')) {
-                        const indent = line.search(/\S/);
-                        const indentSpaces = '&nbsp;'.repeat(indent);
-                        return `${indentSpaces}&bull; ${trimmedLine.substring(2)}`;
-                    }
-                    // This rule is for headings. It makes a line a heading if it's short and doesn't contain certain characters.
-                    if (trimmedLine.length > 0 && !trimmedLine.includes('->') && !trimmedLine.includes('=') && !trimmedLine.startsWith('*')) {
-                        const isHeading = !/[:()]/.test(line) || line.length < 30;
-                        if (isHeading) return `<h2>${trimmedLine}</h2>`;
-                    }
-                    return line;
-                }).join('<br>').replace(/<br>\s*<br>/g, '<br><br>');
+            let html = '';
+            text.split('\n').forEach(line => {
+                const trimmedLine = line.trim();
+                if (trimmedLine.startsWith('## ')) {
+                    html += `<h3>${trimmedLine.substring(3)}</h3>`;
+                } else if (trimmedLine.startsWith('# ')) {
+                    html += `<h2>${trimmedLine.substring(2)}</h2>`;
+                } else if (trimmedLine.startsWith('* ')) {
+                    const indent = line.search(/\S/);
+                    html += `<p style="margin-left: ${indent * 10}px;">&bull; ${trimmedLine.substring(2)}</p>`;
+                } else if (trimmedLine.length > 0) {
+                    html += `<p>${trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>`;
+                } else {
+                    html += '<br>';
+                }
+            });
+            return html.replace(/<br>/g, '');
         };
 
         const loadContent = (protocol) => {
             if (!contentElements[protocol]) return;
-            const savedContent = localStorage.getItem(`echo_app_content_${protocol}`);
-            const content = savedContent || defaultContent[protocol];
+            const content = defaultContent[protocol]; // Removed localStorage for read-only version
             contentElements[protocol].innerHTML = parseMarkdown(content);
         };
         
