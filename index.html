@@ -107,21 +107,32 @@
         }
         /* Collapsible Section Styles */
         .content details {
-            margin-left: 10px;
             margin-bottom: 1em;
-            padding: 5px;
+            padding-left: 10px;
             border-left: 2px solid #e0e0e0;
         }
         .content summary {
             cursor: pointer;
-            font-weight: normal;
-        }
-        .content summary::marker {
-            color: #007bff;
         }
         .content details > div {
             padding-left: 20px;
             margin-top: 10px;
+        }
+        /* Inline Tappable Styles */
+        .tappable-ref {
+            cursor: pointer;
+            color: #0056b3;
+            text-decoration: underline;
+            text-decoration-style: dotted;
+        }
+        .hidden-ref {
+            display: none;
+            font-style: italic;
+            color: #555;
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 4px;
+            margin-left: 5px;
         }
         .hidden {
             display: none !important;
@@ -269,45 +280,19 @@
 * Ensure quality ECG trace is available.
 # Parasternal Long Axis (PLAX)
 ## Left Ventricle
-* 2D overview at increased depth (screen for posterior pathology: pleural effusion, mass, etc.)
+* 2D overview at increased depth
 * 2D overview optimized at appropriate depth
-* 2D measurements: IVSD, LVEDD, PWD
-## Aortic Valve
-* 2D zoom aortic valve
-* LVOT diameter measurement
-* Color Doppler - aortic valve
-* Aortic root measurements: Trans-sinus, Sinotubular junction, Ascending aorta (higher window as needed)
-## Mitral Valve
-* 2D Zoom mitral valve
-* Color Doppler - mitral valve
-## RVOT view
-* 2D overview
-* 2D zoom pulmonary valve
-* Color Doppler
-* PW Doppler in RVOT
-* CW Doppler through valve: Optimised for forward flow ± regurgitation
-## RV inflow view
-* 2D overview
-* 2D zoom tricuspid valve
-* Color Doppler
-* CW Doppler optimised for TR (TR Vmax)`,
-            pocus: `# PLAX
+* 2D measurements: IVSD, LVEDD, PWD`,
+            'pocus': `# PLAX
 * 20cm, exclude effusions
 * LVEDD
-* Colour flow doppler mitral and aortic valves
-* LVOT diameter
-* Aortic valve opening
-# PLAX - RV inflow
-* TR jet assessment
-* RVSP estimation`,
+* Colour flow doppler mitral and aortic valves`,
             'limited-lv': `# PLAX (pericardial effusion)
 * LVEDD
 * LVOTd
-* Assess mitral valve for regurg - regurg is a contraindication to a biplane EF
-# PSAX
-* Assess for RWMAs - divided into 6 sectors`,
+* Assess mitral valve for regurg - regurg is a contraindication to a biplane EF`,
             'limited-rv': `# PLAX
-* set depth to 20cm, check for pericardial effusion)
+* set depth to 20cm, check for pericardial effusion
 * Tricuspid regurg, continuous wave doppler over the TR jet -> freeze > measure peak velocity -> **4V2 = PASP**
 
 # PSAX - mid pap
@@ -328,142 +313,58 @@
 
 # Apical 4 chamber view
 * Tricuspid valve TR jet peak velocity
-<details>
-  <summary>RV chamber quantification at end diastole</summary>
-  <div>
-    <p>&bull; Basal diameter (should be <4.2)</p>
-    <p>&bull; Mid diameter (should be <3.5)</p>
-    <p>&bull; Major axis (should be <8.6)</p>
-  </div>
-</details>
+* RV chamber quantification at end diastole
+  <p style="margin: 0 0 0.5em 20px;">&bull; <span class="tappable-ref">Basal diameter</span><span class="hidden-ref">(should be <4.2)</span></p>
+  <p style="margin: 0 0 0.5em 20px;">&bull; <span class="tappable-ref">Mid diameter</span><span class="hidden-ref">(should be <3.5)</span></p>
+  <p style="margin: 0 0 0.5em 20px;">&bull; <span class="tappable-ref">Major axis</span><span class="hidden-ref">(should be <8.6)</span></p>
 <details>
   <summary>RV Fractional area change</summary>
   <div>
     <p>&bull; >35% normal, <35% abnormal, <18% severely abnormal</p>
   </div>
 </details>
-<details>
-  <summary>TAPSE</summary>
-  <div>
-    <p>&bull; M-mode through the lateral part of the tricuspid annulus (<17mm suggests dysfunction)</p>
-  </div>
-</details>`,
+<p>&bull; <span class="tappable-ref">TAPSE - M-mode through the lateral part of the tricuspid annulus</span><span class="hidden-ref">(<17mm suggests dysfunction)</span></p>`,
             'limited-valve': `# PLAX
 * check for effusion
-* MV 2D qualitative assessment - thickening, diastolic doming, hockey stick
-* MV regurgitation - colour flow doppler
-  * VC < 3mm = mild MR
-  * VC > 7mm = severe MR
-  * eccentric jet - at least moderate MR
-  * **posterior severe MR + peri-arrest may suggest SAM/LVOTO**`,
+* MV 2D qualitative assessment - thickening, diastolic doming, hockey stick`,
             'hypovolaemia': `# Parasternal Long-Axis
 * LVEDD and FS
 * LVOTd
 
-# Parasternal short Axis
-* FAC
-
-# Apical 5 Chamber
-* LVOT VTI
-
 ## Post-scan expected data - hypovolaemia:
 * LVEDD low
 * FS / FAC high or normal
-* Cardiac output by doppler VTI low
-
-## Post-scan expected data – vasodilation
-* LVEDD normal
-* FS / FAC high`,
+* Cardiac output by doppler VTI low`,
             'cardiogenic-shock': `# Parasternal Long-Axis
 * LVOTd
 * LVEDD
 * Mitral valve regurgitation assessment
-
-# Parasternal Short-Axis (mid-papillary)
-* Regional wall motion assessment
-
-# A4C/5C
-* LVOT VTI
-* RV TAPSE
-
 ## Post-scan expected data:
 * LVEDD normal or high
-* Cardiac output by LVOT VTI low
-* Regional wall motion abnormality
-* Normal or concurrent RV failure (TAPSE)
-* If previously reported “normal EF%” must exclude moderate to severe MR
-  * CO by doppler will supersede this as this is forward flow only`,
+* Cardiac output by LVOT VTI low`,
             'tamponade': `# Parasternal Long-Axis View
 * Effusion between LV posterior wall and Aorta
-
 # Any view
-* Effusion >2cm
-
-# A4C
-* Tamponade physiology
-* RV collapse in diastole, RA collapse in systole
-
-# Subcostal view
-* Tamponade physiology
-* RV collapse in diastole, RA collapse in systole
-* IVC plethora (>2.1cm)`,
+* Effusion >2cm`,
             'pulmonary-hypertension': `# Apical 4-chamber view
 * CWD across tricuspid valve for pulmonary pressures
 * Trace regurgitant jet - V
-* RV TAPSE and visual assessment
-
 # Subcostal IVC
 * Freeze and measure or M-mode
-* Assess collapsibility
-* Estimate RAP
-
-## Post scan expected data
-* **RVSP = 4V² + RAP**
-* **SPAP ~ RVSP**
-* **mPAP ~ 0.6 x SPAP + 2**
-* mPAP > 20mmHg = pulm HTN
-* RVSP > 30mmHg = pulm HTN`,
+* Estimate RAP`,
             'pulmonary-embolus': `# Pulmonary Embolus Protocol
 * Add details here...`,
             'mitral-valve-pathology': `# Apical 4-Chamber view
 * Mitral valve regurgitation assessment
-* CWD across mitral valve
-* LA volume
-* CWD across tricuspid valve for pulmonary pressures
-* RV TAPSE
-
 ## Expected post-scan findings
 **Stenosis**
-* High MPG
-* High LA volume
-* +/- pulmonary hypertension
-* +/- RV dysfunction
-
-**Regurgitation**
-* Eccentric jet, > 20% LA
-* +/- pulmonary hypertension
-* +/- RV dysfunction`,
+* High MPG`,
             'aortic-valve-pathology': `# Parasternal Long-axis view
 * AV valve leaflet opening >1.2cm
 * LVOTd
-* IVS / posterior wall dimension
-
-# Parasternal SAX view
-* Assess LV function
-* Visual / FAC
-* Posterior wall dimension
-
-# A5C
-* LVOT VTI
-* AVA / LV function
-* AV CWD
-
 ## Expected post-scan findings
 * Restricted valve-leaflet opening
-* High valve MPG or Velocity
-* Small AVA
-* LVH
-* Assess in context of LV function`
+* High valve MPG or Velocity`
         };
         
         const contentElements = {
@@ -495,7 +396,7 @@
             let html = '';
             text.split('\n').forEach(line => {
                 const trimmedLine = line.trim();
-                // Check for raw HTML tags first
+                // Check for raw HTML tags first and pass them through
                 if (trimmedLine.startsWith('<')) {
                     html += line;
                     return;
@@ -506,7 +407,7 @@
                     html += `<h2>${trimmedLine.substring(2)}</h2>`;
                 } else if (trimmedLine.startsWith('* ')) {
                     const indent = line.search(/\S/);
-                    html += `<p style="text-indent: ${indent}ch; margin: 0;">&bull; ${trimmedLine.substring(1)}</p>`;
+                    html += `<p style="margin-left: ${indent * 10}px;">&bull; ${trimmedLine.substring(1)}</p>`;
                 } else if (trimmedLine.length > 0) {
                     html += `<p>${trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>`;
                 }
@@ -556,6 +457,16 @@
                 btn.addEventListener('click', () => {
                     history.back();
                 });
+            });
+            // Setup for inline tappable elements
+            document.body.addEventListener('click', function(event) {
+                if (event.target.classList.contains('tappable-ref')) {
+                    const hiddenSpan = event.target.nextElementSibling;
+                    if (hiddenSpan && hiddenSpan.classList.contains('hidden-ref')) {
+                        const isVisible = hiddenSpan.style.display === 'inline';
+                        hiddenSpan.style.display = isVisible ? 'none' : 'inline';
+                    }
+                }
             });
         };
         
