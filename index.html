@@ -105,6 +105,19 @@
             font-size: 1.1rem;
             font-weight: bold;
         }
+        /* Collapsible Section Styles */
+        .content details {
+            margin-bottom: 1em;
+            padding-left: 10px;
+            border-left: 2px solid #e0e0e0;
+        }
+        .content summary {
+            cursor: pointer;
+        }
+        .content details > div {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
         /* Inline Tappable Styles */
         .tappable-ref {
             cursor: pointer;
@@ -289,7 +302,15 @@
 
 # PSAX - aortic
 <p>&bull; <span class="tappable-ref">TR jet peak velocity via cont wave doppler</span><span class="hidden-ref">-> **4V2 = PASP**</span></p>
-<p>&bull; <span class="tappable-ref">Pulmonary artery acceleration time</span><span class="hidden-ref">(>120msec is normal, <120msec = elevated PVR, < 80msec = highly elevated PVR)</span></p>
+<details>
+  <summary>Pulmonary artery acceleration time</summary>
+  <div>
+    <p>&bull; continuous wave doppler through the pulmonary valve, measure the time from beginning of ejection to peak ejection</p>
+    <p>&bull; >120msec is normal</p>
+    <p>&bull; <120msec = elevated PVR</p>
+    <p>&bull; < 80msec = highly elevated PVR</p>
+  </div>
+</details>
 
 # Apical 4 chamber view
 * Tricuspid valve TR jet peak velocity
@@ -297,7 +318,12 @@
   <p style="margin: 0 0 0.5em 20px;">&bull; <span class="tappable-ref">Basal diameter</span><span class="hidden-ref">(should be <4.2)</span></p>
   <p style="margin: 0 0 0.5em 20px;">&bull; <span class="tappable-ref">Mid diameter</span><span class="hidden-ref">(should be <3.5)</span></p>
   <p style="margin: 0 0 0.5em 20px;">&bull; <span class="tappable-ref">Major axis</span><span class="hidden-ref">(should be <8.6)</span></p>
-<p>&bull; <span class="tappable-ref">RV Fractional area change</span><span class="hidden-ref">(>35% normal, <35% abnormal, <18% severely abnormal)</span></p>
+<details>
+  <summary>RV Fractional area change</summary>
+  <div>
+    <p>&bull; >35% normal, <35% abnormal, <18% severely abnormal</p>
+  </div>
+</details>
 <p>&bull; <span class="tappable-ref">TAPSE</span><span class="hidden-ref">- M-mode through the lateral part of the tricuspid annulus (<17mm suggests dysfunction)</span></p>`,
             'limited-valve': `# PLAX
 * check for effusion
