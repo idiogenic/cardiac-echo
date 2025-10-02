@@ -279,51 +279,156 @@
 * Add details here...`,
             'standard-echo': `* Confirm patient ID. Acquire height, weight and blood pressure.
 * Ensure quality ECG trace is available.
-
 # Parasternal Long Axis (PLAX)
 ## Left Ventricle
 * 2D overview at increased depth
 * 2D overview optimized at appropriate depth
 * 2D measurements: IVSD, LVEDD, PWD
-
 ## Aortic Valve
 * 2D zoom aortic valve
 * LVOT diameter measurement
 * Color Doppler - aortic valve
-* Aortic root measurements: Trans-sinus, Sinotubular junction, Ascending aorta (higher window as needed)
-
+* Aortic root measurements: Trans-sinus, Sinotubular junction, Ascending aorta
 ## Mitral Valve
 * 2D Zoom mitral valve
-* Color Doppler - mitral valve`,
+* Color Doppler - mitral valve
+## RVOT view
+* 2D overview
+* 2D zoom pulmonary valve
+* Color Doppler
+* PW Doppler in RVOT
+* CW Doppler through valve
+## RV inflow view
+* 2D overview
+* 2D zoom tricuspid valve
+* Color Doppler
+* CW Doppler optimised for TR (TR Vmax)
+# Parasternal Short Axis (PSAX)
+## Mid Left Ventricular level
+* 2D overview
+## Mitral Valve Level
+* 2D overview
+* 2D zoom MV
+* Color Doppler MV
+## Aortic Valve Level
+* 2D overview
+* 2D zoom - aortic valve
+* Color Doppler
+* 2D zoom - pulmonary valve
+* Color Doppler
+* CW Doppler
+* 2D zoom – tricuspid valve
+* Color Doppler
+* CW Doppler optimised for TR (TR Vmax)
+# Apical Views
+## Apical 4 Chamber (A4C)
+* 2D overview
+* Atrial volume measurements
+* 2D zoom mitral valve 
+* Color Doppler
+* PW Doppler mitral inflow (E, A, Decel Time)
+* PW Doppler pulmonary venous flow
+* TDI: Septal E’, Lateral E’, RV S’
+* TAPSE
+* 2D zoom tricuspid valve 
+* Color Doppler
+* CW Doppler tricuspid valve (TR Vmax)
+* 2D zoom LV ± MOD LV volume
+* 2D zoom RV 
+* RV measurements
+## Apical 5 Chamber (A5C)
+* 2D overview
+* 2D zoom aortic valve 
+* Color Doppler
+## Apical 2 Chamber (A2C)
+* 2D overview
+* LA volume measurement
+* 2D zoom mitral valve 
+* Color Doppler
+* 2D zoom LV ± MOD LV volume
+## Apical Long Axis (APLAX)
+* 2D overview
+* 2D zoom LV 
+* 2D zoom mitral valve
+* Color Doppler – mitral valve
+* 2D zoom aortic valve 
+* Color Doppler – aortic valve
+* PW Doppler LVOT (LVOT VTI)
+* CW Doppler aortic valve (AoV VTI)
+## Apical SAX
+* 2D overview
+* PEDOF from apical window (if needed)
+# Subcostal Views
+## Subcostal 4 Chamber
+* 2D overview
+* 2D zoom IAS
+* Color Doppler IAS
+## Subcostal SAX
+* 2D overview
+* 2D zoom IAS
+* Color Doppler IAS
+## IVC / Abdominal Aorta
+* 2D IVC clip to show respiratory variability
+* ± Hepatic venous PW Doppler
+* ± Abdominal aorta PW Doppler
+# Suprasternal Notch View
+## SSN - LAX
+* 2D overview
+* Color Doppler
+* PW Doppler
+* CW Doppler
+* ± PEDOF
+# Right Sternal Edge View
+Use when aorta appears dilated in PLAX or if aortic stenosis suspected
+## RSE - Aorta LAX
+* 2D overview
+* Measurement mid ascending aorta
+* ± PEDOF`,
             pocus: `# PLAX
 * 20cm, exclude effusions
 * LVEDD
 * Colour flow doppler mitral and aortic valves
 * LVOT diameter
 * Aortic valve opening
-
 # PLAX - RV inflow
 * TR jet assessment
-* RVSP estimation`,
+* RVSP estimation
+# PSAX 
+* Assess RWMA
+* LVEDD
+# Apical 4 / 5 chamber view
+* LV - Simpsons biplane (if no MR on PLAX), LVOT VTI - pulsed wave with cursor in LVOT
+* RV - dimensions and fractional area change, TAPSE with M-mode over lateral edge of tricuspid annulus
+* Mitral valve - colour flow doppler, continuous wave doppler over inflow
+* Aortic valve - colour flow doppler, continuous wave doppler over inflow
+* Tricuspid valve - colour flow doppler, continuous wave doppler to get TR jet velocity
+# Subcostal 4 chamber
+* Effusion assessment
+* IVC diameter
+* IVC change with sniff
+# Haemodynamic state assessment
+* Hypovolaemia
+* LV systolic dysfunction
+* RV systolic dysfunction
+* Valvular dysfunction
+* Pericardial effusion`,
             'limited-lv': `# PLAX (pericardial effusion)
 * LVEDD
 * LVOTd
 * Assess mitral valve for regurg - regurg is a contraindication to a biplane EF
-
 # PSAX
 * Assess for RWMAs - divided into 6 sectors
-
 # Apical 5 chamber view
-* LVOT VTI`,
+* LVOT VTI
+# Apical 4 chamber view
+* Biplane EF`,
             'limited-rv': `# PLAX
 * set depth to 20cm, check for pericardial effusion
 * Tricuspid regurg, continuous wave doppler over the TR jet -> freeze > measure peak velocity -> **4V2 = PASP**
-
 # PSAX - mid pap
 * Check for septal flattening
 * During systole suggests pressure overload
 * During diastole suggests volume overload
-
 # PSAX - aortic
 <p>&bull; <span class="tappable-ref">TR jet peak velocity via cont wave doppler</span><span class="hidden-ref">-> **4V2 = PASP**</span></p>
 * Pulmonary artery acceleration time - continuous wave doppler through the pulmonary valve, measure the time from beginning of ejection to peak ejection
@@ -335,7 +440,6 @@
     <p>&bull; < 80msec = highly elevated PVR</p>
   </div>
 </details>
-
 # Apical 4 chamber view
 * Tricuspid valve TR jet peak velocity
 * RV chamber quantification at end diastole
@@ -356,22 +460,45 @@
   * VC < 3mm = mild MR
   * VC > 7mm = severe MR
   * eccentric jet - at least moderate MR
-  * **posterior severe MR + peri-arrest may suggest SAM/LVOTO**`,
+  * **posterior severe MR + peri-arrest may suggest SAM/LVOTO**
+* AV 2D qualitative assessment - calcification, restriction
+  * maximal aortic cusp separation (>1.2cm unlikely severe AS)
+* AV regurg - colour flow doppler, measure VC or LVOT:jet width ratio
+  * VC < 3mm = mild AR
+  * VC > 6mm = severe AR
+  * LVOT:jet < 25% = mild AR
+    * 25-65% mod AR
+    * > 65% severe AR
+# PSAX
+* mitral valve planimetry - 2D trace of maximal MV opening area
+  * > 1.5cm2 - mild MS/normal
+  * 1-1.5cm2 - moderate MS
+  * < 1cm2 - severe MS
+# Apical 4/5 chamber view
+* MV 2d - as per PLAX
+* MV regurg - as per PLAX
+* MV mean pressure gradient - contiuous wave Doppler through mitral valve
+  * trace valve inflow envelope (E and A wave)
+  * MPG < 5mmHg = mild MS
+  * MPG 5-10mmHg = mod MS
+  * MPG > 10mmHg = severe MS
+* LVOT VTI - pulsed wave Doppler 0.5-1.0cm from AV on ventricular side
+* AV mean pressure gradient - continuous wave Doppler through AV
+  * trace valve outflow envelope
+  * MPG < 20mmHg = mild AS (assuming normal LV function)
+  * MPG 20-40 = mod AS
+  * MPG > 40mmHg = severe AS`,
             'hypovolaemia': `# Parasternal Long-Axis
 * LVEDD and FS
 * LVOTd
-
 # Parasternal short Axis
 * FAC
-
 # Apical 5 Chamber
 * LVOT VTI
-
 ## Post-scan expected data - hypovolaemia:
 * LVEDD low
 * FS / FAC high or normal
 * Cardiac output by doppler VTI low
-
 ## Post-scan expected data – vasodilation
 * LVEDD normal
 * FS / FAC high`,
@@ -379,14 +506,11 @@
 * LVOTd
 * LVEDD
 * Mitral valve regurgitation assessment
-
 # Parasternal Short-Axis (mid-papillary)
 * Regional wall motion assessment
-
 # A4C/5C
 * LVOT VTI
 * RV TAPSE
-
 ## Post-scan expected data:
 * LVEDD normal or high
 * Cardiac output by LVOT VTI low
@@ -396,14 +520,11 @@
   * CO by doppler will supersede this as this is forward flow only`,
             'tamponade': `# Parasternal Long-Axis View
 * Effusion between LV posterior wall and Aorta
-
 # Any view
 * Effusion >2cm
-
 # A4C
 * Tamponade physiology
 * RV collapse in diastole, RA collapse in systole
-
 # Subcostal view
 * Tamponade physiology
 * RV collapse in diastole, RA collapse in systole
@@ -412,12 +533,10 @@
 * CWD across tricuspid valve for pulmonary pressures
 * Trace regurgitant jet - V
 * RV TAPSE and visual assessment
-
 # Subcostal IVC
 * Freeze and measure or M-mode
 * Assess collapsibility
 * Estimate RAP
-
 ## Post scan expected data
 * **RVSP = 4V² + RAP**
 * **SPAP ~ RVSP**
@@ -432,14 +551,12 @@
 * LA volume
 * CWD across tricuspid valve for pulmonary pressures
 * RV TAPSE
-
 ## Expected post-scan findings
 **Stenosis**
 * High MPG
 * High LA volume
 * +/- pulmonary hypertension
 * +/- RV dysfunction
-
 **Regurgitation**
 * Eccentric jet, > 20% LA
 * +/- pulmonary hypertension
@@ -448,17 +565,14 @@
 * AV valve leaflet opening >1.2cm
 * LVOTd
 * IVS / posterior wall dimension
-
 # Parasternal SAX view
 * Assess LV function
 * Visual / FAC
 * Posterior wall dimension
-
 # A5C
 * LVOT VTI
 * AVA / LV function
 * AV CWD
-
 ## Expected post-scan findings
 * Restricted valve-leaflet opening
 * High valve MPG or Velocity
