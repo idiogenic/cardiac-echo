@@ -116,6 +116,23 @@
             padding: 0 20px;
             flex-shrink: 0;
         }
+        /* Collapsible Section Styles */
+        .content details {
+            margin-left: 20px;
+            margin-bottom: 0.5em;
+        }
+        .content summary {
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .content summary::marker {
+            color: #007bff;
+        }
+        .content details > div {
+            padding-left: 20px;
+            border-left: 1px solid #ccc;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -432,19 +449,38 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
 
 # PSAX - aortic
 * TR jet peak velocity via cont wave doppler -> 4V2=PASP
-* Pulmonary artery acceleration time - continuous wave doppler through the pulmonary valve, measure the time from beginning of ejection to peak ejection
-  * >120msec is normal
-  * <120msec = elevated PVR
-  * < 80msec = highly elevated PVR
+<details>
+  <summary>Pulmonary artery acceleration time</summary>
+  <div>
+    * continuous wave doppler through the pulmonary valve, measure the time from beginning of ejection to peak ejection
+    * >120msec is normal
+    * <120msec = elevated PVR
+    * < 80msec = highly elevated PVR
+  </div>
+</details>
 
 # Apical 4 chamber view
 * Tricuspid valve TR jet peak velocity
-* RV chamber quantification at end diastole
-  * Basal diameter ( should be <4.2)
-  * Mid diameter (should be <3.5)
-  * Major axis (should be <8.6)
-* RV Fractional area change (>35% normal, <35% abnormal, <18% severely abnormal)
-* TAPSE - M-mode through the lateral part of the tricuspid annulus (<17mm suggests dysfunction)`,
+<details>
+  <summary>RV chamber quantification at end diastole</summary>
+  <div>
+    * Basal diameter ( should be <4.2)
+    * Mid diameter (should be <3.5)
+    * Major axis (should be <8.6)
+  </div>
+</details>
+<details>
+  <summary>RV Fractional area change</summary>
+  <div>
+    * >35% normal, <35% abnormal, <18% severely abnormal
+  </div>
+</details>
+<details>
+  <summary>TAPSE</summary>
+  <div>
+    * M-mode through the lateral part of the tricuspid annulus (<17mm suggests dysfunction)
+  </div>
+</details>`,
             'limited-valve': `# PLAX
 * check for effusion
 * MV 2D qualitative assessment - thickening, diastolic doming, hockey stick
@@ -618,33 +654,41 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
         };
 
         const parseMarkdown = (text) => {
-            let html = '';
-            text.split('\n').forEach(line => {
-                const trimmedLine = line.trim();
-                if (trimmedLine.startsWith('## ')) {
-                    html += `<h3>${trimmedLine.substring(3)}</h3>`;
-                } else if (trimmedLine.startsWith('# ')) {
-                    html += `<h2>${trimmedLine.substring(2)}</h2>`;
-                } else if (trimmedLine.startsWith('* ')) {
-                    const indent = line.search(/\S/);
-                    const indentSpaces = '&nbsp;'.repeat(indent);
-                    html += `<p style="text-indent: ${indent}ch; margin: 0;">&bull; ${trimmedLine.substring(1)}</p>`;
-                } else if (trimmedLine.length > 0) {
-                    html += `<p>${trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>`;
-                }
-            });
-            return html;
+            // This now passes the raw text through because we're using HTML tags directly
+            return text;
         };
 
         const loadContent = (protocol) => {
             if (!contentElements[protocol]) return;
-            const content = defaultContent[protocol];
-            contentElements[protocol].innerHTML = parseMarkdown(content);
+            const content = defaultContent[protocol]
+                .replace(/# (.*?)\n/g, '<h2>$1</h2>')
+                .replace(/## (.*?)\n/g, '<h3>$1</h3>')
+                .replace(/\n\*(.*?)\n/g, '<p>&bull; $1</p>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+            contentElements[protocol].innerHTML = content;
         };
         
         const loadAllContent = () => {
+            // Manually parse the RV content with HTML tags
+            const rvContent = defaultContent['limited-rv'];
+            contentElements['limited-rv'].innerHTML = rvContent
+                .replace(/# (.*?)\n/g, '<h2>$1</h2>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            // Parse all other content
             for (const protocol in defaultContent) {
-                if(contentElements[protocol]) loadContent(protocol);
+                if (protocol !== 'limited-rv') {
+                     if(contentElements[protocol]) {
+                        const content = defaultContent[protocol]
+                            .replace(/# (.*?)\n/g, '<h2>$1</h2>')
+                            .replace(/## (.*?)\n/g, '<h3>$1</h3>')
+                            .replace(/\n\s{2}\* (.*?)/g, (match, p1) => `<p style="margin-left: 20px;">&bull; ${p1}</p>`)
+                            .replace(/\n\* (.*?)/g, (match, p1) => `<p>&bull; ${p1}</p>`)
+                            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                        contentElements[protocol].innerHTML = content;
+                     }
+                }
             }
         };
 
