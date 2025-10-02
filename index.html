@@ -74,7 +74,7 @@
             font-size: 1.5rem;
             text-align: right;
         }
-        .back-btn, .edit-btn, .save-btn {
+        .back-btn {
             font-size: 1.1rem;
             padding: 8px 15px;
             cursor: pointer;
@@ -102,26 +102,6 @@
         }
         .hidden {
             display: none !important;
-        }
-        textarea.editor {
-            width: 100%;
-            height: 100%;
-            flex-grow: 1;
-            background-color: #f8f9fa;
-            color: var(--text-color);
-            border: 1px solid #ced4da;
-            border-radius: 5px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            padding: 10px;
-        }
-        .edit-help {
-            font-size: 0.8rem;
-            color: #6c757d;
-            margin-top: 10px;
-            padding: 10px;
-            border: 1px dashed #adb5bd;
-            border-radius: 5px;
         }
         .disclaimer {
             font-size: 0.75rem;
@@ -170,171 +150,93 @@
         <div class="header">
             <button class="back-btn">&lt; Back</button>
             <h1>iHeartScan</h1>
-            <button class="edit-btn">Edit</button>
         </div>
         <div id="iheartscan-content" class="content"></div>
-        <textarea id="iheartscan-editor" class="editor hidden"></textarea>
-        <p id="iheartscan-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
-        <div class="header hidden" id="iheartscan-save-controls">
-             <button class="save-btn">Save</button>
-        </div>
     </div>
     <div id="standard-echo-page" class="page">
         <div class="header">
             <button class="back-btn">&lt; Back</button>
             <h1>Standard Echo Protocol</h1>
-            <button class="edit-btn">Edit</button>
         </div>
         <div id="standard-echo-content" class="content"></div>
-        <textarea id="standard-echo-editor" class="editor hidden"></textarea>
-        <p id="standard-echo-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
-        <div class="header hidden" id="standard-echo-save-controls">
-             <button class="save-btn">Save</button>
-        </div>
     </div>
     <div id="pocus-page" class="page">
         <div class="header">
             <button class="back-btn">&lt; Back</button>
             <h1>POCUS</h1>
-            <button class="edit-btn">Edit</button>
         </div>
         <div id="pocus-content" class="content"></div>
-        <textarea id="pocus-editor" class="editor hidden"></textarea>
-        <p id="pocus-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
-        <div class="header hidden" id="pocus-save-controls">
-             <button class="save-btn">Save</button>
-        </div>
     </div>
     <div id="limited-lv-page" class="page">
         <div class="header">
             <button class="back-btn">&lt; Back</button>
             <h1>Limited LV</h1>
-            <button class="edit-btn">Edit</button>
         </div>
         <div id="limited-lv-content" class="content"></div>
-        <textarea id="limited-lv-editor" class="editor hidden"></textarea>
-        <p id="limited-lv-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
-        <div class="header hidden" id="limited-lv-save-controls">
-            <button class="save-btn">Save</button>
-        </div>
     </div>
     <div id="limited-rv-page" class="page">
         <div class="header">
             <button class="back-btn">&lt; Back</button>
             <h1>Limited RV</h1>
-            <button class="edit-btn">Edit</button>
         </div>
         <div id="limited-rv-content" class="content"></div>
-        <textarea id="limited-rv-editor" class="editor hidden"></textarea>
-        <p id="limited-rv-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
-        <div class="header hidden" id="limited-rv-save-controls">
-            <button class="save-btn">Save</button>
-        </div>
     </div>
     <div id="limited-valve-page" class="page">
         <div class="header">
             <button class="back-btn">&lt; Back</button>
             <h1>Mitral & Aortic Valves</h1>
-            <button class="edit-btn">Edit</button>
         </div>
         <div id="limited-valve-content" class="content"></div>
-        <textarea id="limited-valve-editor" class="editor hidden"></textarea>
-        <p id="limited-valve-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
-        <div class="header hidden" id="limited-valve-save-controls">
-            <button class="save-btn">Save</button>
-        </div>
     </div>
 
     <div id="hypovolaemia-page" class="page">
         <div class="header">
             <button class="back-btn">&lt; Back</button>
             <h1>Hypovolaemia vs Vasodilation</h1>
-            <button class="edit-btn">Edit</button>
         </div>
         <div id="hypovolaemia-content" class="content"></div>
-        <textarea id="hypovolaemia-editor" class="editor hidden"></textarea>
-        <p id="hypovolaemia-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
-        <div class="header hidden" id="hypovolaemia-save-controls">
-            <button class="save-btn">Save</button>
-        </div>
     </div>
     <div id="cardiogenic-shock-page" class="page">
         <div class="header">
             <button class="back-btn">&lt; Back</button>
             <h1>Cardiogenic Shock</h1>
-            <button class="edit-btn">Edit</button>
         </div>
         <div id="cardiogenic-shock-content" class="content"></div>
-        <textarea id="cardiogenic-shock-editor" class="editor hidden"></textarea>
-        <p id="cardiogenic-shock-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
-        <div class="header hidden" id="cardiogenic-shock-save-controls">
-            <button class="save-btn">Save</button>
-        </div>
     </div>
     <div id="tamponade-page" class="page">
         <div class="header">
             <button class="back-btn">&lt; Back</button>
             <h1>Tamponade</h1>
-            <button class="edit-btn">Edit</button>
         </div>
         <div id="tamponade-content" class="content"></div>
-        <textarea id="tamponade-editor" class="editor hidden"></textarea>
-        <p id="tamponade-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
-        <div class="header hidden" id="tamponade-save-controls">
-            <button class="save-btn">Save</button>
-        </div>
     </div>
     <div id="pulmonary-hypertension-page" class="page">
         <div class="header">
             <button class="back-btn">&lt; Back</button>
             <h1>Pulmonary HT</h1>
-            <button class="edit-btn">Edit</button>
         </div>
         <div id="pulmonary-hypertension-content" class="content"></div>
-        <textarea id="pulmonary-hypertension-editor" class="editor hidden"></textarea>
-        <p id="pulmonary-hypertension-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
-        <div class="header hidden" id="pulmonary-hypertension-save-controls">
-            <button class="save-btn">Save</button>
-        </div>
     </div>
     <div id="pulmonary-embolus-page" class="page">
         <div class="header">
             <button class="back-btn">&lt; Back</button>
             <h1>Pulmonary Embolus</h1>
-            <button class="edit-btn">Edit</button>
         </div>
         <div id="pulmonary-embolus-content" class="content"></div>
-        <textarea id="pulmonary-embolus-editor" class="editor hidden"></textarea>
-        <p id="pulmonary-embolus-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
-        <div class="header hidden" id="pulmonary-embolus-save-controls">
-            <button class="save-btn">Save</button>
-        </div>
     </div>
     <div id="mitral-valve-pathology-page" class="page">
         <div class="header">
             <button class="back-btn">&lt; Back</button>
             <h1>Mitral Valve</h1>
-            <button class="edit-btn">Edit</button>
         </div>
         <div id="mitral-valve-pathology-content" class="content"></div>
-        <textarea id="mitral-valve-pathology-editor" class="editor hidden"></textarea>
-        <p id="mitral-valve-pathology-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
-        <div class="header hidden" id="mitral-valve-pathology-save-controls">
-            <button class="save-btn">Save</button>
-        </div>
     </div>
     <div id="aortic-valve-pathology-page" class="page">
         <div class="header">
             <button class="back-btn">&lt; Back</button>
             <h1>Aortic Valve</h1>
-            <button class="edit-btn">Edit</button>
         </div>
         <div id="aortic-valve-pathology-content" class="content"></div>
-        <textarea id="aortic-valve-pathology-editor" class="editor hidden"></textarea>
-        <p id="aortic-valve-pathology-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
-        <div class="header hidden" id="aortic-valve-pathology-save-controls">
-            <button class="save-btn">Save</button>
-        </div>
     </div>
 
 
@@ -344,131 +246,131 @@
         const defaultContent = {
             'iheartscan': `iHeartScan Protocol
 * Add details here...`,
-            'standard-echo': `* Confirm patient ID. Acquire height, weight and blood pressure.
-* Ensure quality ECG trace is available.
+            'standard-echo': `* Confirm patient ID. Acquire height, weight and blood pressure. [cite: 2]
+* Ensure quality ECG trace is available. [cite: 3]
 
-Parasternal Long Axis (PLAX)
-**Left Ventricle**
-* 2D overview at increased depth (screen for posterior pathology: pleural effusion, mass, etc.)
-* 2D overview optimized at appropriate depth
-* 2D measurements: IVSD, LVEDD, PWD
+Parasternal Long Axis (PLAX) [cite: 4]
+**Left Ventricle** [cite: 5]
+* 2D overview at increased depth (screen for posterior pathology: pleural effusion, mass, etc.) [cite: 6]
+* 2D overview optimized at appropriate depth [cite: 7]
+* 2D measurements: IVSD, LVEDD, PWD [cite: 8]
 
-**Aortic Valve**
-* 2D zoom aortic valve
-* LVOT diameter measurement
-* Color Doppler - aortic valve
-* Aortic root measurements: Trans-sinus, Sinotubular junction, Ascending aorta (higher window as needed)
+**Aortic Valve** [cite: 9]
+* 2D zoom aortic valve [cite: 10]
+* LVOT diameter measurement [cite: 11]
+* Color Doppler - aortic valve [cite: 12]
+* Aortic root measurements: Trans-sinus, Sinotubular junction, Ascending aorta (higher window as needed) [cite: 13]
 
-**Mitral Valve**
-* 2D Zoom mitral valve
-* Color Doppler - mitral valve
+**Mitral Valve** [cite: 14]
+* 2D Zoom mitral valve [cite: 15]
+* Color Doppler - mitral valve [cite: 16]
 
-**RVOT view**
-* 2D overview
-* 2D zoom pulmonary valve
-* Color Doppler
-* PW Doppler in RVOT
-* CW Doppler through valve: Optimised for forward flow ± regurgitation
+**RVOT view** [cite: 17]
+* 2D overview [cite: 18]
+* 2D zoom pulmonary valve [cite: 19]
+* Color Doppler [cite: 20]
+* PW Doppler in RVOT [cite: 21]
+* CW Doppler through valve: Optimised for forward flow ± regurgitation [cite: 22]
 
-**RV inflow view**
-* 2D overview
-* 2D zoom tricuspid valve
-* Color Doppler
-* CW Doppler optimised for TR (TR Vmax)
+**RV inflow view** [cite: 23]
+* 2D overview [cite: 24]
+* 2D zoom tricuspid valve [cite: 25]
+* Color Doppler [cite: 26]
+* CW Doppler optimised for TR (TR Vmax) [cite: 27]
 
-Parasternal Short Axis (PSAX)
-**Mid Left Ventricular level**
-* 2D overview
+Parasternal Short Axis (PSAX) [cite: 28]
+**Mid Left Ventricular level** [cite: 29]
+* 2D overview [cite: 30]
 
-**Mitral Valve Level**
-* 2D overview
-* 2D zoom MV
-* Color Doppler MV
+**Mitral Valve Level** [cite: 31]
+* 2D overview [cite: 32]
+* 2D zoom MV [cite: 33]
+* Color Doppler MV [cite: 34]
 
-**Aortic Valve Level**
-* 2D overview
-* 2D zoom - aortic valve
-* Color Doppler (may need separate clips for PV and pulm artery bifurcation)
-* 2D zoom - pulmonary valve
-* Color Doppler
-* CW Doppler
-* 2D zoom – tricuspid valve
-* Color Doppler
-* CW Doppler optimised for TR (TR Vmax)
+**Aortic Valve Level** [cite: 35]
+* 2D overview [cite: 36]
+* 2D zoom - aortic valve [cite: 37]
+* Color Doppler (may need separate clips for PV and pulm artery bifurcation) [cite: 38]
+* 2D zoom - pulmonary valve [cite: 39]
+* Color Doppler [cite: 40]
+* CW Doppler [cite: 41]
+* 2D zoom – tricuspid valve [cite: 42]
+* Color Doppler [cite: 43]
+* CW Doppler optimised for TR (TR Vmax) [cite: 44]
 
-Apical Views
-**Apical 4 Chamber (A4C)**
-* 2D overview
-* Atrial volume measurements
-* 2D zoom mitral valve
-* Color Doppler
-* PW Doppler mitral inflow (E, A, Decel Time)
-* PW Doppler pulmonary venous flow
-* TDI: Septal E’, Lateral E’, RV S’
-* TAPSE
-* 2D zoom tricuspid valve
-* Color Doppler
-* CW Doppler tricuspid valve (TR Vmax)
-* 2D zoom LV ± MOD LV volume
-* 2D zoom RV
-* RV measurements
+Apical Views [cite: 45]
+**Apical 4 Chamber (A4C)** [cite: 46]
+* 2D overview [cite: 47]
+* Atrial volume measurements [cite: 48]
+* 2D zoom mitral valve [cite: 49]
+* Color Doppler [cite: 50]
+* PW Doppler mitral inflow (E, A, Decel Time) [cite: 51]
+* PW Doppler pulmonary venous flow [cite: 52]
+* TDI: Septal E’, Lateral E’, RV S’ [cite: 53]
+* TAPSE [cite: 54]
+* 2D zoom tricuspid valve [cite: 55]
+* Color Doppler [cite: 56]
+* CW Doppler tricuspid valve (TR Vmax) [cite: 57]
+* 2D zoom LV ± MOD LV volume [cite: 58]
+* 2D zoom RV [cite: 59]
+* RV measurements [cite: 60]
 
-**Apical 5 Chamber (A5C)**
-* 2D overview
-* 2D zoom aortic valve
-* Color Doppler
+**Apical 5 Chamber (A5C)** [cite: 61]
+* 2D overview [cite: 62]
+* 2D zoom aortic valve [cite: 63]
+* Color Doppler [cite: 64]
 
-**Apical 2 Chamber (A2C)**
-* 2D overview
-* LA volume measurement
-* 2D zoom mitral valve
-* Color Doppler
-* 2D zoom LV ± MOD LV volume
+**Apical 2 Chamber (A2C)** [cite: 65]
+* 2D overview [cite: 66]
+* LA volume measurement [cite: 67]
+* 2D zoom mitral valve [cite: 68]
+* Color Doppler [cite: 69]
+* 2D zoom LV ± MOD LV volume [cite: 70]
 
-**Apical Long Axis (APLAX)**
-* 2D overview
-* 2D zoom LV
-* 2D zoom mitral valve
-* Color Doppler – mitral valve
-* 2D zoom aortic valve
-* Color Doppler – aortic valve
-* PW Doppler LVOT (LVOT VTI)
-* CW Doppler aortic valve (AoV VTI)
+**Apical Long Axis (APLAX)** [cite: 71]
+* 2D overview [cite: 72]
+* 2D zoom LV [cite: 73]
+* 2D zoom mitral valve [cite: 74]
+* Color Doppler – mitral valve [cite: 75]
+* 2D zoom aortic valve [cite: 76]
+* Color Doppler – aortic valve [cite: 77]
+* PW Doppler LVOT (LVOT VTI) [cite: 78]
+* CW Doppler aortic valve (AoV VTI) [cite: 79]
 
-**Apical SAX**
-* 2D overview
-* PEDOF from apical window (if needed)
+**Apical SAX** [cite: 80]
+* 2D overview [cite: 81]
+* PEDOF from apical window (if needed) [cite: 82]
 
-Subcostal Views
-**Subcostal 4 Chamber**
-* 2D overview
-* 2D zoom IAS
-* Color Doppler IAS
+Subcostal Views [cite: 83]
+**Subcostal 4 Chamber** [cite: 84]
+* 2D overview [cite: 85]
+* 2D zoom IAS [cite: 86]
+* Color Doppler IAS [cite: 87]
 
-**Subcostal SAX**
-* 2D overview
-* 2D zoom IAS
-* Color Doppler IAS
+**Subcostal SAX** [cite: 88]
+* 2D overview [cite: 89]
+* 2D zoom IAS [cite: 90]
+* Color Doppler IAS [cite: 91]
 
-**IVC / Abdominal Aorta**
-* 2D IVC clip to show respiratory variability
-* ± Hepatic venous PW Doppler
-* ± Abdominal aorta PW Doppler
+**IVC / Abdominal Aorta** [cite: 92]
+* 2D IVC clip to show respiratory variability [cite: 93]
+* ± Hepatic venous PW Doppler [cite: 94]
+* ± Abdominal aorta PW Doppler [cite: 95]
 
-Suprasternal Notch View
-**SSN - LAX**
-* 2D overview
-* Color Doppler
-* PW Doppler
-* CW Doppler
-* ± PEDOF
+Suprasternal Notch View [cite: 96]
+**SSN - LAX** [cite: 97]
+* 2D overview [cite: 98]
+* Color Doppler [cite: 99]
+* PW Doppler [cite: 100]
+* CW Doppler [cite: 101]
+* ± PEDOF [cite: 102]
 
-Right Sternal Edge View
-Use when aorta appears dilated in PLAX or if aortic stenosis suspected
-**RSE - Aorta LAX**
-* 2D overview
-* Measurement mid ascending aorta
-* ± PEDOF`,
+Right Sternal Edge View [cite: 103]
+Use when aorta appears dilated in PLAX or if aortic stenosis suspected [cite: 104]
+**RSE - Aorta LAX** [cite: 105]
+* 2D overview [cite: 106]
+* Measurement mid ascending aorta [cite: 107]
+* ± PEDOF [cite: 108]`,
             pocus: `PLAX
 * 20cm, exclude effusions
 * LVEDD
@@ -577,116 +479,113 @@ Apical 4/5 chamber view
   * MPG 20-40 = mod AS
   * MPG > 40mmHg = severe AS`,
             'hypovolaemia': `Parasternal Long-Axis
-* LVEDD and FS
-* LVOTd
+* LVEDD and FS [cite: 113]
+* LVOTd [cite: 114]
 
-Parasternal short Axis
-* FAC
+Parasternal short Axis [cite: 115]
+* FAC [cite: 116]
 
-Apical 5 Chamber
-* LVOT VTI
+Apical 5 Chamber [cite: 117]
+* LVOT VTI [cite: 118]
 
-**Post-scan expected data - hypovolaemia:**
-* LVEDD low
-* FS / FAC high or normal
-* Cardiac output by doppler VTI low
+**Post-scan expected data - hypovolaemia:** [cite: 119]
+* LVEDD low [cite: 120]
+* FS / FAC high or normal [cite: 121]
+* Cardiac output by doppler VTI low [cite: 122]
 
-**Post-scan expected data – vasodilation**
-* LVEDD normal
-* FS / FAC high`,
-            'cardiogenic-shock': `Parasternal Long-Axis
-* LVOTd
-* LVEDD
-* Mitral valve regurgitation assessment
+**Post-scan expected data – vasodilation** [cite: 123]
+* LVEDD normal [cite: 124]
+* FS / FAC high [cite: 125]`,
+            'cardiogenic-shock': `Parasternal Long-Axis [cite: 127]
+* LVOTd [cite: 128]
+* LVEDD [cite: 129]
+* Mitral valve regurgitation assessment [cite: 130]
 
-Parasternal Short-Axis (mid-papillary)
-* Regional wall motion assessment
+Parasternal Short-Axis (mid-papillary) [cite: 131]
+* Regional wall motion assessment [cite: 132]
 
-A4C/5C
-* LVOT VTI
-* RV TAPSE
+A4C/5C [cite: 133]
+* LVOT VTI [cite: 134]
+* RV TAPSE [cite: 135]
 
-**Post-scan expected data:**
-* LVEDD normal or high
-* Cardiac output by LVOT VTI low
-* Regional wall motion abnormality
-* Normal or concurrent RV failure (TAPSE)
-* If previously reported “normal EF%” must exclude moderate to severe MR
-  * CO by doppler will supersede this as this is forward flow only`,
-            'tamponade': `Parasternal Long-Axis View
-* Effusion between LV posterior wall and Aorta
+**Post-scan expected data:** [cite: 136]
+* LVEDD normal or high [cite: 137]
+* Cardiac output by LVOT VTI low [cite: 138]
+* Regional wall motion abnormality [cite: 139]
+* Normal or concurrent RV failure (TAPSE) [cite: 140]
+* If previously reported “normal EF%” must exclude moderate to severe MR [cite: 141]
+  * CO by doppler will supersede this as this is forward flow only [cite: 142]`,
+            'tamponade': `Parasternal Long-Axis View [cite: 144]
+* Effusion between LV posterior wall and Aorta [cite: 145]
 
-Any view
-* Effusion >2cm
+Any view [cite: 146]
+* Effusion >2cm [cite: 147]
 
-A4C
-* Tamponade physiology
-* RV collapse in diastole, RA collapse in systole
+A4C [cite: 148]
+* Tamponade physiology [cite: 149]
+* RV collapse in diastole, RA collapse in systole [cite: 150]
 
-Subcostal view
-* Tamponade physiology
-* RV collapse in diastole, RA collapse in systole
-* IVC plethora (>2.1cm)`,
-            'pulmonary-hypertension': `Pulmonary Hypertension Scan
-Apical 4-chamber view
-* CWD across tricuspid valve for pulmonary pressures
-* Trace regurgitant jet - V
-* RV TAPSE and visual assessment
+Subcostal view [cite: 151]
+* Tamponade physiology [cite: 152]
+* RV collapse in diastole, RA collapse in systole [cite: 153]
+* IVC plethora (>2.1cm) [cite: 154]`,
+            'pulmonary-hypertension': `Apical 4-chamber view [cite: 192]
+* CWD across tricuspid valve for pulmonary pressures [cite: 193]
+* Trace regurgitant jet - V [cite: 194]
+* RV TAPSE and visual assessment [cite: 195]
 
-Subcostal IVC
-* Freeze and measure or M-mode
-* Assess collapsibility
-* Estimate RAP
+Subcostal IVC [cite: 196]
+* Freeze and measure or M-mode [cite: 197]
+* Assess collapsibility [cite: 198]
+* Estimate RAP [cite: 199]
 
-Post scan expected data
-* **RVSP = 4V² + RAP**
-* **SPAP ~ RVSP**
-* **mPAP ~ 0.6 x SPAP + 2**
-* mPAP > 20mmHg = pulm HTN
-* RVSP > 30mmHg = pulm HTN`,
+Post scan expected data [cite: 200]
+* **RVSP = 4V² + RAP** [cite: 201]
+* **SPAP ~ RVSP** [cite: 202]
+* **mPAP ~ 0.6 x SPAP + 2** [cite: 203]
+* mPAP > 20mmHg = pulm HTN [cite: 204]
+* RVSP > 30mmHg = pulm HTN [cite: 205]`,
             'pulmonary-embolus': `Pulmonary Embolus Protocol
 * Add details here...`,
-            'mitral-valve-pathology': `Mitral Valve Scan
-Apical 4-Chamber view
-* Mitral valve regurgitation assessment
-* CWD across mitral valve
-* LA volume
-* CWD across tricuspid valve for pulmonary pressures
-* RV TAPSE
+            'mitral-valve-pathology': `Apical 4-Chamber view [cite: 156]
+* Mitral valve regurgitation assessment [cite: 157]
+* CWD across mitral valve [cite: 158]
+* LA volume [cite: 159]
+* CWD across tricuspid valve for pulmonary pressures [cite: 160]
+* RV TAPSE [cite: 161]
 
-Expected post-scan findings
-Stenosis
-* High MPG
-* High LA volume
-* +/- pulmonary hypertension
-* +/- RV dysfunction
+Expected post-scan findings [cite: 162]
+**Stenosis** [cite: 163]
+* High MPG [cite: 164]
+* High LA volume [cite: 165]
+* +/- pulmonary hypertension [cite: 166]
+* +/- RV dysfunction [cite: 167]
 
-Regurgitation
-* Eccentric jet, > 20% LA
-* +/- pulmonary hypertension
-* +/- RV dysfunction`,
-            'aortic-valve-pathology': `Aortic Valve Scan
-Parasternal Long-axis view
-* AV valve leaflet opening >1.2cm
-* LVOTd
-* IVS / posterior wall dimension
+**Regurgitation** [cite: 168]
+* Eccentric jet, > 20% LA [cite: 169]
+* +/- pulmonary hypertension [cite: 170]
+* +/- RV dysfunction [cite: 171]`,
+            'aortic-valve-pathology': `Parasternal Long-axis view [cite: 173]
+* AV valve leaflet opening >1.2cm [cite: 174]
+* LVOTd [cite: 175]
+* IVS / posterior wall dimension [cite: 176]
 
-Parasternal SAX view
-* Assess LV function
-* Visual / FAC
-* Posterior wall dimension
+Parasternal SAX view [cite: 177]
+* Assess LV function [cite: 178]
+* Visual / FAC [cite: 179]
+* Posterior wall dimension [cite: 180]
 
-A5C
-* LVOT VTI
-* AVA / LV function
-* AV CWD
+A5C [cite: 181]
+* LVOT VTI [cite: 182]
+* AVA / LV function [cite: 183]
+* AV CWD [cite: 184]
 
-Expected post-scan findings
-* Restricted valve-leaflet opening
-* High valve MPG or Velocity
-* Small AVA
-* LVH
-* Assess in context of LV function`
+Expected post-scan findings [cite: 185]
+* Restricted valve-leaflet opening [cite: 186]
+* High valve MPG or Velocity [cite: 187]
+* Small AVA [cite: 188]
+* LVH [cite: 189]
+* Assess in context of LV function [cite: 190]`
         };
         
         const contentElements = {
@@ -704,36 +603,7 @@ Expected post-scan findings
             'mitral-valve-pathology': document.getElementById('mitral-valve-pathology-content'),
             'aortic-valve-pathology': document.getElementById('aortic-valve-pathology-content')
         };
-        const editorElements = {
-            'iheartscan': document.getElementById('iheartscan-editor'),
-            'standard-echo': document.getElementById('standard-echo-editor'),
-            pocus: document.getElementById('pocus-editor'),
-            'limited-lv': document.getElementById('limited-lv-editor'),
-            'limited-rv': document.getElementById('limited-rv-editor'),
-            'limited-valve': document.getElementById('limited-valve-editor'),
-            'hypovolaemia': document.getElementById('hypovolaemia-editor'),
-            'cardiogenic-shock': document.getElementById('cardiogenic-shock-editor'),
-            'tamponade': document.getElementById('tamponade-editor'),
-            'pulmonary-hypertension': document.getElementById('pulmonary-hypertension-editor'),
-            'pulmonary-embolus': document.getElementById('pulmonary-embolus-editor'),
-            'mitral-valve-pathology': document.getElementById('mitral-valve-pathology-editor'),
-            'aortic-valve-pathology': document.getElementById('aortic-valve-pathology-editor')
-        };
-        const editHelpElements = {
-            'iheartscan': document.getElementById('iheartscan-edit-help'),
-            'standard-echo': document.getElementById('standard-echo-edit-help'),
-            pocus: document.getElementById('pocus-edit-help'),
-            'limited-lv': document.getElementById('limited-lv-edit-help'),
-            'limited-rv': document.getElementById('limited-rv-edit-help'),
-            'limited-valve': document.getElementById('limited-valve-edit-help'),
-            'hypovolaemia': document.getElementById('hypovolaemia-edit-help'),
-            'cardiogenic-shock': document.getElementById('cardiogenic-shock-edit-help'),
-            'tamponade': document.getElementById('tamponade-edit-help'),
-            'pulmonary-hypertension': document.getElementById('pulmonary-hypertension-edit-help'),
-            'pulmonary-embolus': document.getElementById('pulmonary-embolus-edit-help'),
-            'mitral-valve-pathology': document.getElementById('mitral-valve-pathology-edit-help'),
-            'aortic-valve-pathology': document.getElementById('aortic-valve-pathology-edit-help')
-        }
+        
         let currentPageId = 'home-page';
 
         const init = () => {
@@ -766,7 +636,6 @@ Expected post-scan findings
             const savedContent = localStorage.getItem(`echo_app_content_${protocol}`);
             const content = savedContent || defaultContent[protocol];
             contentElements[protocol].innerHTML = parseMarkdown(content);
-            editorElements[protocol].value = content;
         };
         
         const loadAllContent = () => {
@@ -779,7 +648,6 @@ Expected post-scan findings
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             currentPageId = pageId;
-            exitEditMode(true);
         };
 
         const showPage = (pageId) => {
@@ -805,42 +673,8 @@ Expected post-scan findings
                     history.back();
                 });
             });
-            document.querySelectorAll('.page').forEach(page => {
-                page.querySelector('.edit-btn')?.addEventListener('click', enterEditMode);
-                page.querySelector('.save-btn')?.addEventListener('click', saveContent);
-            });
         };
         
-        const enterEditMode = () => {
-            const protocol = currentPageId.replace('-page', '');
-            contentElements[protocol].classList.add('hidden');
-            editorElements[protocol].classList.remove('hidden');
-            editHelpElements[protocol].classList.remove('hidden');
-            document.querySelector(`#${currentPageId} .edit-btn`).classList.add('hidden');
-            document.getElementById(`${protocol}-save-controls`).classList.remove('hidden');
-        };
-
-        const saveContent = () => {
-            const protocol = currentPageId.replace('-page', '');
-            const newContent = editorElements[protocol].value;
-            localStorage.setItem(`echo_app_content_${protocol}`, newContent);
-            loadContent(protocol);
-            exitEditMode();
-        };
-
-        const exitEditMode = (force = false) => {
-            document.querySelectorAll('.page').forEach(page => {
-                const protocol = page.id.replace('-page', '');
-                if (contentElements[protocol]) {
-                    contentElements[protocol].classList.remove('hidden');
-                    editorElements[protocol].classList.add('hidden');
-                    editHelpElements[protocol].classList.add('hidden');
-                    page.querySelector('.edit-btn')?.classList.remove('hidden');
-                    document.getElementById(`${protocol}-save-controls`)?.classList.add('hidden');
-                }
-            });
-        };
-
         const registerServiceWorker = () => {
             if ('serviceWorker' in navigator) {
                 const swContent = `
