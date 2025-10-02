@@ -46,7 +46,7 @@
             flex-direction: column;
             gap: 15px;
             justify-content: center;
-            height: 100%;
+            flex-grow: 1;
         }
         .btn {
             padding: 20px;
@@ -123,16 +123,59 @@
             border: 1px dashed #adb5bd;
             border-radius: 5px;
         }
+        .disclaimer {
+            font-size: 0.75rem;
+            color: #6c757d;
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 0 20px;
+            flex-shrink: 0;
+        }
     </style>
 </head>
 <body>
 
     <div id="home-page" class="page active">
+        <p class="disclaimer">
+            These protocols are not endorsed by any professional bodies. Use at your own risk.
+        </p>
         <div class="main-menu">
+            <div class="btn" data-page="iheartscan-page">iHeartScan</div>
             <div class="btn" data-page="pocus-page">POCUS</div>
             <div class="btn" data-page="limited-lv-page">Limited LV Assessment</div>
             <div class="btn" data-page="limited-rv-page">Limited RV Assessment</div>
             <div class="btn" data-page="limited-valve-page">Limited Scan Protocol for Mitral and Aortic Valves</div>
+            <div class="btn" data-page="pathology-menu-page">By Pathology (Minimal Scan)</div>
+        </div>
+    </div>
+
+    <div id="pathology-menu-page" class="page">
+        <div class="header">
+            <button class="back-btn">&lt; Back</button>
+            <h1>By Pathology</h1>
+        </div>
+        <div class="main-menu">
+            <div class="btn" data-page="hypovolaemia-page">Hypovolaemia</div>
+            <div class="btn" data-page="cardiogenic-shock-page">Cardiogenic Shock</div>
+            <div class="btn" data-page="tamponade-page">Tamponade</div>
+            <div class="btn" data-page="pulmonary-hypertension-page">Pulmonary Hypertension</div>
+            <div class="btn" data-page="pulmonary-embolus-page">Pulmonary Embolus</div>
+            <div class="btn" data-page="mitral-valve-pathology-page">Mitral Valve</div>
+            <div class="btn" data-page="aortic-valve-pathology-page">Aortic Valve</div>
+        </div>
+    </div>
+    
+    <div id="iheartscan-page" class="page">
+        <div class="header">
+            <button class="back-btn">&lt; Back</button>
+            <h1>iHeartScan</h1>
+            <button class="edit-btn">Edit</button>
+        </div>
+        <div id="iheartscan-content" class="content"></div>
+        <textarea id="iheartscan-editor" class="editor hidden"></textarea>
+        <p id="iheartscan-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
+        <div class="header hidden" id="iheartscan-save-controls">
+             <button class="save-btn">Save</button>
         </div>
     </div>
     <div id="pocus-page" class="page">
@@ -188,10 +231,105 @@
         </div>
     </div>
 
+    <div id="hypovolaemia-page" class="page">
+        <div class="header">
+            <button class="back-btn">&lt; Back</button>
+            <h1>Hypovolaemia</h1>
+            <button class="edit-btn">Edit</button>
+        </div>
+        <div id="hypovolaemia-content" class="content"></div>
+        <textarea id="hypovolaemia-editor" class="editor hidden"></textarea>
+        <p id="hypovolaemia-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
+        <div class="header hidden" id="hypovolaemia-save-controls">
+            <button class="save-btn">Save</button>
+        </div>
+    </div>
+    <div id="cardiogenic-shock-page" class="page">
+        <div class="header">
+            <button class="back-btn">&lt; Back</button>
+            <h1>Cardiogenic Shock</h1>
+            <button class="edit-btn">Edit</button>
+        </div>
+        <div id="cardiogenic-shock-content" class="content"></div>
+        <textarea id="cardiogenic-shock-editor" class="editor hidden"></textarea>
+        <p id="cardiogenic-shock-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
+        <div class="header hidden" id="cardiogenic-shock-save-controls">
+            <button class="save-btn">Save</button>
+        </div>
+    </div>
+    <div id="tamponade-page" class="page">
+        <div class="header">
+            <button class="back-btn">&lt; Back</button>
+            <h1>Tamponade</h1>
+            <button class="edit-btn">Edit</button>
+        </div>
+        <div id="tamponade-content" class="content"></div>
+        <textarea id="tamponade-editor" class="editor hidden"></textarea>
+        <p id="tamponade-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
+        <div class="header hidden" id="tamponade-save-controls">
+            <button class="save-btn">Save</button>
+        </div>
+    </div>
+    <div id="pulmonary-hypertension-page" class="page">
+        <div class="header">
+            <button class="back-btn">&lt; Back</button>
+            <h1>Pulmonary HT</h1>
+            <button class="edit-btn">Edit</button>
+        </div>
+        <div id="pulmonary-hypertension-content" class="content"></div>
+        <textarea id="pulmonary-hypertension-editor" class="editor hidden"></textarea>
+        <p id="pulmonary-hypertension-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
+        <div class="header hidden" id="pulmonary-hypertension-save-controls">
+            <button class="save-btn">Save</button>
+        </div>
+    </div>
+    <div id="pulmonary-embolus-page" class="page">
+        <div class="header">
+            <button class="back-btn">&lt; Back</button>
+            <h1>Pulmonary Embolus</h1>
+            <button class="edit-btn">Edit</button>
+        </div>
+        <div id="pulmonary-embolus-content" class="content"></div>
+        <textarea id="pulmonary-embolus-editor" class="editor hidden"></textarea>
+        <p id="pulmonary-embolus-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
+        <div class="header hidden" id="pulmonary-embolus-save-controls">
+            <button class="save-btn">Save</button>
+        </div>
+    </div>
+    <div id="mitral-valve-pathology-page" class="page">
+        <div class="header">
+            <button class="back-btn">&lt; Back</button>
+            <h1>Mitral Valve</h1>
+            <button class="edit-btn">Edit</button>
+        </div>
+        <div id="mitral-valve-pathology-content" class="content"></div>
+        <textarea id="mitral-valve-pathology-editor" class="editor hidden"></textarea>
+        <p id="mitral-valve-pathology-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
+        <div class="header hidden" id="mitral-valve-pathology-save-controls">
+            <button class="save-btn">Save</button>
+        </div>
+    </div>
+    <div id="aortic-valve-pathology-page" class="page">
+        <div class="header">
+            <button class="back-btn">&lt; Back</button>
+            <h1>Aortic Valve</h1>
+            <button class="edit-btn">Edit</button>
+        </div>
+        <div id="aortic-valve-pathology-content" class="content"></div>
+        <textarea id="aortic-valve-pathology-editor" class="editor hidden"></textarea>
+        <p id="aortic-valve-pathology-edit-help" class="edit-help hidden">Use **text** for bold and * for bullets.</p>
+        <div class="header hidden" id="aortic-valve-pathology-save-controls">
+            <button class="save-btn">Save</button>
+        </div>
+    </div>
+
+
     <script>
     // JavaScript Logic
     document.addEventListener('DOMContentLoaded', () => {
         const defaultContent = {
+            'iheartscan': `iHeartScan Protocol
+* Add details here...`,
             pocus: `PLAX
 * 20cm, exclude effusions
 * LVEDD
@@ -240,7 +378,7 @@ Apical 4 chamber view
 * Biplane EF`,
             'limited-rv': `PLAX
 * set depth to 20cm, check for pericardial effusion)
-* Tricuspid regurg, continuous wave doppler over the TR jet -> freeze > measure peak velocity -> 4V2 = PASP
+* Tricuspid regurg, continuous wave doppler over the TR jet -> freeze > measure peak velocity -> **4V2 = PASP**
 
 PSAX - mid pap
 * Check for septal flattening
@@ -298,26 +436,57 @@ Apical 4/5 chamber view
   * trace valve outflow envelope
   * MPG < 20mmHg = mild AS (assuming normal LV function)
   * MPG 20-40 = mod AS
-  * MPG > 40mmHg = severe AS`
+  * MPG > 40mmHg = severe AS`,
+            'hypovolaemia': `Hypovolaemia Protocol\n* Add details here...`,
+            'cardiogenic-shock': `Cardiogenic Shock Protocol\n* Add details here...`,
+            'tamponade': `Tamponade Protocol\n* Add details here...`,
+            'pulmonary-hypertension': `Pulmonary Hypertension Protocol\n* Add details here...`,
+            'pulmonary-embolus': `Pulmonary Embolus Protocol\n* Add details here...`,
+            'mitral-valve-pathology': `Mitral Valve Pathology Protocol\n* Add details here...`,
+            'aortic-valve-pathology': `Aortic Valve Pathology Protocol\n* Add details here...`
         };
         
         const contentElements = {
+            'iheartscan': document.getElementById('iheartscan-content'),
             pocus: document.getElementById('pocus-content'),
             'limited-lv': document.getElementById('limited-lv-content'),
             'limited-rv': document.getElementById('limited-rv-content'),
-            'limited-valve': document.getElementById('limited-valve-content')
+            'limited-valve': document.getElementById('limited-valve-content'),
+            'hypovolaemia': document.getElementById('hypovolaemia-content'),
+            'cardiogenic-shock': document.getElementById('cardiogenic-shock-content'),
+            'tamponade': document.getElementById('tamponade-content'),
+            'pulmonary-hypertension': document.getElementById('pulmonary-hypertension-content'),
+            'pulmonary-embolus': document.getElementById('pulmonary-embolus-content'),
+            'mitral-valve-pathology': document.getElementById('mitral-valve-pathology-content'),
+            'aortic-valve-pathology': document.getElementById('aortic-valve-pathology-content')
         };
         const editorElements = {
+            'iheartscan': document.getElementById('iheartscan-editor'),
             pocus: document.getElementById('pocus-editor'),
             'limited-lv': document.getElementById('limited-lv-editor'),
             'limited-rv': document.getElementById('limited-rv-editor'),
-            'limited-valve': document.getElementById('limited-valve-editor')
+            'limited-valve': document.getElementById('limited-valve-editor'),
+            'hypovolaemia': document.getElementById('hypovolaemia-editor'),
+            'cardiogenic-shock': document.getElementById('cardiogenic-shock-editor'),
+            'tamponade': document.getElementById('tamponade-editor'),
+            'pulmonary-hypertension': document.getElementById('pulmonary-hypertension-editor'),
+            'pulmonary-embolus': document.getElementById('pulmonary-embolus-editor'),
+            'mitral-valve-pathology': document.getElementById('mitral-valve-pathology-editor'),
+            'aortic-valve-pathology': document.getElementById('aortic-valve-pathology-editor')
         };
         const editHelpElements = {
+            'iheartscan': document.getElementById('iheartscan-edit-help'),
             pocus: document.getElementById('pocus-edit-help'),
             'limited-lv': document.getElementById('limited-lv-edit-help'),
             'limited-rv': document.getElementById('limited-rv-edit-help'),
-            'limited-valve': document.getElementById('limited-valve-edit-help')
+            'limited-valve': document.getElementById('limited-valve-edit-help'),
+            'hypovolaemia': document.getElementById('hypovolaemia-edit-help'),
+            'cardiogenic-shock': document.getElementById('cardiogenic-shock-edit-help'),
+            'tamponade': document.getElementById('tamponade-edit-help'),
+            'pulmonary-hypertension': document.getElementById('pulmonary-hypertension-edit-help'),
+            'pulmonary-embolus': document.getElementById('pulmonary-embolus-edit-help'),
+            'mitral-valve-pathology': document.getElementById('mitral-valve-pathology-edit-help'),
+            'aortic-valve-pathology': document.getElementById('aortic-valve-pathology-edit-help')
         }
         let currentPageId = 'home-page';
 
@@ -367,13 +536,21 @@ Apical 4/5 chamber view
 
         const showPage = (pageId) => {
             renderPage(pageId);
+            // This now handles sub-menu navigation as well
             if (pageId !== 'home-page') {
                 history.pushState({page: pageId}, '');
             }
         };
 
         window.onpopstate = function(event) {
-            renderPage('home-page');
+            // When back is pressed, go to the previous logical menu
+            // This is a simplification; a real app might need a more complex history stack
+            const previousPage = document.referrer;
+            if (currentPageId.includes('-pathology') || currentPageId.includes('shock') || currentPageId.includes('embolus')) {
+                 renderPage('pathology-menu-page');
+            } else {
+                 renderPage('home-page');
+            }
         };
 
         const setupEventListeners = () => {
@@ -444,4 +621,3 @@ Apical 4/5 chamber view
     </script>
 </body>
 </html>
-
