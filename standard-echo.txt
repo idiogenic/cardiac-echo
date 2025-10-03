@@ -21,10 +21,23 @@ Standard Echo Protocol
 * Color Doppler over pulmonary valve
 * PW Doppler in RVOT - 
 * CW Doppler through valve
+<details>
+  <summary>view</summary>
+  <div>
+    <img src="rvot.jpg">
+  </div>
+</details>
+
 
 ## RV inflow view (tilt probe down towards hip)
 * Color Doppler over tricuspid valve
 * CW Doppler optimised for TR (TR Vmax)
+<details>
+  <summary>view</summary>
+  <div>
+    <img src="rv-inflow.jpg">
+  </div>
+</details>
 
 # Parasternal Short Axis (PSAX)
 ## Mid pap view
@@ -105,4 +118,5 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
 * Measurement mid ascending aorta
 
 * ± PEDOF
+
 
