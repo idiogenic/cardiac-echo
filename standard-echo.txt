@@ -61,23 +61,21 @@ Standard Echo Protocol
 * PW Doppler pulmonary venous flow
 * TDI: Septal E’, Lateral E’, RV S’
 <p>&bull; <span class="tappable-ref">TAPSE</span> <span class="hidden-ref">(- M-mode through the lateral part of the tricuspid annulus, <17mm suggests dysfunction)</span></p>
-* 2D zoom tricuspid valve 
-* Color Doppler
-* CW Doppler tricuspid valve (TR Vmax)
+* tricuspid valve - Color Doppler
+* continuous wave Doppler tricuspid valve (TR Vmax)
 * 2D zoom LV ± MOD LV volume
-* 2D zoom RV 
 * RV measurements
 
 ## Apical 5 Chamber (A5C)
-* 2D overview
 * 2D zoom aortic valve 
 * Color Doppler
+<p>&bull; <span class="tappable-ref">LVOT VTI</span>further non tappable words here <span class="hidden-ref">pulsed wave doppler with gate in LVOT approx 5mm from AV leaflets</span></p>
+
 ## Apical 2 Chamber (A2C)
-* 2D overview
 * LA volume measurement
-* 2D zoom mitral valve 
-* Color Doppler
+* mitral valve - Color Doppler
 * 2D zoom LV ± MOD LV volume
+
 ## Apical Long Axis (APLAX)
 * 2D overview
 * 2D zoom LV 
@@ -87,6 +85,7 @@ Standard Echo Protocol
 * Color Doppler – aortic valve
 * PW Doppler LVOT (LVOT VTI)
 * CW Doppler aortic valve (AoV VTI)
+
 ## Apical SAX
 * 2D overview
 * PEDOF from apical window (if needed)
@@ -117,6 +116,7 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
 * Measurement mid ascending aorta
 
 * ± PEDOF
+
 
 
 
