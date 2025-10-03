@@ -60,7 +60,7 @@ Standard Echo Protocol
 * PW Doppler mitral inflow (E, A, Decel Time)
 * PW Doppler pulmonary venous flow
 * TDI: Septal E’, Lateral E’, RV S’
-* TAPSE - M-mode with marker at lateral edge of tricuspid annulus
+<p>&bull; <span class="tappable-ref">TAPSE</span> <span class="hidden-ref">(- M-mode through the lateral part of the tricuspid annulus, <17mm suggests dysfunction)</span></p>
 * 2D zoom tricuspid valve 
 * Color Doppler
 * CW Doppler tricuspid valve (TR Vmax)
@@ -117,6 +117,7 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
 * Measurement mid ascending aorta
 
 * ± PEDOF
+
 
 
 
