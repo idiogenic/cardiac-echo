@@ -77,11 +77,7 @@ Standard Echo Protocol
 * 2D zoom LV ± MOD LV volume
 
 ## Apical Long Axis (APLAX)
-* 2D overview
-* 2D zoom LV 
-* 2D zoom mitral valve
 * Color Doppler – mitral valve
-* 2D zoom aortic valve 
 * Color Doppler – aortic valve
 * PW Doppler LVOT (LVOT VTI)
 * CW Doppler aortic valve (AoV VTI)
@@ -89,19 +85,25 @@ Standard Echo Protocol
 ## Apical SAX
 * 2D overview
 * PEDOF from apical window (if needed)
+
+
 # Subcostal Views
 ## Subcostal 4 Chamber
 * 2D overview
 * 2D zoom IAS
 * Color Doppler IAS
+
 ## Subcostal SAX
 * 2D overview
 * 2D zoom IAS
 * Color Doppler IAS
+
 ## IVC / Abdominal Aorta
 * 2D IVC clip to show respiratory variability
 * ± Hepatic venous PW Doppler
 * ± Abdominal aorta PW Doppler
+
+
 # Suprasternal Notch View
 ## SSN - LAX
 * 2D overview
@@ -116,6 +118,7 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
 * Measurement mid ascending aorta
 
 * ± PEDOF
+
 
 
 
