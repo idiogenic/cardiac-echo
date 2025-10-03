@@ -31,7 +31,7 @@ Standard Echo Protocol
 
 ## RV inflow view (tilt probe down towards hip)
 * Color Doppler over tricuspid valve
-* CW Doppler optimised for TR (TR Vmax)
+* CW Doppler optimised for TR Vmax
 <details>
   <summary>view</summary>
   <div>
@@ -118,5 +118,6 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
 * Measurement mid ascending aorta
 
 * ± PEDOF
+
 
 
