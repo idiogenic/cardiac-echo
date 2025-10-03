@@ -12,37 +12,34 @@ Standard Echo Protocol
 * LVOTd and leaflet opening
 * Color Doppler - aortic valve
 * Aortic root measurements: Trans-sinus, Sinotubular junction, Ascending aorta
+
 ## Mitral Valve
-* 2D Zoom mitral valve
-* Color Doppler - mitral valve
+* subjective appearance, doming, hockey stick etc
+* Color Doppler for regurgitation
+
 ## RVOT view (tilt probe up towards shoulder)
-* 2D overview
-* 2D zoom pulmonary valve
-* Color Doppler
-* PW Doppler in RVOT
+* Color Doppler over pulmonary valve
+* PW Doppler in RVOT - 
 * CW Doppler through valve
+
 ## RV inflow view (tilt probe down towards hip)
-* 2D overview
-* 2D zoom tricuspid valve
-* Color Doppler
+* Color Doppler over tricuspid valve
 * CW Doppler optimised for TR (TR Vmax)
+
 # Parasternal Short Axis (PSAX)
-## Mid Left Ventricular level
-* 2D overview
+## Mid pap view
+* eyeball systolic function
+* assess for RWMAs
+
 ## Mitral Valve Level
-* 2D overview
-* 2D zoom MV
 * Color Doppler MV
+* can do valve area by planimetry
+
 ## Aortic Valve Level
-* 2D overview
-* 2D zoom - aortic valve
-* Color Doppler
-* 2D zoom - pulmonary valve
-* Color Doppler
-* CW Doppler
-* 2D zoom – tricuspid valve
-* Color Doppler
-* CW Doppler optimised for TR (TR Vmax)
+* Color Doppler over AV- regurg jet
+* Pulmonary valve - colour, CW doppler
+* tricuspid valve - colour, CW doppler (optimised for TR (TR Vmax))
+
 # Apical Views
 ## Apical 4 Chamber (A4C)
 * 2D overview
@@ -108,3 +105,4 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
 * Measurement mid ascending aorta
 
 * ± PEDOF
+
