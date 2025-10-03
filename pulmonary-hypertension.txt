@@ -11,13 +11,14 @@ Pulmonary Hypertension
     <img src="RAP.png">
   </div>
 </details>
-## Post scan expected data
+# Post scan expected data
 * **RVSP = 4V² + RAP**
 * **SPAP ~ RVSP**
 * **mPAP ~ 0.6 x SPAP + 2**
 * mPAP > 20mmHg = pulm HTN
 
 * RVSP > 30mmHg = pulm HTN
+
 
 
 
