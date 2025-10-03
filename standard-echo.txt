@@ -1,26 +1,27 @@
-Standard Echocardiography Protocol
+Standard Echo Protocol
 * Confirm patient ID. Acquire height, weight and blood pressure.
 * Ensure quality ECG trace is available.
 # Parasternal Long Axis (PLAX)
 ## Left Ventricle
-* 2D overview at increased depth
+* 2D overview at increased depth - screen for cardiac/pleural effusion
 * 2D overview optimized at appropriate depth
 * 2D measurements: IVSD, LVEDD, PWD
+* eyeball systolic function, size, RWMA
+
 ## Aortic Valve
-* 2D zoom aortic valve
-* LVOT diameter measurement
+* LVOTd and leaflet opening
 * Color Doppler - aortic valve
 * Aortic root measurements: Trans-sinus, Sinotubular junction, Ascending aorta
 ## Mitral Valve
 * 2D Zoom mitral valve
 * Color Doppler - mitral valve
-## RVOT view
+## RVOT view (tilt probe up towards shoulder)
 * 2D overview
 * 2D zoom pulmonary valve
 * Color Doppler
 * PW Doppler in RVOT
 * CW Doppler through valve
-## RV inflow view
+## RV inflow view (tilt probe down towards hip)
 * 2D overview
 * 2D zoom tricuspid valve
 * Color Doppler
@@ -105,4 +106,5 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
 ## RSE - Aorta LAX
 * 2D overview
 * Measurement mid ascending aorta
+
 * ± PEDOF
