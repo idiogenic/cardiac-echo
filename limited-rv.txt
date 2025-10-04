@@ -8,7 +8,7 @@ Limited RV Assessment
 * During systole suggests pressure overload
 * During diastole suggests volume overload
 # PSAX - aortic
-<p>&bull; <span class="tappable-ref">TR jet peak velocity via cont wave doppler</span><span class="hidden-ref">-> **4V2 = PASP**</span></p>
+<p>&bull; <span class="tappable-ref">TR jet peak velocity via cont wave doppler</span><span class="hidden-ref">-> 4V2 = PASP</span></p>
 * <span class="tappable-ref">Pulmonary artery acceleration time</span><span class="hidden-ref"> - continuous wave doppler through the pulmonary valve, measure the time from beginning of ejection to peak ejection</span></p>
 <details>
   <summary>Reference Ranges</summary>
@@ -32,6 +32,7 @@ Limited RV Assessment
 </details>
 
 <p>&bull; <span class="tappable-ref">TAPSE</span> - M-mode through the lateral part of the tricuspid annulus<span class="hidden-ref">(<17mm suggests dysfunction)</span></p>
+
 
 
 
