@@ -1,10 +1,10 @@
 Mitral Valve Pathology
 # Apical 4-Chamber view
 * Mitral valve regurgitation assessment with colour Doppler
-* <p> <span class="tappable-ref">mean pressure gradient</span><span class="hidden-ref"> - continuous wave Doppler across mitral valve</span></p>
+* <span class="tappable-ref">mean pressure gradient</span><span class="hidden-ref"> - continuous wave Doppler across mitral valve</span>
 * LA volume
 * CW Doppler across tricuspid valve for pulmonary pressures
-* RV <p><span class="tappable-ref">TAPSE</span><span class="hidden-ref"> - M-mode with marker at lateral edge of tricuspid annulus</span></p>
+* RV <span class="tappable-ref">TAPSE</span><span class="hidden-ref"> - M-mode with marker at lateral edge of tricuspid annulus</span>
 ## Expected post-scan findings
 **Stenosis**
 * High MPG
@@ -16,4 +16,5 @@ Mitral Valve Pathology
 * +/- pulmonary hypertension
 
 * +/- RV dysfunction
+
 
