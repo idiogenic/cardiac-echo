@@ -20,17 +20,14 @@ Limited Scan Protocol for Mitral and Aortic Valves
 * <span class="tappable-ref">MACS</span><span class="hidden-ref">maximal aortic cusp separation, >1.2cm unlikely severe AS</span></p>
 * regurgitation - colour flow doppler
     * quantification:
-<p style="margin-left: 50px;">
-<details>
+    <details class="indented-details">
   <summary>measure VC neck width</summary>
   <div>
     <p>&bull; VC < 3mm = mild AR</p>
     <p>&bull; VC > 6mm = severe AR</p>
   </div>
 </details>
-</p>
-<p style="margin-left: 20px;">
-<details>
+  <details class="indented-details">
   <summary>LVOT:jet width ratio</summary>
   <div>
     <p> < 25% = mild AR</p>
@@ -38,7 +35,7 @@ Limited Scan Protocol for Mitral and Aortic Valves
     <p> > 65% = severe AR</p>
   </div>
 </details>
-</p>
+
 
 
 # PSAX
@@ -79,6 +76,7 @@ Limited Scan Protocol for Mitral and Aortic Valves
     <p> > 40mmHg = severe AS</p>
   </div>
 </details>
+
 
 
 
