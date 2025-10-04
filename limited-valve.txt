@@ -40,23 +40,24 @@ Limited Scan Protocol for Mitral and Aortic Valves
 <details>
   <summary>MPG</summary>
   <div>
-    <p>&bull; < 5mmHg - mild MS/normall</p>
-    <p>&bull; 5-10mmHg - mod MS</p>
-    <p>&bull; > 10mmHg - severe MS</p>
+    <p> < 5mmHg - mild MS/normall</p>
+    <p> 5-10mmHg - mod MS</p>
+    <p> > 10mmHg - severe MS</p>
   </div>
 </details>
 
 ## aortic valve
 
-* LVOT VTI - pulsed wave Doppler 0.5-1.0cm from AV on ventricular side
+* LVOT <span class="tappable-ref">VTI</span><span class="hidden-ref">pulsed wave Doppler with gate 5-10mm from AV valve in LVOT</span></p>
 * AV mean pressure gradient - continuous wave Doppler through AV and trace valve outflow envelope
 <details>
   <summary>MPG</summary>
   <div>
-    <p>&bull; < 20mmHg = mild AS (assuming normal LV function)</p>
-    <p>&bull; 20-40 = mod AS</p>
-    <p>&bull; > 40mmHg = severe AS</p>
+    <p> < 20mmHg = mild AS (assuming normal LV function)</p>
+    <p> 20-40 = mod AS</p>
+    <p> > 40mmHg = severe AS</p>
   </div>
 </details>
+
 
 
