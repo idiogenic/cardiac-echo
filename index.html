@@ -32,7 +32,7 @@
         .content h2 { margin-top: 2em; margin-bottom: 1em; font-size: 1.3rem; border-bottom: 2px solid #ccc; padding-bottom: 5px; }
         .content h3 { margin-top: 1.5em; margin-bottom: 0.5em; font-size: 1.1rem; font-weight: bold; }
         .content details { margin-bottom: 1em; padding-left: 10px; border-left: 2px solid #e0e0e0; }
-        .content summary { cursor: pointer; font-weight: bold; }
+        .content summary { cursor: pointer; }
         .content details > div { padding-left: 20px; margin-top: 10px; }
         .content table { border-collapse: collapse; width: 100%; margin: 1em 0; }
         .content th, .content td { border: 1px solid #ccc; padding: 8px; text-align: left; }
@@ -143,7 +143,6 @@
             if (contentCache[pageId]) return contentCache[pageId];
             
             try {
-                // Add a cache-busting query parameter
                 const response = await fetch(`${pageId}.txt?v=${new Date().getTime()}`);
                 if (!response.ok) throw new Error('Content not found');
                 const text = await response.text();
@@ -217,22 +216,17 @@
         };
         
         const registerServiceWorker = () => {
-            // This script now handles caching logic directly. The old registration is removed.
             if ('serviceWorker' in navigator) {
                 const swContent = `
-                    const CACHE_NAME = 'echo-app-cache-v2'; // Updated cache name
+                    const CACHE_NAME = 'echo-app-cache-v2'; 
                     const APP_SHELL_URLS = ['./', 'manifest.json', 'icon-512x512.png'];
-
                     self.addEventListener('install', event => {
                         event.waitUntil(
                             caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL_URLS))
                         );
                     });
-
                     self.addEventListener('fetch', event => {
                         const url = new URL(event.request.url);
-
-                        // For .txt files, use a Network First strategy.
                         if (url.pathname.endsWith('.txt')) {
                             event.respondWith(
                                 caches.open(CACHE_NAME).then(cache => {
@@ -245,7 +239,6 @@
                                 })
                             );
                         } 
-                        // For the app shell, use a Cache First strategy.
                         else {
                             event.respondWith(
                                 caches.match(event.request).then(response => {
@@ -254,8 +247,6 @@
                             );
                         }
                     });
-
-                    // Clean up old caches on activation
                     self.addEventListener('activate', event => {
                         event.waitUntil(
                             caches.keys().then(cacheNames => {
