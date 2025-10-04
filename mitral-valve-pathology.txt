@@ -1,10 +1,10 @@
 Mitral Valve Pathology
 # Apical 4-Chamber view
-* Mitral valve regurgitation assessment
-* CWD across mitral valve
+* Mitral valve regurgitation assessment with colour
+* <p> <span class="tappable-ref">mean pressure gradient</span><span class="hidden-ref"> - continuous wave Doppler across mitral valve</span></p>
 * LA volume
-* CWD across tricuspid valve for pulmonary pressures
-* RV TAPSE
+* CW Doppler across tricuspid valve for pulmonary pressures
+* RV <p><span class="tappable-ref">TAPSE</span><span class="hidden-ref"> - M-mode with marker at lateral edge of tricuspid annulus</span></p>
 ## Expected post-scan findings
 **Stenosis**
 * High MPG
@@ -14,4 +14,5 @@ Mitral Valve Pathology
 **Regurgitation**
 * Eccentric jet, > 20% LA
 * +/- pulmonary hypertension
+
 * +/- RV dysfunction
