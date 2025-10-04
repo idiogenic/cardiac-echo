@@ -25,9 +25,9 @@ Limited Scan Protocol for Mitral and Aortic Valves
 <details>
   <summary>valve area</summary>
   <div>
-    <p>&bull; >1.5cm2 - mild MS or normal</p>
-    <p>&bull; 1-1.5cm2 - mod MS</p>
-    <p>&bull; < 1cm2 - severe MS</p>
+    <p> >1.5cm2 - mild MS or normal</p>
+    <p> 1-1.5cm2 - mod MS</p>
+    <p> < 1cm2 - severe MS</p>
   </div>
 </details>
 
@@ -58,4 +58,5 @@ Limited Scan Protocol for Mitral and Aortic Valves
     <p>&bull; > 40mmHg = severe AS</p>
   </div>
 </details>
+
 
