@@ -51,7 +51,7 @@ Standard Echo Protocol
 ## Aortic Valve Level
 * Color Doppler over AV- regurg jet
 * Pulmonary valve - colour, CW doppler
-* tricuspid valve - colour, CW doppler (optimised for TR (TR Vmax))
+* tricuspid valve - colour, CW doppler (optimised for TR Vmax)
 
 # Apical Views
 ## Apical 4 Chamber (A4C)
@@ -118,6 +118,7 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
 * Measurement mid ascending aorta
 
 * ± PEDOF
+
 
 
 
