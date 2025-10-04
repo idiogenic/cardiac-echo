@@ -6,7 +6,7 @@ Limited Scan Protocol for Mitral and Aortic Valves
 * regurgitation - colour flow doppler
   * eccentric jet - at least moderate MR
   * posterior severe MR + peri-arrest may suggest SAM/LVOTO
-  <details class="indented-details">
+<details class="indented-details">
   <summary>VC neck width</summary>
   <div>
     <p> < 3mm = mild MR</p>
@@ -76,6 +76,7 @@ Limited Scan Protocol for Mitral and Aortic Valves
     <p> > 40mmHg = severe AS</p>
   </div>
 </details>
+
 
 
 
