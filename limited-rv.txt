@@ -24,7 +24,7 @@ Limited RV Assessment
   <p style="margin: 0 0 0.5em 20px;">&bull; <span class="tappable-ref">Basal diameter</span><span class="hidden-ref">(should be <4.2)</span></p>
   <p style="margin: 0 0 0.5em 20px;">&bull; <span class="tappable-ref">Mid diameter</span><span class="hidden-ref">(should be <3.5)</span></p>
   <p style="margin: 0 0 0.5em 20px;">&bull; <span class="tappable-ref">Major axis</span><span class="hidden-ref">(should be <8.6)</span></p>
-<details>
+  <details class="indented-details">
   <summary>RV Fractional area change</summary>
   <div>
     <p>&bull; >35% normal, <35% abnormal, <18% severely abnormal</p>
@@ -32,6 +32,7 @@ Limited RV Assessment
 </details>
 
 <p>&bull; <span class="tappable-ref">TAPSE</span> - M-mode through the lateral part of the tricuspid annulus<span class="hidden-ref">(<17mm suggests dysfunction)</span></p>
+
 
 
 
