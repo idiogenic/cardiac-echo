@@ -17,20 +17,39 @@ Limited Scan Protocol for Mitral and Aortic Valves
     * > 65% severe AR
 # PSAX
 * mitral valve planimetry - 2D trace of maximal MV opening area
-  * > 1.5cm2 - mild MS/normal
-  * 1-1.5cm2 - moderate MS
-  * < 1cm2 - severe MS
+<details>
+  <summary>valve area</summary>
+  <div>
+    <p>&bull; >1.5cm2 - mild MS or normal</p>
+    <p>&bull; 1-1.5cm2 - mod MS</p>
+    <p>&bull; < 1cm2 - severe MS</p>
+  </div>
+</details>
+
+
 # Apical 4/5 chamber view
+## mitral valve
 * MV 2d - as per PLAX
 * MV regurg - as per PLAX
-* MV mean pressure gradient - contiuous wave Doppler through mitral valve
-  * trace valve inflow envelope (E and A wave)
-  * MPG < 5mmHg = mild MS
-  * MPG 5-10mmHg = mod MS
-  * MPG > 10mmHg = severe MS
+* MV mean pressure gradient - continuous wave Doppler through mitral valve and trace valve inflow envelope (E and A wave)
+<details>
+  <summary>MPG</summary>
+  <div>
+    <p>&bull; < 5mmHg - mild MS/normall</p>
+    <p>&bull; 5-10mmHg - mod MS</p>
+    <p>&bull; > 10mmHg - severe MS</p>
+  </div>
+</details>
+
+## aortic valve
+
 * LVOT VTI - pulsed wave Doppler 0.5-1.0cm from AV on ventricular side
-* AV mean pressure gradient - continuous wave Doppler through AV
-  * trace valve outflow envelope
-  * MPG < 20mmHg = mild AS (assuming normal LV function)
-  * MPG 20-40 = mod AS
-  * MPG > 40mmHg = severe AS
+* AV mean pressure gradient - continuous wave Doppler through AV and trace valve outflow envelope
+<details>
+  <summary>MPG</summary>
+  <div>
+    <p>&bull; < 20mmHg = mild AS (assuming normal LV function)</p>
+    <p>&bull; 20-40 = mod AS</p>
+    <p>&bull; > 40mmHg = severe AS</p>
+  </div>
+</details>
