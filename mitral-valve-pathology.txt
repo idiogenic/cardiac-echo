@@ -1,6 +1,6 @@
 Mitral Valve Pathology
 # Apical 4-Chamber view
-* Mitral valve regurgitation assessment with colour
+* Mitral valve regurgitation assessment with colour Doppler
 * <p> <span class="tappable-ref">mean pressure gradient</span><span class="hidden-ref"> - continuous wave Doppler across mitral valve</span></p>
 * LA volume
 * CW Doppler across tricuspid valve for pulmonary pressures
@@ -16,3 +16,4 @@ Mitral Valve Pathology
 * +/- pulmonary hypertension
 
 * +/- RV dysfunction
+
