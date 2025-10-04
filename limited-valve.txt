@@ -12,9 +12,9 @@ Limited Scan Protocol for Mitral and Aortic Valves
 ## aortic valve
 * AV 2D qualitative assessment - calcification, restriction
 * <span class="tappable-ref">MACS</span><span class="hidden-ref">maximal aortic cusp separation, >1.2cm unlikely severe AS</span></p>
-* regurg - colour flow doppler
+* regurgitation - colour flow doppler
     * quantification:
-<details>
+    <details>
   <summary>measure VC neck width</summary>
   <div>
     <p>&bull; VC < 3mm = mild AR</p>
@@ -23,7 +23,7 @@ Limited Scan Protocol for Mitral and Aortic Valves
 </details>
 
 
-<details>
+    <details>
   <summary>LVOT:jet width ratio</summary>
   <div>
     <p> < 25% = mild AR</p>
@@ -72,6 +72,7 @@ Limited Scan Protocol for Mitral and Aortic Valves
     <p> > 40mmHg = severe AS</p>
   </div>
 </details>
+
 
 
 
