@@ -23,8 +23,8 @@ Limited Scan Protocol for Mitral and Aortic Valves
   </div>
 </details>
 </p>
-
-    <details>
+<p style="margin-left: 20px;">
+<details>
   <summary>LVOT:jet width ratio</summary>
   <div>
     <p> < 25% = mild AR</p>
@@ -32,7 +32,7 @@ Limited Scan Protocol for Mitral and Aortic Valves
     <p> > 65% severe AR</p>
   </div>
 </details>
-
+</p>
 
 
 # PSAX
@@ -73,6 +73,7 @@ Limited Scan Protocol for Mitral and Aortic Valves
     <p> > 40mmHg = severe AS</p>
   </div>
 </details>
+
 
 
 
