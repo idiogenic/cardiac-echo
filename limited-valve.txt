@@ -36,7 +36,7 @@ Limited Scan Protocol for Mitral and Aortic Valves
 ## mitral valve
 * MV 2d - as per PLAX
 * MV regurg - as per PLAX
-* MV mean pressure gradient - continuous wave Doppler through mitral valve and trace valve inflow envelope (E and A wave)
+* MV <span class="tappable-ref">mean pressure gradient</span><span class="hidden-ref">continuous wave Doppler through mitral valve and trace valve inflow envelope (E and A wave)</span></p>
 <details>
   <summary>MPG</summary>
   <div>
@@ -49,7 +49,7 @@ Limited Scan Protocol for Mitral and Aortic Valves
 ## aortic valve
 
 * LVOT <span class="tappable-ref">VTI</span><span class="hidden-ref">pulsed wave Doppler with gate 5-10mm from AV valve in LVOT</span></p>
-* AV mean pressure gradient - continuous wave Doppler through AV and trace valve outflow envelope
+* AV <span class="tappable-ref">mean pressure gradient</span><span class="hidden-ref">continuous wave Doppler through AV and trace the outflow envelope</span></p>
 <details>
   <summary>MPG</summary>
   <div>
@@ -58,6 +58,7 @@ Limited Scan Protocol for Mitral and Aortic Valves
     <p> > 40mmHg = severe AS</p>
   </div>
 </details>
+
 
 
 
