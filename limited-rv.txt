@@ -2,7 +2,7 @@ Limited RV Assessment
 # PLAX
 * set depth to 20cm, check for pericardial effusion
 * colour Doppler over tricuspid
-* continuous wave doppler over the <span class="tappable-ref">TR jet</span>-> freeze > measure peak velocity -> 4V2 = PASP<span class="hidden-ref">if no TR assess pulmonary pressure with CW/PW Doppler over pulmonary valve</span></p>
+* continuous wave doppler over the <span class="tappable-ref">TR jet</span>-> freeze > measure peak velocity -> 4V2 = PASP<span class="hidden-ref">if no TR assess pulmonary pressures with CW Doppler over pulmonary regurg jet in PSAX-aortic view</span></p>
 # PSAX - mid pap
 * Check for septal flattening
 * During systole suggests pressure overload
@@ -32,4 +32,5 @@ Limited RV Assessment
 </details>
 
 <p>&bull; <span class="tappable-ref">TAPSE</span> - M-mode through the lateral part of the tricuspid annulus<span class="hidden-ref">(<17mm suggests dysfunction)</span></p>
+
 
