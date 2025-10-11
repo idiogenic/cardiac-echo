@@ -34,7 +34,8 @@ Standard Echo Protocol
     <p> < 80msec = highly elevated PVR</p>
   </div>
 </details>
-* mPAP - CW Doppler through valve and trace  regurg jet
+* <span class="tappable-ref">mPAP</span><span class="hidden-ref"> - CW Doppler through valve and trace regurg jet</span></p>
+
 
 
 
@@ -128,6 +129,7 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
 * Measurement mid ascending aorta
 
 * ± PEDOF
+
 
 
 
