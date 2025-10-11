@@ -13,9 +13,9 @@ Limited RV Assessment
 <details>
   <summary>Reference Ranges</summary>
   <div>
-    <p>&bull; >120msec is normal</p>
-    <p>&bull; <120msec = elevated PVR</p>
-    <p>&bull; < 80msec = highly elevated PVR</p>
+    <p> >120msec is normal</p>
+    <p> <120msec = elevated PVR</p>
+    <p> < 80msec = highly elevated PVR</p>
   </div>
 </details>
 # Apical 4 chamber view
@@ -32,6 +32,7 @@ Limited RV Assessment
 </details>
 
 <p>&bull; <span class="tappable-ref">TAPSE</span> - M-mode through the lateral part of the tricuspid annulus<span class="hidden-ref">(<17mm suggests dysfunction)</span></p>
+
 
 
 
