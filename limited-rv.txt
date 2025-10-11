@@ -3,6 +3,20 @@ Limited RV Assessment
 * set depth to 20cm, check for pericardial effusion
 * colour Doppler over tricuspid
 * continuous wave doppler over the <span class="tappable-ref">TR jet</span>-> freeze > measure peak velocity -> 4V2 = PASP<span class="hidden-ref">if no TR assess pulmonary pressures with CW Doppler over pulmonary regurg jet in PSAX-aortic view</span></p>
+**RVOT view**
+
+<span class="tappable-ref">mPAP</span><span class="hidden-ref"> - CW Doppler through valve and trace regurg jet</span></p>
+
+* <span class="tappable-ref">Pulmonary artery acceleration time</span><span class="hidden-ref"> - PW Doppler with gate in the pulmonary valve - measure time from beginning of ejection to peak</span></p>
+    <details>
+  <summary>Reference Ranges</summary>
+  <div>
+    <p> >120msec is normal</p>
+    <p> <120msec = elevated PVR</p>
+    <p> < 80msec = highly elevated PVR</p>
+  </div>
+</details>
+
 # PSAX - mid pap
 * Check for septal flattening
 * During systole suggests pressure overload
@@ -18,6 +32,7 @@ Limited RV Assessment
     <p> < 80msec = highly elevated PVR</p>
   </div>
 </details>
+
 # Apical 4 chamber view
 * Tricuspid valve TR jet peak velocity
 * RV chamber quantification at end diastole
@@ -32,6 +47,7 @@ Limited RV Assessment
 </details>
 
 <p>&bull; <span class="tappable-ref">TAPSE</span> - M-mode through the lateral part of the tricuspid annulus<span class="hidden-ref">(<17mm suggests dysfunction)</span></p>
+
 
 
 
