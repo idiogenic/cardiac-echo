@@ -26,7 +26,7 @@ Standard Echo Protocol
 </details>
 * Color Doppler over pulmonary valve
 * <span class="tappable-ref">Pulmonary artery acceleration time</span><span class="hidden-ref"> - PW Doppler with gate in the pulmonary valve - measure time from beginning of ejection to peak</span></p>
-    * <details>
+    <details>
   <summary>Reference Ranges</summary>
   <div>
     <p>&bull; >120msec is normal</p>
@@ -127,6 +127,7 @@ Use when aorta appears dilated in PLAX or if aortic stenosis suspected
 * Measurement mid ascending aorta
 
 * ± PEDOF
+
 
 
 
