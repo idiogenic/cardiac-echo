@@ -15,3 +15,8 @@ Limited LV Assessment
 # Diastolic assessment
 (Ap4C)
 * <span class="tappable-ref">E/A ratio</span><span class="hidden-ref">Pulse wave Doppler with gate between mitral valve leaflet tips</span></p>
+* Tissue Doppler Imaging (TDI)
+* LA Volume Index
+* Peak TR Velocity
+* PV Inflow
+* IVRT
