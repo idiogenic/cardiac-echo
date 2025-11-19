@@ -8,4 +8,10 @@ Limited LV Assessment
 # Apical 5 chamber view
 * LVOT VTI
 # Apical 4 chamber view
+
 * Biplane EF
+
+
+# Diastolic assessment
+(Ap4C)
+* <span class="tappable-ref">E/A ratio</span><span class="hidden-ref">Pulse wave Doppler with gate between mitral valve leaflet tips</span></p>
