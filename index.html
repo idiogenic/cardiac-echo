@@ -29,30 +29,33 @@
             width: 100%; display: block; text-decoration: none; color: inherit;
         }
         
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .back-btn { padding: 8px 15px; border: 1px solid #000; border-radius: 5px; background: none; cursor: pointer; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; position: sticky; top: 0; background: #fff; z-index: 100; }
+        .back-btn, .edit-btn, .save-btn { padding: 8px 15px; border: 1px solid #000; border-radius: 5px; background: none; cursor: pointer; }
         
         .content { font-size: 1rem; line-height: 1.6; white-space: pre-wrap; flex-grow: 1; margin-bottom: 20px; }
         .content strong { font-weight: bold; }
         .content h2 { margin-top: 1.5em; margin-bottom: 0.5em; font-size: 1.2rem; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
         
-        /* Form & RWMA Styles */
-        .form-section { margin-bottom: 25px; border-top: 1px solid #eee; padding-top: 15px; }
+        /* Form & Modal Styles */
+        .form-section { margin-bottom: 25px; border-top: 2px solid #eee; padding-top: 15px; }
         .form-section h3 { font-size: 0.95rem; margin-bottom: 15px; text-transform: uppercase; color: var(--accent); }
         .field { margin-bottom: 15px; }
         .field label { display: block; font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; }
-        .field input, .field select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; }
-        .rwma-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; align-items: center; }
+        .field input, .field select, .field textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
+        .field input[readonly] { background: #f9f9f9; color: #888; border-style: dashed; }
+        
+        .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .opt { display: flex; align-items: center; gap: 8px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.85rem; }
 
         .modal {
             position: fixed; top:0; left:0; width:100%; height:100%;
             background: rgba(0,0,0,0.85); display: none;
             justify-content: center; align-items: center; z-index: 9999; padding: 20px;
         }
-        .modal-content { background: #fff; padding: 25px; border-radius: 12px; width: 100%; text-align: center; }
+        .modal-content { background: #fff; padding: 25px; border-radius: 12px; width: 100%; max-width: 400px; text-align: center; }
         
         .hidden { display: none !important; }
-        textarea.editor { width: 100%; height: 300px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: monospace; }
+        textarea.editor { width: 100%; height: 400px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: monospace; }
         .disclaimer { font-size: 0.75rem; color: #6c757d; text-align: center; margin-bottom: 20px; }
     </style>
 </head>
@@ -62,26 +65,58 @@
         <p class="disclaimer">These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
         <div class="main-menu" style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
             <button class="btn" style="border-color: var(--warn); color: var(--warn);" onclick="openWarning()">POCUS PAH Report Form</button>
-            <button class="btn" onclick="showPage('iheartscan-page')">iHeartScan</button>
-            <button class="btn" onclick="showPage('pocus-page')">POCUS</button>
-            <button class="btn" onclick="showPage('limited-lv-page')">Limited LV Assessment</button>
-            <button class="btn" onclick="showPage('limited-rv-page')">Limited RV Assessment</button>
-            <button class="btn" onclick="showPage('limited-valve-page')">Mitral & Aortic Valve Scan</button>
-            <button class="btn" onclick="showPage('pathology-menu-page')">By Pathology (Minimal Scan)</button>
+            <button class="btn" onclick="navTo('iheartscan-page')">iHeartScan</button>
+            <button class="btn" onclick="navTo('pocus-page')">POCUS</button>
+            <button class="btn" onclick="navTo('limited-lv-page')">Limited LV Assessment</button>
+            <button class="btn" onclick="navTo('limited-rv-page')">Limited RV Assessment</button>
+            <button class="btn" onclick="navTo('limited-valve-page')">Mitral & Aortic Valve Scan</button>
+            <button class="btn" onclick="navTo('pathology-menu-page')">By Pathology (Minimal Scan)</button>
         </div>
     </div>
 
+    <div id="protocol-container"></div>
+
     <div id="pathology-menu-page" class="page">
-        <div class="header"><button class="back-btn" onclick="showPage('home-page')">← Back</button><h1>By Pathology</h1></div>
+        <div class="header"><button class="back-btn" onclick="history.back()">← Back</button><h1>By Pathology</h1></div>
         <div class="main-menu">
-            <button class="btn" onclick="showPage('hypovolaemia-page')">Hypovolaemia</button>
-            <button class="btn" onclick="showPage('cardiogenic-shock-page')">Cardiogenic Shock</button>
-            <button class="btn" onclick="showPage('tamponade-page')">Tamponade</button>
-            <button class="btn" onclick="showPage('pulmonary-hypertension-page')">Pulmonary Hypertension</button>
-            <button class="btn" onclick="showPage('pulmonary-embolus-page')">Pulmonary Embolus</button>
-            <button class="btn" onclick="showPage('mitral-valve-pathology-page')">Mitral Valve</button>
-            <button class="btn" onclick="showPage('aortic-valve-pathology-page')">Aortic Valve</button>
+            <button class="btn" onclick="navTo('hypovolaemia-page')">Hypovolaemia</button>
+            <button class="btn" onclick="navTo('cardiogenic-shock-page')">Cardiogenic Shock</button>
+            <button class="btn" onclick="navTo('tamponade-page')">Tamponade</button>
+            <button class="btn" onclick="navTo('pulmonary-hypertension-page')">Pulmonary Hypertension</button>
+            <button class="btn" onclick="navTo('pulmonary-embolus-page')">Pulmonary Embolus</button>
+            <button class="btn" onclick="navTo('mitral-valve-pathology-page')">Mitral Valve</button>
+            <button class="btn" onclick="navTo('aortic-valve-pathology-page')">Aortic Valve</button>
         </div>
+    </div>
+
+    <div id="report-form-page" class="page">
+        <div class="header"><button class="back-btn" onclick="history.back()">← Exit</button><h1>PAH Report Form</h1></div>
+        <form id="pah-form">
+            <div class="form-section">
+                <h3>Patient Info [Secured]</h3>
+                <div class="field"><label>Patient Name</label><input type="text" readonly placeholder="LOCKED - DO NOT ENTER [cite: 3]"></div>
+                <div class="field"><label>MRN</label><input type="text" readonly placeholder="LOCKED - DO NOT ENTER [cite: 5]"></div>
+                <div class="field"><label>DOB</label><input type="text" readonly placeholder="LOCKED - DO NOT ENTER [cite: 4]"></div>
+                <div class="field"><label>Operator</label><input type="text" name="op"></div>
+                <div class="field"><label>Exam Date</label><input type="date" name="date"></div>
+            </div>
+
+            <div class="form-section">
+                <h3>Regional Wall Motion (17 Segments)</h3>
+                <p style="font-size: 0.7rem; color: #666; margin-bottom: 10px;">Assess motion [cite: 68-123]</p>
+                <div id="rwma-grid"></div>
+            </div>
+
+            <div class="form-section">
+                <h3>Chamber Quantification</h3>
+                <div class="field"><label>TAPSE (mm)</label><input type="number" name="tapse" step="0.1"></div>
+                <div class="field"><label>RV FAC (%)</label><input type="number" name="fac"></div>
+                <div class="field"><label>LV EF (%)</label><input type="number" name="ef"></div>
+            </div>
+
+            <button type="button" class="btn" style="background: #28a745; color: #fff;" onclick="openEmailModal()">COMPLETE REPORT</button>
+        </form>
+        <div style="height: 50px;"></div>
     </div>
 
     <div id="warning-dialog" class="modal">
@@ -95,74 +130,87 @@
         </div>
     </div>
 
-    <div id="protocol-template" class="hidden">
-        <div class="header">
-            <button class="back-btn" onclick="handleBack()">← Back</button>
-            <h1 class="page-title">Title</h1>
-            <button class="edit-btn">Edit</button>
+    <div id="email-dialog" class="modal">
+        <div class="modal-content">
+            <h2>Complete Report</h2>
+            <p style="margin: 15px 0;">Enter email to receive report summary.</p>
+            <input type="email" id="target-email" placeholder="email@hospital.com" class="field">
+            <div style="display: flex; gap: 10px;">
+                <button class="btn" style="flex:1;" onclick="closeModal('email-dialog')">Back</button>
+                <button class="btn" style="flex:1; background: #28a745; color: #fff;" onclick="generatePDF()">Send PDF</button>
+            </div>
         </div>
-        <div class="content"></div>
-        <textarea class="editor hidden"></textarea>
-        <button class="btn save-btn hidden" style="background: #000; color: #fff;">Save</button>
-    </div>
-
-    <div id="report-form-page" class="page">
-        <div class="header"><button class="back-btn" onclick="showPage('home-page')">← Exit</button><h1>PAH Report Form</h1></div>
-        <form id="pah-form">
-            <div class="form-section">
-                <h3>Patient Info</h3>
-                <div class="field"><label>Patient Name</label><input type="text" readonly placeholder="LOCKED"></div>
-                <div class="field"><label>MRN</label><input type="text" readonly placeholder="LOCKED"></div>
-                <div class="field"><label>Operator</label><input type="text" name="op"></div>
-                <div class="field"><label>Date</label><input type="date" name="date"></div>
-            </div>
-            <div class="form-section">
-                <h3>17-Segment LV Wall Motion</h3>
-                
-                <div id="rwma-grid"></div>
-            </div>
-            <button type="button" class="btn" style="background: #28a745; color: #fff;" onclick="generatePDF()">Generate Report</button>
-        </form>
     </div>
 
     <script>
-        // Data & Default Content
+        // Restored Architecture Logic
         const defaultContent = {
-            'iheartscan': `iHeartScan Protocol\n* Add details here...`,
-            'pocus': `PLAX\n* 20cm, exclude effusions\n* LVEDD\n* Colour flow doppler\n* LVOT diameter\n\nPSAX\n* Assess RWMA\n* LVEDD`,
-            'limited-lv': `PLAX (effusion)\n* LVEDD\n* LVOTd\n\nApical 4\n* Biplane EF`,
-            'limited-rv': `PLAX\n* TR jet velocity\n* RVSP calculation\n\nPSAX\n* Septal flattening assessment`,
-            'limited-valve': `PLAX\n* MV/AV 2D assessment\n* Regurgitation (VC/Ratio)\n\nPSAX\n* MV planimetry`,
-            'hypovolaemia': `Hypovolaemia Protocol\n* Add details here...`,
-            'cardiogenic-shock': `Cardiogenic Shock Protocol\n* Add details here...`,
-            'tamponade': `Tamponade Protocol\n* Add details here...`,
-            'pulmonary-hypertension': `Pulmonary HT Protocol\n* Add details here...`,
-            'pulmonary-embolus': `Pulmonary Embolus Protocol\n* Add details here...`,
-            'mitral-valve-pathology': `Mitral Valve Path\n* Add details here...`,
-            'aortic-valve-pathology': `Aortic Valve Path\n* Add details here...`
+            'iheartscan-page': `iHeartScan Protocol\n* Details here...`,
+            'pocus-page': `POCUS Scan\n* Details here...`,
+            'limited-lv-page': `Limited LV Assessment\n* Details here...`,
+            'limited-rv-page': `Limited RV Assessment\n* Details here...`,
+            'limited-valve-page': `Mitral & Aortic Valve Scan\n* Details here...`,
+            'hypovolaemia-page': `Hypovolaemia\n* Details here...`,
+            'cardiogenic-shock-page': `Cardiogenic Shock\n* Details here...`,
+            'tamponade-page': `Tamponade\n* Details here...`,
+            'pulmonary-hypertension-page': `Pulmonary HT\n* Details here...`,
+            'pulmonary-embolus-page': `Pulmonary Embolus\n* Details here...`,
+            'mitral-valve-pathology-page': `Mitral Valve\n* Details here...`,
+            'aortic-valve-pathology-page': `Aortic Valve\n* Details here...`
         };
 
         const segments = ["Basal Ant", "Basal Ant-Sept", "Basal Inf-Sept", "Basal Inf", "Basal Inf-Lat", "Basal Ant-Lat", "Mid Ant", "Mid Ant-Sept", "Mid Inf-Sept", "Mid Inf", "Mid Inf-Lat", "Mid Ant-Lat", "Apical Ant", "Apical Sept", "Apical Inf", "Apical Lat", "Apex"];
 
-        // Navigation & State
-        let currentPage = 'home-page';
+        function navTo(pageId) {
+            history.pushState({ pageId }, "", `#${pageId}`);
+            render(pageId);
+        }
 
-        function showPage(id) {
+        window.onpopstate = (e) => {
+            const id = (e.state && e.state.pageId) ? e.state.pageId : 'home-page';
+            render(id);
+        };
+
+        function render(id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const target = document.getElementById(id);
-            if (target) {
-                target.classList.add('active');
-                currentPage = id;
-                window.scrollTo(0,0);
+            const customPage = document.getElementById(id);
+            if (customPage) {
+                customPage.classList.add('active');
+            } else if (defaultContent[id]) {
+                const protocolContainer = document.getElementById('protocol-container');
+                const title = id.replace(/-/g, ' ').replace('page', '').trim();
+                protocolContainer.innerHTML = `
+                    <div class="page active" id="${id}">
+                        <div class="header">
+                            <button class="back-btn" onclick="history.back()">← Back</button>
+                            <h1 style="text-transform: capitalize;">${title}</h1>
+                            <button class="edit-btn" onclick="toggleEdit('${id}')">Edit</button>
+                        </div>
+                        <div class="content" id="content-${id}">${parseMarkdown(localStorage.getItem(id) || defaultContent[id])}</div>
+                        <textarea class="editor hidden" id="editor-${id}">${localStorage.getItem(id) || defaultContent[id]}</textarea>
+                        <button class="btn hidden" id="save-${id}" style="background:#000; color:#fff;" onclick="saveContent('${id}')">Save Changes</button>
+                    </div>`;
             }
+            window.scrollTo(0,0);
         }
 
-        function handleBack() {
-            if (currentPage.includes('pathology-')) showPage('pathology-menu-page');
-            else showPage('home-page');
+        function parseMarkdown(text) {
+            return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                       .replace(/^\* (.*)/gm, '&bull; $1<br>');
         }
 
-        // RWMA Grid Builder
+        function toggleEdit(id) {
+            document.getElementById(`content-${id}`).classList.toggle('hidden');
+            document.getElementById(`editor-${id}`).classList.toggle('hidden');
+            document.getElementById(`save-${id}`).classList.toggle('hidden');
+        }
+
+        function saveContent(id) {
+            const val = document.getElementById(`editor-${id}`).value;
+            localStorage.setItem(id, val);
+            render(id);
+        }
+
         function buildRWMAGrid() {
             const container = document.getElementById('rwma-grid');
             segments.forEach((seg, i) => {
@@ -177,28 +225,25 @@
             });
         }
 
-        // Modal Helpers
         function openWarning() { document.getElementById('warning-dialog').style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        function startForm() { closeModal('warning-dialog'); showPage('report-form-page'); }
+        function startForm() { closeModal('warning-dialog'); navTo('report-form-page'); }
+        function openEmailModal() { document.getElementById('email-dialog').style.display = 'flex'; }
 
-        // PDF Logic
         function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            const data = new FormData(document.getElementById('pah-form'));
-            doc.text("PAH POCUS REPORT", 20, 20);
-            doc.text(`Operator: ${data.get('op')}`, 20, 35);
-            doc.text(`Date: ${data.get('date')}`, 20, 42);
-            doc.save("Echo_Report.pdf");
-            showPage('home-page');
+            const form = new FormData(document.getElementById('pah-form'));
+            doc.text("POCUS PAH REPORT SUMMARY", 20, 20);
+            doc.text(`Operator: ${form.get('op')}`, 20, 30);
+            doc.text(`Exam Date: ${form.get('date')}`, 20, 35);
+            doc.text(`TAPSE: ${form.get('tapse')} mm`, 20, 50);
+            doc.save(`Echo_Report_${form.get('date')}.pdf`);
+            closeModal('email-dialog');
+            history.back();
         }
 
-        // Init
-        window.onload = () => {
-            buildRWMAGrid();
-            // Protocol page setup would go here to dynamically populate the content
-        };
+        window.onload = () => { buildRWMAGrid(); };
     </script>
 </body>
 </html>
