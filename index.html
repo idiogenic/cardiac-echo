@@ -47,7 +47,7 @@
         .hidden { display: none !important; }
         .disclaimer { font-size: 0.75rem; color: #6c757d; text-align: center; margin-bottom: 30px; padding: 0 20px; flex-shrink: 0; }
 
-        /* --- REPORT FORM STYLES (No changes to existing styles) --- */
+        /* --- REPORT FORM STYLES --- */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center; padding: 20px; }
         .modal-content { background: white; padding: 30px; border-radius: 12px; width: 100%; max-width: 400px; text-align: center; }
         .form-section { margin-bottom: 25px; border-top: 1px solid #eee; padding-top: 15px; }
@@ -107,39 +107,71 @@
         </div>
         <form id="pah-form">
             <div class="form-section">
-                [cite_start]<h3>Patient Info (Locked) [cite: 2-5]</h3>
+                <h3>Patient Info (Locked)</h3>
                 <div class="input-group"><label>Name</label><input type="text" readonly placeholder="LOCKED"></div>
                 <div class="input-group"><label>MRN</label><input type="text" readonly placeholder="LOCKED"></div>
                 <div class="input-group"><label>DOB</label><input type="text" readonly placeholder="LOCKED"></div>
-                [cite_start]<div class="input-group"><label>Operator [cite: 6]</label><input type="text" name="operator"></div>
-                [cite_start]<div class="input-group"><label>Exam Date [cite: 7]</label><input type="date" name="date"></div>
+                <div class="input-group"><label>Operator</label><input type="text" name="operator"></div>
+                <div class="input-group"><label>Exam Date</label><input type="date" name="date"></div>
             </div>
 
             <div class="form-section">
-                [cite_start]<h3>Context [cite: 34-37]</h3>
+                <h3>Context</h3>
+                <div class="input-group"><label>Medical History / Hemodynamic Therapy</label><textarea name="history" rows="2"></textarea></div>
                 <div class="check-grid">
-                    <label class="check-item"><input type="checkbox" name="cq" value="Instability"> Instability</label>
+                    <label class="check-item"><input type="checkbox" name="cq" value="Hemodynamic instability"> Instability</label>
                     <label class="check-item"><input type="checkbox" name="cq" value="LV Evaluation"> LV Eval</label>
                     <label class="check-item"><input type="checkbox" name="cq" value="RV Evaluation"> RV Eval</label>
+                    <label class="check-item"><input type="checkbox" name="cq" value="Pulmonary Pressure"> Pulmonary Pressure</label>
+                    <label class="check-item"><input type="checkbox" name="cq" value="Volume Status"> Volume Status</label>
+                    <label class="check-item"><input type="checkbox" name="cq" value="Valvulopathy"> Valvulopathy</label>
                     <label class="check-item"><input type="checkbox" name="cq" value="Cardiac Arrest"> Arrest</label>
                 </div>
                 <div class="input-group" style="margin-top:15px;">
-                    [cite_start]<label>Ventilation [cite: 11]</label>
-                    <select name="ventilation"><option>Spontaneous</option><option>Mechanical</option></select>
+                    <label>Ventilation</label>
+                    <select name="ventilation"><option value="Spontaneous">Spontaneous</option><option value="Mechanical Ventilation">Mechanical Ventilation</option></select>
+                </div>
+                <div class="input-group">
+                    <label>Image Quality</label>
+                    <select name="img_quality"><option value="Excellent">Excellent</option><option value="Satisfactory">Satisfactory</option><option value="Poor">Poor</option><option value="Very Poor">Very Poor</option></select>
                 </div>
             </div>
 
             <div class="form-section">
-                [cite_start]<h3>17-Segment RWMA [cite: 68-123]</h3>
-                
+                <h3>PLAX / PSAX Measurements</h3>
+                <div class="input-group"><label>Pericardial Effusion (20cm)</label><select name="plax_eff"><option value="None">None</option><option value="<0.5cm"><0.5cm</option><option value="0.5-2cm">0.5-2cm</option><option value=">2cm">>2cm</option></select></div>
+                <div class="input-group"><label>LV End-Diastolic Diameter</label><select name="lv_edd"><option value="35-55mm (Normal)">35-55mm (Normal)</option><option value="<35mm (Small)"><35mm (Small)</option><option value=">55mm (Dilated)">>55mm (Dilated)</option></select></div>
+                <div class="input-group"><label>RV Septal Flattening</label><select name="septum"><option value="None">None</option><option value="During Systole">During Systole</option><option value="During Diastole">During Diastole</option><option value="Fixed">Fixed</option></select></div>
+                <div class="input-group"><label>TR Jet Peak Velocity (m/s)</label><input type="number" step="0.1" name="tr_vel"></div>
+                <div class="input-group"><label>RVSP (4V² + RAp)</label><input type="number" name="rvsp"></div>
+            </div>
+
+            <div class="form-section">
+                <h3>17-Segment RWMA</h3>
                 <div id="rwma-grid"></div>
             </div>
 
             <div class="form-section">
-                [cite_start]<h3>Quantification [cite: 148, 160]</h3>
+                <h3>Apical / Quantification</h3>
                 <div class="input-group"><label>TAPSE (mm)</label><input type="number" name="tapse" step="0.1"></div>
-                <div class="input-group"><label>LV EF (%)</label><select name="ef"><option>Normal (>50%)</option><option>Mild (40-50%)</option><option>Mod (30-40%)</option><option>Severe (<30%)</option></select></div>
-                [cite_start]<div class="input-group"><label>RVSP (mmHg) [cite: 56]</label><input type="number" name="rvsp"></div>
+                <div class="input-group"><label>RV FAC (%)</label><input type="number" name="rv_fac"></div>
+                <div class="input-group"><label>LV Ejection Fraction (%)</label><select name="ef"><option value=">50% (Normal)">>50% (Normal)</option><option value="40-50% (Mildly Reduced)">40-50% (Mildly Reduced)</option><option value="30-40% (Moderately Reduced)">30-40% (Moderately Reduced)</option><option value="<30% (Severely Reduced)"><30% (Severely Reduced)</option></select></div>
+                <div class="input-group"><label>IVC Diameter (cm)</label><select name="ivc_d"><option value="<2.1cm"><2.1cm</option><option value=">2.1cm">>2.1cm</option></select></div>
+                <div class="input-group"><label>IVC Sniff Variation</label><select name="ivc_v"><option value=">50% sniff variation">>50% sniff variation</option><option value="<50% sniff variation"><50% sniff variation</option></select></div>
+            </div>
+
+            <div class="form-section">
+                <h3>Summary Findings</h3>
+                <div class="input-group"><label>Final Haemodynamic State</label>
+                    <div class="check-grid">
+                        <label class="check-item"><input type="checkbox" name="haemo" value="Hypovolaemia"> Hypovolaemia</label>
+                        <label class="check-item"><input type="checkbox" name="haemo" value="LV systolic failure"> LV Failure</label>
+                        <label class="check-item"><input type="checkbox" name="haemo" value="RV systolic failure"> RV Failure</label>
+                        <label class="check-item"><input type="checkbox" name="haemo" value="Vasoplegia"> Vasoplegia</label>
+                        <label class="check-item"><input type="checkbox" name="haemo" value="Obstructive shock"> Obstructive Shock</label>
+                        <label class="check-item"><input type="checkbox" name="haemo" value="LVOTO/SAM"> LVOTO/SAM</label>
+                    </div>
+                </div>
             </div>
 
             <div class="btn" id="btn-complete" style="background:#28a745; color:white; font-weight:bold;">COMPLETE REPORT</div>
@@ -165,16 +197,15 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const segments = ["Basal Ant", "Basal Ant-Sept", "Basal Inf-Sept", "Basal Inf", "Basal Inf-Lat", "Basal Ant-Lat", "Mid Ant", "Mid Ant-Sept", "Mid Inf-Sept", "Mid Inf", "Mid Inf-Lat", "Mid Ant-Lat", "Apical Ant", "Apical Sept", "Apical Inf", "Apical Lat", "Apex"];
+        const segments = ["Basal Anterior (LAD)", "Basal Anteroseptal (LAD)", "Basal Inferoseptal (RCA)", "Basal Inferior (RCA)", "Basal Inferolateral (LCX)", "Basal Anterolateral (LCX)", "Mid Anterior (LAD)", "Mid Anteroseptal (LAD)", "Mid Inferoseptal (RCA)", "Mid Inferior (RCA)", "Mid Inferolateral (LCX)", "Mid Anterolateral (LCX)", "Apical Anterior (LAD)", "Apical Septal (LAD)", "Apical Inferior (RCA)", "Apical Lateral (LCX)", "Apex"];
         let currentPageId = 'home-page';
         const contentCache = {};
 
         const init = () => {
             setupEventListeners();
             registerServiceWorker();
-            // Generate RWMA Grid
             const grid = document.getElementById('rwma-grid');
-            if(grid) segments.forEach((s, i) => grid.innerHTML += `<div class="rwma-row"><span>${s}</span><select name="seg_${i}"><option>Normal</option><option>Hypo</option><option>Akin</option><option>Dysk</option></select></div>`);
+            if(grid) segments.forEach((s, i) => grid.innerHTML += `<div class="rwma-row"><span>${s}</span><select name="seg_${i}"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>`);
             history.replaceState({ page: 'home-page' }, '', '#home');
         };
 
@@ -273,13 +304,58 @@
         const generatePDF = () => {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            const form = new FormData(document.getElementById('pah-form'));
-            doc.text("POCUS PAH REPORT", 20, 20);
+            const form = document.getElementById('pah-form');
+            const data = new FormData(form);
+            const email = document.getElementById('target-email').value;
+
+            doc.setFontSize(16);
+            doc.text("PAH POCUS CARDIAC ECHO REPORT", 20, 20);
             doc.setFontSize(10);
-            doc.text(`Operator: ${form.get('operator')}`, 20, 30);
-            doc.text(`Date: ${form.get('date')}`, 20, 35);
-            doc.text(`TAPSE: ${form.get('tapse')}mm`, 20, 45);
-            doc.save(`Echo_Report_${form.get('date')}.pdf`);
+            doc.text(`Operator: ${data.get('operator')}`, 20, 30);
+            doc.text(`Date: ${data.get('date')}`, 20, 35);
+            doc.line(20, 38, 190, 38);
+
+            doc.setFontSize(12);
+            doc.text("CONTEXT", 20, 45);
+            doc.setFontSize(10);
+            const questions = Array.from(document.querySelectorAll('input[name="cq"]:checked')).map(cb => cb.value).join(', ');
+            doc.text(`Clinical Question: ${questions}`, 20, 52);
+            doc.text(`Ventilation: ${data.get('ventilation')}`, 20, 57);
+            doc.text(`Image Quality: ${data.get('img_quality')}`, 20, 62);
+            
+            doc.setFontSize(12);
+            doc.text("SCAN FINDINGS", 20, 72);
+            doc.setFontSize(10);
+            doc.text(`Pericardial Effusion: ${data.get('plax_eff')}`, 20, 79);
+            doc.text(`LV EDD: ${data.get('lv_edd')}`, 20, 84);
+            doc.text(`RV Septum: ${data.get('septum')}`, 20, 89);
+            doc.text(`RVSP: ${data.get('rvsp')} mmHg (TR Vel: ${data.get('tr_vel')} m/s)`, 20, 94);
+            doc.text(`TAPSE: ${data.get('tapse')} mm`, 20, 99);
+            doc.text(`RV FAC: ${data.get('rv_fac')}%`, 20, 104);
+            doc.text(`LV EF: ${data.get('ef')}`, 20, 109);
+            doc.text(`IVC: ${data.get('ivc_d')} with ${data.get('ivc_v')}`, 20, 114);
+
+            doc.setFontSize(12);
+            doc.text("RWMA (NON-NORMAL SEGMENTS)", 20, 124);
+            doc.setFontSize(9);
+            let y = 131;
+            segments.forEach((seg, i) => {
+                const motion = data.get(`seg_${i}`);
+                if (motion !== "Normal") {
+                    doc.text(`${seg}: ${motion}`, 25, y);
+                    y += 5;
+                }
+            });
+            if (y === 131) doc.text("All 17 segments are normal.", 25, y);
+
+            doc.setFontSize(12);
+            doc.text("SUMMARY", 20, y + 15);
+            doc.setFontSize(10);
+            const states = Array.from(document.querySelectorAll('input[name="haemo"]:checked')).map(cb => cb.value).join(', ');
+            doc.text(`Haemodynamic State: ${states}`, 20, y + 22);
+
+            doc.save(`Echo_Report_${data.get('date') || 'export'}.pdf`);
+            alert("Report Generated. Attach PDF manually to: " + email);
             document.getElementById('email-modal').style.display = 'none';
             history.back();
         };
