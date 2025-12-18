@@ -57,7 +57,7 @@
 <body>
 
     <div id="home-page" class="page active">
-        <p class="disclaimer">v20. These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
+        <p class="disclaimer">V21. These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
         <div class="main-menu">
             <div class="btn" id="pah-trigger" style="border-color: #d93025; color: #d93025;">POCUS PAH Report Form</div>
             <div class="btn" data-page="iheartscan">iHeartScan</div>
@@ -84,9 +84,7 @@
     <div id="pah-report-page" class="page">
         <div class="header"><button class="back-btn">&lt; Back</button><h1>PAH Report Form</h1></div>
         <form id="pah-form">
-            <div id="dynamic-form-container">
-                <p>Loading form fields...</p>
-            </div>
+            <div id="dynamic-form-container"><p>Loading form fields...</p></div>
             <div class="btn" id="btn-complete" style="background:#28a745; color:white; font-weight:bold; margin-top:20px;">COMPLETE & SHARE</div>
         </form>
         <div style="height:60px;"></div>
@@ -106,11 +104,11 @@
     document.addEventListener('DOMContentLoaded', () => {
         let currentPageId = 'home-page';
         const contentCache = {};
+        let formMetadata = []; 
 
         const init = () => {
             setupEventListeners();
             history.replaceState({ page: 'home-page' }, '', '#home');
-            // Fetch the exhaustive structure (Strategy 2)
             loadFormStructure();
         };
 
@@ -118,10 +116,9 @@
             try {
                 const response = await fetch('form-structure.json');
                 const structure = await response.json();
+                formMetadata = structure.sections.flatMap(s => s.fields).filter(f => f.calculation);
                 buildForm(structure);
-            } catch (error) {
-                console.error("Failed to load form-structure.json", error);
-            }
+            } catch (error) { console.error("JSON Load Error", error); }
         };
 
         const buildForm = (structure) => {
@@ -131,9 +128,11 @@
                 let html = `<div class="form-section"><h3>${section.title}</h3>`;
                 section.fields.forEach(field => {
                     if (field.type === "text" || field.type === "number" || field.type === "date") {
-                        html += `<div class="input-group"><label>${field.label}</label><input type="${field.type}" name="${field.id}" ${field.readonly ? 'readonly' : ''} placeholder="${field.placeholder || ''}"></div>`;
+                        html += `<div class="input-group"><label>${field.label}</label><input type="${field.type}" name="${field.id}" id="${field.id}" ${field.readonly ? 'readonly' : ''} placeholder="${field.placeholder || ''}"></div>`;
+                    } else if (field.type === "textarea") {
+                        html += `<div class="input-group"><label>${field.label}</label><textarea name="${field.id}" id="${field.id}" rows="4"></textarea></div>`;
                     } else if (field.type === "select") {
-                        html += `<div class="input-group"><label>${field.label}</label><select name="${field.id}">${field.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}</select></div>`;
+                        html += `<div class="input-group"><label>${field.label}</label><select name="${field.id}" id="${field.id}">${field.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}</select></div>`;
                     } else if (field.type === "checkbox-group") {
                         html += `<div class="input-group"><label>${field.label}</label><div class="check-grid">${field.options.map(opt => `<label class="check-item"><input type="checkbox" name="${field.id}" value="${opt}"> ${opt}</label>`).join('')}</div></div>`;
                     } else if (field.type === "rwma-grid") {
@@ -143,10 +142,36 @@
                 html += `</div>`;
                 container.innerHTML += html;
             });
-            // Inject RWMA Logic
+
+            // RWMA Grid Injection
             const segments = ["Basal Anterior (LAD)", "Basal Anteroseptal (LAD)", "Basal Inferoseptal (RCA)", "Basal Inferior (RCA)", "Basal Inferolateral (LCX)", "Basal Anterolateral (LCX)", "Mid Anterior (LAD)", "Mid Anteroseptal (LAD)", "Mid Inferoseptal (RCA)", "Mid Inferior (RCA)", "Mid Inferolateral (LCX)", "Mid Anterolateral (LCX)", "Apical Anterior (LAD)", "Apical Septal (LAD)", "Apical Inferior (RCA)", "Apical Lateral (LCX)", "Apex"];
             const grid = document.getElementById('rwma-grid');
             if(grid) segments.forEach((s, i) => grid.innerHTML += `<div class="rwma-row"><span>${s}</span><select name="seg_${i}"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>`);
+
+            // Attach Calculation Engine listener
+            container.addEventListener('input', handleCalculations);
+        };
+
+        const handleCalculations = () => {
+            formMetadata.forEach(field => {
+                const targetInput = document.getElementById(field.id);
+                if (targetInput) {
+                    try {
+                        const formula = field.calculation;
+                        const variables = formula.match(/[a-z_]+/g) || [];
+                        let evaluatedFormula = formula;
+                        
+                        variables.forEach(v => {
+                            if (v === 'Math' || v === 'pow') return;
+                            const val = parseFloat(document.getElementById(v)?.value) || 0;
+                            evaluatedFormula = evaluatedFormula.replace(new RegExp(`\\b${v}\\b`, 'g'), val);
+                        });
+
+                        const result = eval(evaluatedFormula);
+                        targetInput.value = result > 0 ? result.toFixed(1) : "";
+                    } catch (e) { console.error("Calculation Error", e); }
+                }
+            });
         };
 
         const setupEventListeners = () => {
@@ -161,14 +186,12 @@
                     renderPage('pah-report');
                 }
                 if (event.target.id === 'btn-complete') {
-                    // Call external generator (Option A)
                     if (window.generateAndSharePDF) window.generateAndSharePDF();
                 }
                 if (event.target.closest('.back-btn')) history.back();
             });
         };
 
-        // Existing parseMarkdown and loadContent logic (Unchanged line-by-line)
         const parseMarkdown = (text) => {
             const lines = text.split('\n');
             let html = '';
