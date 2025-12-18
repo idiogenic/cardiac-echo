@@ -4,56 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Echo Protocols</title>
-
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#FFFFFF">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="white">
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    
     <style>
-        :root {
-            --bg: #FFFFFF; --txt: #000000; --btn-bg: #f0f0f0; --warn: #d93025; --border: #000000; --accent: #007AFF;
-        }
+        :root { --bg: #FFFFFF; --txt: #000000; --btn-bg: #f0f0f0; --warn: #d93025; --border: #000000; --accent: #007AFF; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: -apple-system, sans-serif; background: var(--bg); color: var(--txt); line-height: 1.4; }
-        
         .page { display: none; padding: 20px; flex-direction: column; min-height: 100vh; }
         .page.active { display: flex; }
-
-        .btn {
-            padding: 18px; font-size: 1.1rem; text-align: center;
-            border: 2px solid var(--border); border-radius: 8px;
-            background: var(--btn-bg); margin-bottom: 12px; cursor: pointer;
-            width: 100%; display: block; text-decoration: none; color: inherit;
-        }
-        
+        .btn { padding: 18px; font-size: 1.1rem; text-align: center; border: 2px solid var(--border); border-radius: 8px; background: var(--btn-bg); margin-bottom: 12px; cursor: pointer; width: 100%; display: block; color: inherit; }
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; position: sticky; top: 0; background: #fff; z-index: 100; }
         .back-btn, .edit-btn, .save-btn { padding: 8px 15px; border: 1px solid #000; border-radius: 5px; background: none; cursor: pointer; }
-        
         .content { font-size: 1rem; line-height: 1.6; white-space: pre-wrap; flex-grow: 1; margin-bottom: 20px; }
         .content strong { font-weight: bold; }
         .content h2 { margin-top: 1.5em; margin-bottom: 0.5em; font-size: 1.2rem; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
-        
-        /* Form & Modal Styles */
-        .form-section { margin-bottom: 25px; border-top: 2px solid #eee; padding-top: 15px; }
+        .form-section { margin-bottom: 25px; border-top: 1px solid #eee; padding-top: 15px; }
         .form-section h3 { font-size: 0.95rem; margin-bottom: 15px; text-transform: uppercase; color: var(--accent); }
         .field { margin-bottom: 15px; }
         .field label { display: block; font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; }
-        .field input, .field select, .field textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
-        .field input[readonly] { background: #f9f9f9; color: #888; border-style: dashed; }
-        
-        .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .opt { display: flex; align-items: center; gap: 8px; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.85rem; }
-
-        .modal {
-            position: fixed; top:0; left:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.85); display: none;
-            justify-content: center; align-items: center; z-index: 9999; padding: 20px;
-        }
+        .field input, .field select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; }
+        .rwma-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; align-items: center; }
+        .modal { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 9999; padding: 20px; }
         .modal-content { background: #fff; padding: 25px; border-radius: 12px; width: 100%; max-width: 400px; text-align: center; }
-        
         .hidden { display: none !important; }
         textarea.editor { width: 100%; height: 400px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: monospace; }
         .disclaimer { font-size: 0.75rem; color: #6c757d; text-align: center; margin-bottom: 20px; }
@@ -93,156 +68,78 @@
         <div class="header"><button class="back-btn" onclick="history.back()">← Exit</button><h1>PAH Report Form</h1></div>
         <form id="pah-form">
             <div class="form-section">
-                <h3>Patient Info [Secured]</h3>
-                <div class="field"><label>Patient Name</label><input type="text" readonly placeholder="LOCKED - DO NOT ENTER [cite: 3]"></div>
-                <div class="field"><label>MRN</label><input type="text" readonly placeholder="LOCKED - DO NOT ENTER [cite: 5]"></div>
-                <div class="field"><label>DOB</label><input type="text" readonly placeholder="LOCKED - DO NOT ENTER [cite: 4]"></div>
+                <h3>Patient Info [cite: 2-5]</h3>
+                <div class="field"><label>Patient Name</label><input type="text" readonly placeholder="LOCKED"></div>
+                <div class="field"><label>MRN</label><input type="text" readonly placeholder="LOCKED"></div>
+                <div class="field"><label>DOB</label><input type="text" readonly placeholder="LOCKED"></div>
                 <div class="field"><label>Operator</label><input type="text" name="op"></div>
                 <div class="field"><label>Exam Date</label><input type="date" name="date"></div>
             </div>
-
             <div class="form-section">
-                <h3>Regional Wall Motion (17 Segments)</h3>
-                <p style="font-size: 0.7rem; color: #666; margin-bottom: 10px;">Assess motion [cite: 68-123]</p>
+                <h3>17-Segment LV Wall Motion [cite: 68-123]</h3>
+                
                 <div id="rwma-grid"></div>
             </div>
-
             <div class="form-section">
-                <h3>Chamber Quantification</h3>
-                <div class="field"><label>TAPSE (mm)</label><input type="number" name="tapse" step="0.1"></div>
-                <div class="field"><label>RV FAC (%)</label><input type="number" name="fac"></div>
-                <div class="field"><label>LV EF (%)</label><input type="number" name="ef"></div>
+                <h3>Quantification</h3>
+                <div class="field"><label>TAPSE (mm) [cite: 148]</label><input type="number" name="tapse" step="0.1"></div>
+                <div class="field"><label>RV FAC (%) [cite: 159]</label><input type="number" name="fac"></div>
+                <div class="field"><label>LV EF (%) [cite: 160]</label><input type="number" name="ef"></div>
             </div>
-
             <button type="button" class="btn" style="background: #28a745; color: #fff;" onclick="openEmailModal()">COMPLETE REPORT</button>
         </form>
-        <div style="height: 50px;"></div>
     </div>
 
-    <div id="warning-dialog" class="modal">
-        <div class="modal-content">
-            <h2 style="color: var(--warn);">⚠️ WARNING</h2>
-            <p style="margin: 15px 0;">This is an unsecure form. Do not enter sensitive patient details (Names, MRNs, or DOBs).</p>
-            <div style="display: flex; gap: 10px;">
-                <button class="btn" style="flex:1;" onclick="closeModal('warning-dialog')">Cancel</button>
-                <button class="btn" style="flex:1; background: #000; color: #fff;" onclick="startForm()">Acknowledged</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="email-dialog" class="modal">
-        <div class="modal-content">
-            <h2>Complete Report</h2>
-            <p style="margin: 15px 0;">Enter email to receive report summary.</p>
-            <input type="email" id="target-email" placeholder="email@hospital.com" class="field">
-            <div style="display: flex; gap: 10px;">
-                <button class="btn" style="flex:1;" onclick="closeModal('email-dialog')">Back</button>
-                <button class="btn" style="flex:1; background: #28a745; color: #fff;" onclick="generatePDF()">Send PDF</button>
-            </div>
-        </div>
-    </div>
+    <div id="warning-dialog" class="modal"><div class="modal-content"><h2 style="color: var(--warn);">⚠️ WARNING</h2><p style="margin: 15px 0;">This is an unsecure form. Do not enter sensitive patient details (Names, MRNs, or DOBs).</p><div style="display: flex; gap: 10px;"><button class="btn" style="flex:1;" onclick="closeModal('warning-dialog')">Cancel</button><button class="btn" style="flex:1; background: #000; color: #fff;" onclick="startForm()">Acknowledged</button></div></div></div>
+    <div id="email-dialog" class="modal"><div class="modal-content"><h2>Complete Report</h2><p style="margin: 15px 0;">Enter email to receive summary.</p><input type="email" id="target-email" class="field"><div style="display: flex; gap: 10px;"><button class="btn" style="flex:1;" onclick="closeModal('email-dialog')">Back</button><button class="btn" style="flex:1; background: #28a745; color: #fff;" onclick="generatePDF()">Generate PDF</button></div></div></div>
 
     <script>
-        // Restored Architecture Logic
-        const defaultContent = {
-            'iheartscan-page': `iHeartScan Protocol\n* Details here...`,
-            'pocus-page': `POCUS Scan\n* Details here...`,
-            'limited-lv-page': `Limited LV Assessment\n* Details here...`,
-            'limited-rv-page': `Limited RV Assessment\n* Details here...`,
-            'limited-valve-page': `Mitral & Aortic Valve Scan\n* Details here...`,
-            'hypovolaemia-page': `Hypovolaemia\n* Details here...`,
-            'cardiogenic-shock-page': `Cardiogenic Shock\n* Details here...`,
-            'tamponade-page': `Tamponade\n* Details here...`,
-            'pulmonary-hypertension-page': `Pulmonary HT\n* Details here...`,
-            'pulmonary-embolus-page': `Pulmonary Embolus\n* Details here...`,
-            'mitral-valve-pathology-page': `Mitral Valve\n* Details here...`,
-            'aortic-valve-pathology-page': `Aortic Valve\n* Details here...`
+        const protocols = {
+            'iheartscan-page': { title: 'iHeartScan', content: `**iHeartScan Basic Scan**\n\n* Parasternal Long Axis\n* Parasternal Short Axis\n* Apical 4 Chamber\n* Subcostal 4 Chamber\n* Subcostal IVC` },
+            'pocus-page': { title: 'POCUS', content: `**PLAX**\n* 20cm, exclude effusions\n* LVEDD\n* Colour flow doppler mitral and aortic valves\n* LVOT diameter\n* Aortic valve opening\n\n**PLAX - RV inflow**\n* TR jet assessment\n* RVSP estimation\n\n**PSAX**\n* Assess RWMA\n* LVEDD\n\n**Apical 4 / 5 chamber view**\n* LV - Simpsons biplane (if no MR on PLAX), LVOT VTI - pulsed wave with cursor in LVOT\n* RV - dimensions and fractional area change, TAPSE with M-mode over lateral edge of tricuspid annulus\n* Mitral valve - colour flow doppler, continuous wave doppler over inflow\n* Aortic valve - colour flow doppler, continuous wave doppler over inflow\n* Tricuspid valve - colour flow doppler, continuous wave doppler to get TR jet velocity\n\n**Subcostal 4 chamber**\n* Effusion assessment\n* IVC diameter\n* IVC change with sniff\n\n**Haemodynamic state assessment**\n* Hypovolaemia\n* LV systolic dysfunction\n* RV systolic dysfunction\n* Valvular dysfunction\n* Pericardial effusion` },
+            'limited-lv-page': { title: 'Limited LV Assessment', content: `**PLAX (pericardial effusion)**\n* LVEDD\n* LVOTd\n* Assess mitral valve for regurg - regurg is a contraindication to a biplane EF\n\n**PSAX**\n* Assess for RWMAs - divided into 6 sectors\n\n**Apical 5 chamber view**\n* LVOT VTI\n\n**Apical 4 chamber view**\n* Biplane EF` },
+            'limited-rv-page': { title: 'Limited RV Assessment', content: `**PLAX**\n* set depth to 20cm, check for pericardial effusion\n* Tricuspid regurg, continuous wave doppler over the TR jet -> freeze > measure peak velocity -> **4V2 = PASP**\n\n**PSAX - mid pap**\n* Check for septal flattening\n* During systole suggests pressure overload\n* During diastole suggests volume overload\n\n**PSAX - aortic**\n* TR jet peak velocity via cont wave doppler -> 4V2=PASP\n* Pulmonary artery acceleration time - continuous wave doppler through the pulmonary valve, measure the time from beginning of ejection to peak ejection\n  * >120msec is normal\n  * <120msec = elevated PVR\n  * < 80msec = highly elevated PVR\n\n**Apical 4 chamber view**\n* Tricuspid valve TR jet peak velocity\n* RV chamber quantification at end diastole\n  * Basal diameter ( should be <4.2)\n  * Mid diameter (should be <3.5)\n  * Major axis (should be <8.6)\n* RV Fractional area change (>35% normal, <35% abnormal, <18% severely abnormal)\n* TAPSE - M-mode through the lateral part of the tricuspid annulus (<17mm suggests dysfunction)` },
+            'limited-valve-page': { title: 'Mitral & Aortic Valve Scan', content: `**PLAX**\n* check for effusion\n* MV 2D qualitative assessment - thickening, diastolic doming, hockey stick\n* MV regurgitation - colour flow doppler\n  * VC < 3mm = mild MR\n  * VC > 7mm = severe MR\n  * eccentric jet - at least moderate MR\n  * **posterior severe MR + peri-arrest may suggest SAM/LVOTO**\n* AV 2D qualitative assessment - calcification, restriction\n  * maximal aortic cusp separation (>1.2cm unlikely severe AS)\n* AV regurg - colour flow doppler, measure VC or LVOT:jet width ratio\n  * VC < 3mm = mild AR\n  * VC > 6mm = severe AR\n  * LVOT:jet < 25% = mild AR\n    * 25-65% mod AR\n    * > 65% severe AR\n\n**PSAX**\n* mitral valve planimetry - 2D trace of maximal MV opening area\n  * > 1.5cm2 - mild MS/normal\n  * 1-1.5cm2 - moderate MS\n  * < 1cm2 - severe MS\n\n**Apical 4/5 chamber view**\n* MV 2d - as per PLAX\n* MV regurg - as per PLAX\n* MV mean pressure gradient - contiuous wave Doppler through mitral valve\n  * trace valve inflow envelope (E and A wave)\n  * MPG < 5mmHg = mild MS\n  * MPG 5-10mmHg = mod MS\n  * MPG > 10mmHg = severe MS\n* LVOT VTI - pulsed wave Doppler 0.5-1.0cm from AV on ventricular side\n* AV mean pressure gradient - continuous wave Doppler through AV\n  * trace valve outflow envelope\n  * MPG < 20mmHg = mild AS (assuming normal LV function)\n  * MPG 20-40 = mod AS\n  * MPG > 40mmHg = severe AS` },
+            'hypovolaemia-page': { title: 'Hypovolaemia', content: `**Focussed Scan for Hypovolaemia**\n\n* LV Assessment: Small LVEDD, hyperdynamic function, "kissing" papillary muscles.\n* IVC Assessment: Small diameter (<1cm), collapse >50% on spontaneous respiration.\n* Filling Pressures: Low mitral inflow velocities.` },
+            'cardiogenic-shock-page': { title: 'Cardiogenic Shock', content: `**Focussed Scan for Cardiogenic Shock**\n\n* LV Assessment: Global systolic dysfunction, low EF, high LVEDD.\n* RV Assessment: Potential secondary dysfunction.\n* Valvular: Acute MR (cordal rupture).\n* LVOT VTI: Low stroke volume indicator.` },
+            'tamponade-page': { title: 'Tamponade', content: `**Focussed Scan for Tamponade**\n\n* Effusion: Large circumferential pericardial effusion.\n* RA Collapse: Systolic collapse of RA.\n* RV Collapse: Diastolic collapse of RV.\n* IVC: Plethoric, non-collapsing.` },
+            'pulmonary-hypertension-page': { title: 'Pulmonary Hypertension', content: `**Focussed Scan for Pulm HT**\n\n* RV Size: Dilated RV (Basal >4.2cm).\n* Septum: D-shaped LV (septal flattening).\n* TR Jet: High velocity indicating elevated PASP.` },
+            'pulmonary-embolus-page': { title: 'Pulmonary Embolus', content: `**Focussed Scan for PE**\n\n* RV Function: McConnell's Sign (Apex sparing).\n* RV Size: Acute dilation.\n* Thrombus: Visible clot in transit (RA/RV/PA).\n* IVC: Plethoric.` },
+            'mitral-valve-pathology-page': { title: 'Mitral Valve Pathology', content: `**Focussed Scan for MV Path**\n\n* Regurgitation: Severe jet, VC >7mm.\n* Stenosis: Thickened leaflets, diastolic doming, MPG >10mmHg.` },
+            'aortic-valve-pathology-page': { title: 'Aortic Valve Pathology', content: `**Focussed Scan for AV Path**\n\n* Stenosis: Calcified leaflets, MPG >40mmHg.\n* Regurgitation: Holodiastolic flow reversal in descending aorta.` }
         };
 
         const segments = ["Basal Ant", "Basal Ant-Sept", "Basal Inf-Sept", "Basal Inf", "Basal Inf-Lat", "Basal Ant-Lat", "Mid Ant", "Mid Ant-Sept", "Mid Inf-Sept", "Mid Inf", "Mid Inf-Lat", "Mid Ant-Lat", "Apical Ant", "Apical Sept", "Apical Inf", "Apical Lat", "Apex"];
 
-        function navTo(pageId) {
-            history.pushState({ pageId }, "", `#${pageId}`);
-            render(pageId);
-        }
-
-        window.onpopstate = (e) => {
-            const id = (e.state && e.state.pageId) ? e.state.pageId : 'home-page';
-            render(id);
-        };
+        function navTo(pageId) { history.pushState({ pageId }, "", `#${pageId}`); render(pageId); }
+        window.onpopstate = (e) => { const id = (e.state && e.state.pageId) ? e.state.pageId : 'home-page'; render(id); };
 
         function render(id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             const customPage = document.getElementById(id);
-            if (customPage) {
-                customPage.classList.add('active');
-            } else if (defaultContent[id]) {
-                const protocolContainer = document.getElementById('protocol-container');
-                const title = id.replace(/-/g, ' ').replace('page', '').trim();
-                protocolContainer.innerHTML = `
-                    <div class="page active" id="${id}">
-                        <div class="header">
-                            <button class="back-btn" onclick="history.back()">← Back</button>
-                            <h1 style="text-transform: capitalize;">${title}</h1>
-                            <button class="edit-btn" onclick="toggleEdit('${id}')">Edit</button>
-                        </div>
-                        <div class="content" id="content-${id}">${parseMarkdown(localStorage.getItem(id) || defaultContent[id])}</div>
-                        <textarea class="editor hidden" id="editor-${id}">${localStorage.getItem(id) || defaultContent[id]}</textarea>
-                        <button class="btn hidden" id="save-${id}" style="background:#000; color:#fff;" onclick="saveContent('${id}')">Save Changes</button>
-                    </div>`;
+            if (customPage) { customPage.classList.add('active'); } 
+            else if (protocols[id]) {
+                const container = document.getElementById('protocol-container');
+                const saved = localStorage.getItem(id) || protocols[id].content;
+                container.innerHTML = `<div class="page active" id="${id}">
+                    <div class="header"><button class="back-btn" onclick="history.back()">← Back</button><h1>${protocols[id].title}</h1>
+                    <button class="edit-btn" onclick="toggleEdit('${id}')">Edit</button></div>
+                    <div class="content" id="content-${id}">${parseMarkdown(saved)}</div>
+                    <textarea class="editor hidden" id="editor-${id}">${saved}</textarea>
+                    <button class="btn hidden" id="save-${id}" style="background:#000; color:#fff;" onclick="saveContent('${id}')">Save Changes</button></div>`;
             }
             window.scrollTo(0,0);
         }
 
-        function parseMarkdown(text) {
-            return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                       .replace(/^\* (.*)/gm, '&bull; $1<br>');
-        }
-
-        function toggleEdit(id) {
-            document.getElementById(`content-${id}`).classList.toggle('hidden');
-            document.getElementById(`editor-${id}`).classList.toggle('hidden');
-            document.getElementById(`save-${id}`).classList.toggle('hidden');
-        }
-
-        function saveContent(id) {
-            const val = document.getElementById(`editor-${id}`).value;
-            localStorage.setItem(id, val);
-            render(id);
-        }
-
-        function buildRWMAGrid() {
-            const container = document.getElementById('rwma-grid');
-            segments.forEach((seg, i) => {
-                container.innerHTML += `
-                    <div class="rwma-row">
-                        <span style="font-size:0.8rem">${seg}</span>
-                        <select name="seg_${i}" class="field" style="margin:0; padding:5px;">
-                            <option value="Normal">Normal</option><option value="Hypo">Hypokinetic</option>
-                            <option value="Akin">Akinetic</option><option value="Dysk">Dyskinetic</option>
-                        </select>
-                    </div>`;
-            });
-        }
-
+        function parseMarkdown(text) { return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/^\* (.*)/gm, '&bull; $1<br>'); }
+        function toggleEdit(id) { document.getElementById(`content-${id}`).classList.toggle('hidden'); document.getElementById(`editor-${id}`).classList.toggle('hidden'); document.getElementById(`save-${id}`).classList.toggle('hidden'); }
+        function saveContent(id) { const val = document.getElementById(`editor-${id}`).value; localStorage.setItem(id, val); render(id); }
+        function buildRWMAGrid() { const container = document.getElementById('rwma-grid'); segments.forEach((seg, i) => { container.innerHTML += `<div class="rwma-row"><span>${seg} [cite: 69-123]</span><select name="seg_${i}"><option value="Normal">Normal</option><option value="Hypo">Hypokinetic</option><option value="Akin">Akinetic</option><option value="Dysk">Dyskinetic</option></select></div>`; }); }
         function openWarning() { document.getElementById('warning-dialog').style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
         function startForm() { closeModal('warning-dialog'); navTo('report-form-page'); }
         function openEmailModal() { document.getElementById('email-dialog').style.display = 'flex'; }
-
-        function generatePDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const form = new FormData(document.getElementById('pah-form'));
-            doc.text("POCUS PAH REPORT SUMMARY", 20, 20);
-            doc.text(`Operator: ${form.get('op')}`, 20, 30);
-            doc.text(`Exam Date: ${form.get('date')}`, 20, 35);
-            doc.text(`TAPSE: ${form.get('tapse')} mm`, 20, 50);
-            doc.save(`Echo_Report_${form.get('date')}.pdf`);
-            closeModal('email-dialog');
-            history.back();
-        }
-
+        function generatePDF() { const { jsPDF } = window.jspdf; const doc = new jsPDF(); const form = new FormData(document.getElementById('pah-form')); doc.text("POCUS PAH REPORT SUMMARY", 20, 20); doc.text(`Operator: ${form.get('op')}`, 20, 30); doc.text(`TAPSE: ${form.get('tapse')} mm [cite: 148]`, 20, 45); doc.save(`Echo_Report_${form.get('date')}.pdf`); closeModal('email-dialog'); history.back(); }
         window.onload = () => { buildRWMAGrid(); };
     </script>
 </body>
