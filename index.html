@@ -8,7 +8,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="white">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#FFFFFF">
-    <meta name="apple-mobile-web-app-title" content="Echo">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="pdf-generator.js" defer></script>
@@ -20,7 +19,7 @@
             --border-color: #000000;
             --button-bg-color: #f0f0f0;
             --button-active-bg: #dcdcdc;
-            --warning-red: #d93025;
+            --super-section-bg: #e9ecef;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: var(--background-color); color: var(--text-color); }
@@ -28,66 +27,74 @@
         .page.active { display: flex; }
         .main-menu { display: flex; flex-direction: column; gap: 15px; justify-content: center; flex-grow: 1; }
         .btn { padding: 20px; font-size: 1.2rem; text-align: center; border: 2px solid var(--border-color); border-radius: 8px; cursor: pointer; background-color: var(--button-bg-color); color: var(--text-color); width: 100%; -webkit-tap-highlight-color: transparent; }
-        .btn:active { background-color: var(--button-active-bg); }
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
-        .header h1 { font-size: 1.5rem; text-align: right; }
-        .back-btn { font-size: 1.1rem; padding: 8px 15px; cursor: pointer; border: 1px solid var(--border-color); border-radius: 5px; background-color: transparent; color: var(--text-color); white-space: nowrap; }
-        .content { font-size: 1rem; line-height: 1.6; flex-grow: 1; }
-        .content p { margin-bottom: 0.5em; }
-        .content h2 { margin-top: 2em; margin-bottom: 1em; font-size: 1.3rem; border-bottom: 2px solid #ccc; padding-bottom: 5px; }
-        .content h3 { margin-top: 1.5em; margin-bottom: 0.5em; font-size: 1.1rem; font-weight: bold; }
-        .content table { border-collapse: collapse; width: 100%; margin: 1em 0; }
-        .content th, .content td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        .content th { background-color: #f2f2f2; }
-        .disclaimer { font-size: 0.75rem; color: #6c757d; text-align: center; margin-bottom: 30px; padding: 0 20px; flex-shrink: 0; }
-
-        /* Report Form Styles */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 400px; text-align: center; }
-        .form-section { margin-bottom: 25px; border-top: 1px solid #eee; padding-top: 15px; }
-        .form-section h3 { margin-bottom: 15px; font-size: 1rem; text-transform: uppercase; color: #333; }
-        .input-group { margin-bottom: 15px; text-align: left; }
+        .back-btn { font-size: 1.1rem; padding: 8px 15px; cursor: pointer; border: 1px solid var(--border-color); border-radius: 5px; background: transparent; }
+        
+        /* New Formatting Techniques */
+        .super-section-title {
+            background: var(--super-section-bg);
+            padding: 15px;
+            margin: 30px -20px 20px -20px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            border-top: 3px solid #333;
+            border-bottom: 1px solid #ccc;
+            letter-spacing: 1px;
+        }
+        .form-section { margin-bottom: 25px; border-left: 4px solid #ddd; padding-left: 15px; }
+        .form-section h3 { margin-bottom: 15px; font-size: 0.95rem; color: #555; text-transform: uppercase; }
+        
+        .input-group { margin-bottom: 15px; }
         .input-group label { display: block; font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; }
         .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
         .input-group input[readonly] { background-color: #f9f9f9; color: #888; border: 1px dashed #ccc; }
-        .rwma-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; align-items: center; text-align: left; }
-        .check-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
-        .check-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; background: #f4f4f4; padding: 8px; border-radius: 4px; }
-        
-        .form-footer { display: flex; gap: 10px; margin-top: 20px; }
+
+        .footer-instruction {
+            font-size: 0.75rem;
+            color: #6c757d;
+            text-align: center;
+            margin: 20px 0 10px 0;
+            line-height: 1.4;
+        }
+        .form-footer { display: flex; gap: 10px; }
+        .disclaimer { font-size: 0.75rem; color: #6c757d; text-align: center; margin-bottom: 30px; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; }
+        .modal-content { background: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 400px; text-align: center; }
     </style>
 </head>
 <body>
 
     <div id="home-page" class="page active">
-        <p class="disclaimer">V23.These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
+        <p class="disclaimer">V24. These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
         <div class="main-menu">
-            <div class="btn" id="pah-trigger" style="border-color: var(--warning-red); color: var(--warning-red);">POCUS PAH Report Form</div>
+            <div class="btn" id="pah-trigger" style="border-color: #d93025; color: #d93025;">POCUS PAH Report Form</div>
             <div class="btn" data-page="iheartscan">iHeartScan</div>
-            <div class="btn" data-page="standard-echo">Standard Echocardiography Protocol</div>
             <div class="btn" data-page="pocus">POCUS</div>
-            <div class="btn" data-page="limited-lv">Limited LV Assessment</div>
-            <div class="btn" data-page="limited-rv">Limited RV Assessment</div>
-            <div class="btn" data-page="limited-valve">Limited Scan Protocol for Mitral and Aortic Valves</div>
-            <div class="btn" data-page="pathology-menu">By Pathology (Minimal Scan)</div>
         </div>
     </div>
 
     <div id="warning-modal" class="modal">
         <div class="modal-content">
-            <h2 style="color:var(--warning-red); margin-bottom:15px;">⚠️ WARNING</h2>
-            <p style="margin-bottom:20px;">This is an unsecure form. Do not enter sensitive patient details (Names, MRNs, or full DOBs).</p>
+            <h2 style="color:#d93025; margin-bottom:15px;">⚠️ WARNING</h2>
+            <p style="margin-bottom:20px;">This is an unsecure form. Do not enter sensitive patient details.</p>
             <div style="display:flex; gap:10px;">
-                <div class="btn" id="cancel-warn" style="font-size:1rem; padding:12px;">Cancel</div>
-                <div class="btn" id="accept-warn" style="font-size:1rem; padding:12px; background:black; color:white;">Acknowledged</div>
+                <div class="btn" id="cancel-warn">Cancel</div>
+                <div class="btn" id="accept-warn" style="background:black; color:white;">Acknowledged</div>
             </div>
         </div>
     </div>
 
     <div id="pah-report-page" class="page">
-        <div class="header"><button class="back-btn">&lt; Back</button><h1>PAH Report Form</h1></div>
+        <div class="header"><button class="back-btn">&lt; Back</button><h1>PAH Report</h1></div>
         <form id="pah-form">
-            <div id="dynamic-form-container"><p>Loading form fields...</p></div>
+            <div id="dynamic-form-container"><p>Loading...</p></div>
+            
+            <p class="footer-instruction">
+                Tap the 'Complete and Share' button to send the report form to a secure email address for printing. 
+                Only add identifying details once printed and insert into the patient's medical record.
+            </p>
+            
             <div class="form-footer">
                 <div class="btn" id="btn-reset" style="background:#6c757d; color:white; font-size:1rem; flex: 1;">RESET</div>
                 <div class="btn" id="btn-complete" style="background:#28a745; color:white; font-weight:bold; flex: 2;">COMPLETE & SHARE</div>
@@ -96,195 +103,77 @@
         <div style="height:60px;"></div>
     </div>
 
-    <div id="pathology-menu-page" class="page">
-        <div class="header"><button class="back-btn">&lt; Back</button><h1 id="pathology-menu-title"></h1></div>
-        <div id="pathology-menu-content" class="content"></div>
-    </div>
-
-    <div id="content-page" class="page">
-        <div class="header"><button class="back-btn">&lt; Back</button><h1 id="content-page-title"></h1></div>
-        <div id="content-page-content" class="content"></div>
-    </div>
-
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        let currentPageId = 'home-page';
-        const contentCache = {};
-        let formMetadata = []; 
+        let formMetadata = [];
 
         const init = () => {
             setupEventListeners();
-            history.replaceState({ page: 'home-page' }, '', '#home');
             loadFormStructure();
         };
 
         const loadFormStructure = async () => {
-            try {
-                const response = await fetch('form-structure.json');
-                const structure = await response.json();
-                formMetadata = structure.sections.flatMap(s => s.fields).filter(f => f.calculation || f.condition);
-                buildForm(structure);
-            } catch (error) { console.error("JSON Load Error", error); }
+            const response = await fetch('form-structure.json');
+            const data = await response.json();
+            formMetadata = data.superSections.flatMap(ss => ss.sections.flatMap(s => s.fields)).filter(f => f.calculation || f.condition);
+            buildForm(data);
         };
 
-        const buildForm = (structure) => {
+        const buildForm = (data) => {
             const container = document.getElementById('dynamic-form-container');
             container.innerHTML = '';
-            structure.sections.forEach(section => {
-                let html = `<div class="form-section"><h3>${section.title}</h3>`;
-                section.fields.forEach(field => {
-                    if (field.type === "text" || field.type === "number" || field.type === "date") {
-                        html += `<div class="input-group"><label>${field.label}</label><input type="${field.type}" name="${field.id}" id="${field.id}" ${field.readonly ? 'readonly' : ''} placeholder="${field.placeholder || ''}"></div>`;
-                    } else if (field.type === "textarea") {
-                        html += `<div class="input-group"><label>${field.label}</label><textarea name="${field.id}" id="${field.id}" rows="4"></textarea></div>`;
-                    } else if (field.type === "select") {
-                        html += `<div class="input-group"><label>${field.label}</label><select name="${field.id}" id="${field.id}">${field.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}</select></div>`;
-                    } else if (field.type === "checkbox-group") {
-                        html += `<div class="input-group"><label>${field.label}</label><div class="check-grid">${field.options.map(opt => `<label class="check-item"><input type="checkbox" name="${field.id}" value="${opt}"> ${opt}</label>`).join('')}</div></div>`;
-                    } else if (field.type === "rwma-grid") {
-                        html += `<div id="rwma-grid" data-condition="${field.condition}" style="display:none;"></div>`;
-                    }
+            
+            data.superSections.forEach(superSection => {
+                const superHeader = document.createElement('div');
+                superHeader.className = 'super-section-title';
+                superHeader.textContent = superSection.title;
+                container.appendChild(superHeader);
+
+                superSection.sections.forEach(section => {
+                    let html = `<div class="form-section"><h3>${section.title}</h3>`;
+                    section.fields.forEach(field => {
+                        if (field.type === "text" || field.type === "number" || field.type === "date") {
+                            html += `<div class="input-group"><label>${field.label}</label><input type="${field.type}" name="${field.id}" id="${field.id}" ${field.readonly ? 'readonly' : ''}></div>`;
+                        } else if (field.type === "select") {
+                            html += `<div class="input-group"><label>${field.label}</label><select name="${field.id}" id="${field.id}">${field.options.map(o => `<option value="${o}">${o}</option>`).join('')}</select></div>`;
+                        } else if (field.type === "checkbox-group") {
+                            html += `<div class="input-group"><label>${field.label}</label>${field.options.map(o => `<label><input type="checkbox" name="${field.id}" value="${o}"> ${o}</label><br>`).join('')}</div>`;
+                        } else if (field.type === "textarea") {
+                            html += `<div class="input-group"><label>${field.label}</label><textarea name="${field.id}" id="${field.id}" rows="4"></textarea></div>`;
+                        }
+                    });
+                    html += `</div>`;
+                    container.innerHTML += html;
                 });
-                html += `</div>`;
-                container.innerHTML += html;
             });
-
-            // RWMA Grid Injection
-            const segments = ["Basal Anterior (LAD)", "Basal Anteroseptal (LAD)", "Basal Inferoseptal (RCA)", "Basal Inferior (RCA)", "Basal Inferolateral (LCX)", "Basal Anterolateral (LCX)", "Mid Anterior (LAD)", "Mid Anteroseptal (LAD)", "Mid Inferoseptal (RCA)", "Mid Inferior (RCA)", "Mid Inferolateral (LCX)", "Mid Anterolateral (LCX)", "Apical Anterior (LAD)", "Apical Septal (LAD)", "Apical Inferior (RCA)", "Apical Lateral (LCX)", "Apex"];
-            const grid = document.getElementById('rwma-grid');
-            if(grid) segments.forEach((s, i) => grid.innerHTML += `<div class="rwma-row"><span>${s}</span><select name="seg_${i}"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>`);
-
             container.addEventListener('input', runLogicEngine);
-            runLogicEngine(); // Initialize states
         };
 
         const runLogicEngine = () => {
             formMetadata.filter(f => f.calculation).forEach(field => {
-                const targetInput = document.getElementById(field.id);
-                if (targetInput) {
-                    try {
-                        const formula = field.calculation;
-                        const variables = formula.match(/[a-z_]+/g) || [];
-                        let evalStr = formula;
-                        variables.forEach(v => {
-                            if (v === 'Math' || v === 'pow') return;
-                            const val = parseFloat(document.getElementById(v)?.value) || 0;
-                            evalStr = evalStr.replace(new RegExp(`\\b${v}\\b`, 'g'), val);
-                        });
-                        const res = eval(evalStr);
-                        targetInput.value = res > 0 ? res.toFixed(1) : "";
-                    } catch (e) {}
-                }
-            });
-
-            formMetadata.filter(f => f.condition).forEach(field => {
-                const el = document.getElementById(field.id) || document.querySelector(`[data-condition="${field.condition}"]`);
-                if (el) {
-                    const condition = field.condition; 
-                    const triggerId = condition.split(' ')[0];
-                    const triggerVal = document.getElementById(triggerId).value;
-                    const check = condition.replace(triggerId, `'${triggerVal}'`);
-                    if (eval(check)) { el.style.display = 'block'; } 
-                    else { 
-                        el.style.display = 'none'; 
-                        if (el.id === 'rwma-grid') el.querySelectorAll('select').forEach(s => s.value = 'Normal');
-                    }
-                }
+                const target = document.getElementById(field.id);
+                const formula = field.calculation;
+                const varName = formula.match(/[a-z_]+/g)[1];
+                const val = parseFloat(document.getElementById(varName).value) || 0;
+                const res = 4 * Math.pow(val, 2);
+                target.value = res > 0 ? res.toFixed(1) : "";
             });
         };
 
         const setupEventListeners = () => {
-            document.body.addEventListener('click', function(event) {
-                const target = event.target.closest('.btn[data-page]');
-                if (target) { history.pushState({ page: target.dataset.page }, '', `#${target.dataset.page}`); renderPage(target.dataset.page); return; }
-                if (event.target.id === 'pah-trigger') document.getElementById('warning-modal').style.display = 'flex';
-                if (event.target.id === 'cancel-warn') document.getElementById('warning-modal').style.display = 'none';
-                if (event.target.id === 'accept-warn') {
+            document.body.addEventListener('click', (e) => {
+                if (e.target.id === 'pah-trigger') document.getElementById('warning-modal').style.display = 'flex';
+                if (e.target.id === 'accept-warn') {
                     document.getElementById('warning-modal').style.display = 'none';
-                    history.pushState({ page: 'pah-report' }, '', '#report');
-                    renderPage('pah-report');
+                    document.getElementById('home-page').classList.remove('active');
+                    document.getElementById('pah-report-page').classList.add('active');
                 }
-                if (event.target.id === 'btn-complete') {
-                    if (window.generateAndSharePDF) window.generateAndSharePDF();
-                }
-                if (event.target.id === 'btn-reset') {
-                    if (confirm("Clear all report data?")) {
-                        document.getElementById('pah-form').reset();
-                        runLogicEngine();
-                        window.scrollTo(0,0);
-                    }
-                }
-                if (event.target.closest('.back-btn')) history.back();
+                if (e.target.id === 'btn-complete') window.generateAndSharePDF();
+                if (e.target.id === 'btn-reset' && confirm("Clear report?")) document.getElementById('pah-form').reset();
+                if (e.target.classList.contains('back-btn')) location.reload();
             });
         };
 
-        const parseMarkdown = (text) => {
-            const lines = text.split('\n');
-            let html = '';
-            let isTable = false;
-            for (let i = 0; i < lines.length; i++) {
-                const line = lines[i];
-                const trimmedLine = line.trim();
-                if (trimmedLine.startsWith('<')) { html += line; continue; }
-                if (trimmedLine.includes('|')) {
-                    if (!isTable) {
-                        html += '<table>';
-                        if (lines[i + 1] && lines[i + 1].includes('---')) {
-                            html += '<thead><tr>';
-                            trimmedLine.split('|').forEach(cell => { if (cell.trim()) html += `<th>${cell.trim()}</th>`; });
-                            html += '</tr></thead><tbody>';
-                            i++; isTable = true;
-                        } else {
-                            html += '<tbody><tr>';
-                            trimmedLine.split('|').forEach(cell => { if (cell.trim()) html += `<td>${cell.trim()}</td>`; });
-                            html += '</tr>'; isTable = true;
-                        }
-                    } else {
-                        html += '<tr>';
-                        trimmedLine.split('|').forEach(cell => { if (cell.trim()) html += `<td>${cell.trim()}</td>`; });
-                        html += '</tr>';
-                    }
-                    continue;
-                }
-                if (isTable) { html += '</tbody></table>'; isTable = false; }
-                if (trimmedLine.startsWith('## ')) html += `<h3>${trimmedLine.substring(3)}</h3>`;
-                else if (trimmedLine.startsWith('# ')) html += `<h2>${trimmedLine.substring(2)}</h2>`;
-                else if (trimmedLine.length > 0) {
-                    html += `<p>${trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>')}</p>`;
-                }
-            }
-            return html;
-        };
-
-        const loadContent = async (pageId) => {
-            if (contentCache[pageId]) return contentCache[pageId];
-            try {
-                const response = await fetch(`${pageId}.txt?v=${new Date().getTime()}`);
-                const text = await response.text();
-                const lines = text.split('\n');
-                const title = lines.shift();
-                const parsedContent = { title, body: parseMarkdown(lines.join('\n')) };
-                contentCache[pageId] = parsedContent;
-                return parsedContent;
-            } catch (error) { return { title: 'Error', body: '<p>Content Error.</p>' }; }
-        };
-
-        const renderPage = async (pageId) => {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            currentPageId = pageId;
-            if (pageId === 'home-page') { document.getElementById('home-page').classList.add('active'); return; }
-            if (pageId === 'pah-report') { document.getElementById('pah-report-page').classList.add('active'); return; }
-            const isSubMenu = pageId === 'pathology-menu';
-            const pageToShow = isSubMenu ? document.getElementById('pathology-menu-page') : document.getElementById('content-page');
-            const titleElement = isSubMenu ? document.getElementById('pathology-menu-title') : document.getElementById('content-page-title');
-            const contentElement = isSubMenu ? document.getElementById('pathology-menu-content') : document.getElementById('content-page-content');
-            pageToShow.classList.add('active');
-            const content = await loadContent(pageId);
-            titleElement.textContent = content.title;
-            contentElement.innerHTML = content.body;
-        };
-
-        window.onpopstate = (event) => renderPage(event.state?.page || 'home-page');
         init();
     });
     </script>
