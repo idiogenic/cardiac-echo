@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Echo Protocols</title>
+    <title>Echo Protocols v18</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="white">
     <link rel="manifest" href="manifest.json">
@@ -52,6 +52,7 @@
         .modal-content { background: white; padding: 30px; border-radius: 12px; width: 100%; max-width: 400px; text-align: center; }
         .form-section { margin-bottom: 25px; border-top: 1px solid #eee; padding-top: 15px; }
         .form-section h3 { margin-bottom: 15px; font-size: 1rem; text-transform: uppercase; color: #333; }
+        .form-section h4 { margin-bottom: 10px; font-size: 0.9rem; font-weight: bold; color: #555; }
         .input-group { margin-bottom: 15px; text-align: left; }
         .input-group label { display: block; font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; }
         .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
@@ -108,7 +109,7 @@
         <form id="pah-form">
             <div class="form-section">
                 <h3>PATIENT INFORMATION</h3>
-                <div class="input-group"><label>Patient Name or DOB (Locked)</label><input type="text" readonly placeholder="LOCKED"></div>
+                <div class="input-group"><label>Patient Name or Date of Birth (Locked)</label><input type="text" readonly placeholder="LOCKED"></div>
                 <div class="input-group"><label>MRN (Locked)</label><input type="text" readonly placeholder="LOCKED"></div>
                 <div class="input-group"><label>Operator</label><input type="text" name="operator"></div>
                 <div class="input-group"><label>Exam Date</label><input type="date" name="exam_date"></div>
@@ -165,7 +166,7 @@
                     </select>
                 </div>
                 <div class="input-group">
-                    <label>Vena Contracta</label>
+                    <label>Mitral Vena Contracta</label>
                     <select name="plax_mr_vc">
                         <option value="N/A">N/A</option>
                         <option value="<3mm (mild)"><3mm (mild)</option>
@@ -181,7 +182,7 @@
                     </select>
                 </div>
                 <div class="input-group">
-                    <label>Vena Contracta</label>
+                    <label>Aortic Vena Contracta</label>
                     <select name="plax_ar_vc">
                         <option value="N/A">N/A</option>
                         <option value="<3mm (mild)"><3mm (mild)</option>
@@ -281,6 +282,7 @@
                         <option value="Yes">Yes</option>
                     </select>
                 </div>
+                
                 <div id="rwma-grid"></div>
             </div>
 
@@ -294,7 +296,7 @@
                     </select>
                 </div>
                 <div class="input-group">
-                    <label>Vena Contracta</label>
+                    <label>Mitral Vena Contracta</label>
                     <select name="ap_mr_vc">
                         <option value="N/A">N/A</option>
                         <option value="<3mm (mild)"><3mm (mild)</option>
@@ -310,7 +312,7 @@
                     </select>
                 </div>
                 <div class="input-group">
-                    <label>Vena Contracta</label>
+                    <label>Aortic Vena Contracta</label>
                     <select name="ap_ar_vc">
                         <option value="N/A">N/A</option>
                         <option value="<3mm (mild)"><3mm (mild)</option>
@@ -509,17 +511,17 @@
                 <div class="input-group">
                     <label>Tricuspid Valve</label>
                     <select name="sum_v_tri">
-                        <option value="Normal">Normal</option>
-                        <option value="Regurgitation">Regurgitation</option>
-                        <option value="Marked regurgitation">Marked regurgitation</option>
+                        <option value="normal">Normal</option>
+                        <option value="regurgitation">Regurgitation</option>
+                        <option value="marked regurgitation">Marked regurgitation</option>
                     </select>
                 </div>
                 <div class="input-group">
                     <label>Mitral Valve</label>
                     <select name="sum_v_mit">
-                        <option value="Normal">Normal</option>
-                        <option value="Regurgitation">Regurgitation</option>
-                        <option value="Marked regurgitation">Marked regurgitation</option>
+                        <option value="normal">Normal</option>
+                        <option value="regurgitation">Regurgitation</option>
+                        <option value="marked regurgitation">Marked regurgitation</option>
                     </select>
                 </div>
             </div>
@@ -545,7 +547,6 @@
         <div class="header"><button class="back-btn">&lt; Back</button><h1 id="pathology-menu-title"></h1></div>
         <div id="pathology-menu-content" class="content"></div>
     </div>
-
     <div id="content-page" class="page">
         <div class="header"><button class="back-btn">&lt; Back</button><h1 id="content-page-title"></h1></div>
         <div id="content-page-content" class="content"></div>
@@ -604,6 +605,7 @@
                     html += `<p>${trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>')}</p>`;
                 }
             }
+            if (isTable) { html += '</tbody></table>'; }
             return html;
         };
 
@@ -675,23 +677,45 @@
             y += 8;
             doc.line(20, y, 190, y); y += 8;
 
-            doc.setFontSize(10); doc.text("CONTEXT", 20, y); doc.setFontSize(8); y += 5;
+            // Exhaustive section mapping
+            const addField = (label, value) => {
+                if (y > 270) { doc.addPage(); y = 20; }
+                doc.text(`${label}: ${value || 'N/A'}`, 20, y);
+                y += 5;
+            };
+
+            doc.setFontSize(10); doc.text("CONTEXT", 20, y); y += 6; doc.setFontSize(8);
             const q = Array.from(document.querySelectorAll('input[name="cq"]:checked')).map(cb => cb.value).join(', ');
-            doc.text(`CQ: ${q}`, 20, y); y += 5;
-            doc.text(`Vent: ${fd.get('ventilation')} | Image: ${fd.get('img_quality')}`, 20, y); y += 10;
+            addField("Clinical Question", q);
+            addField("Ventilation", fd.get('ventilation'));
+            addField("Image Quality", fd.get('img_quality'));
+            y += 3;
 
-            doc.setFontSize(10); doc.text("MEASUREMENTS", 20, y); doc.setFontSize(8); y += 5;
-            doc.text(`PLAX - Eff: ${fd.get('plax_eff')} | MR VC: ${fd.get('plax_mr_vc')} | AR VC: ${fd.get('plax_ar_vc')}`, 20, y); y += 5;
-            doc.text(`LVOT D: ${fd.get('plax_lvot_d')} | LVEDD: ${fd.get('plax_lv_edd')} | RVSP: ${fd.get('plax_rvsp') || fd.get('psax_rvsp')}`, 20, y); y += 5;
-            doc.text(`Apical - TAPSE: ${fd.get('ap_tapse_val')} | FAC: ${fd.get('ap_rv_fac')} | LV EF: ${fd.get('ap_lv_ef')}`, 20, y); y += 10;
+            doc.setFontSize(10); doc.text("MEASUREMENTS (PLAX / PSAX / APICAL / SUBCOSTAL)", 20, y); y += 6; doc.setFontSize(8);
+            addField("PLAX Effusion", fd.get('plax_eff'));
+            addField("PLAX MR / VC", `${fd.get('plax_mr')} / ${fd.get('plax_mr_vc')}`);
+            addField("PLAX AR / VC / JW:LVOT", `${fd.get('plax_ar')} / ${fd.get('plax_ar_vc')} / ${fd.get('plax_ar_jw_lvot')}`);
+            addField("LVOT Diameter", `${fd.get('plax_lvot_d')} cm`);
+            addField("AV Leaflets / MACS", `${fd.get('plax_av_leaflets')} / ${fd.get('plax_av_macs')}`);
+            addField("LVEDD", fd.get('plax_lv_edd'));
+            addField("RV Inflow TR / Vel / RVSP", `${fd.get('plax_tr')} / ${fd.get('plax_tr_vel')} m/s / ${fd.get('plax_rvsp')} mmHg`);
+            addField("PSAX Aortic RVSP", `${fd.get('psax_rvsp')} mmHg`);
+            addField("PSAX Septum / LV Collapse / RWMA", `${fd.get('psax_septum')} / ${fd.get('psax_lv_collapse')} / ${fd.get('psax_rwma_present')}`);
+            addField("Apical MR / VC / AR / VC", `${fd.get('ap_mr')} / ${fd.get('ap_mr_vc')} / ${fd.get('ap_ar')} / ${fd.get('ap_ar_vc')}`);
+            addField("Apical TAPSE", `${fd.get('ap_tapse_select')} (${fd.get('ap_tapse_val')} mm)`);
+            addField("AV MPG / MV MPG / LVOT VTI", `${fd.get('ap_av_mpg')} / ${fd.get('ap_mv_mpg')} / ${fd.get('ap_lvot_vti')} cm`);
+            addField("RV Size Ratio / Basal / Mid / Major", `${fd.get('ap_rv_size_ratio')} / ${fd.get('ap_rv_basal')} / ${fd.get('ap_rv_mid')} / ${fd.get('ap_rv_major')}`);
+            addField("RV FAC / LV EF", `${fd.get('ap_rv_fac')} / ${fd.get('ap_lv_ef')}`);
+            addField("Subcostal Effusion / IVC D / IVC V", `${fd.get('sub_eff')} / ${fd.get('sub_ivc_d')} / ${fd.get('sub_ivc_v')}`);
+            y += 3;
 
-            doc.setFontSize(10); doc.text("SUMMARY", 20, y); doc.setFontSize(8); y += 5;
-            doc.text(`LV: ${fd.get('sum_lv_size')} / ${fd.get('sum_lv_func')} | RWMA: ${fd.get('sum_lv_rwma')}`, 20, y); y += 5;
-            doc.text(`RV: ${fd.get('sum_rv_size')} / ${fd.get('sum_rv_func')} | Septum: ${fd.get('sum_septum')}`, 20, y); y += 5;
-            doc.text(`Valves - Tri: ${fd.get('sum_v_tri')} | Mit: ${fd.get('sum_v_mit')}`, 20, y); y += 5;
-            
+            doc.setFontSize(10); doc.text("SUMMARY FINDINGS", 20, y); y += 6; doc.setFontSize(8);
+            addField("LV Size / Func / RWMA", `${fd.get('sum_lv_size')} / ${fd.get('sum_lv_func')} / ${fd.get('sum_lv_rwma')}`);
+            addField("RV Size / Func / Septum", `${fd.get('sum_rv_size')} / ${fd.get('sum_rv_func')} / ${fd.get('sum_septum')}`);
+            addField("TAPSE / RVSP / Pericardium", `${fd.get('sum_tapse')} / ${fd.get('sum_rvsp')} / ${fd.get('sum_pericardium')}`);
+            addField("Valves (Tricuspid / Mitral)", `${fd.get('sum_v_tri')} / ${fd.get('sum_v_mit')}`);
             const states = Array.from(document.querySelectorAll('input[name="sum_haemo"]:checked')).map(cb => cb.value).join(', ');
-            doc.text(`Haemo State: ${states}`, 20, y + 5);
+            addField("Haemodynamic State", states);
 
             doc.save(`Echo_Report_${fd.get('exam_date') || 'export'}.pdf`);
             alert("Report Generated. Attach PDF manually to: " + email);
@@ -700,7 +724,7 @@
         };
 
         window.onpopstate = (event) => renderPage(event.state?.page || 'home-page');
-        const registerServiceWorker = () => { /* Logic Untouched */ };
+        const registerServiceWorker = () => { /* SW Logic Untouched */ };
         init();
     });
     </script>
