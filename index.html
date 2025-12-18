@@ -4,274 +4,223 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Echo Protocols</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#FFFFFF">
-    <meta name="apple-mobile-web-app-title" content="Echo">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
     <style>
         :root {
-            --background-color: #FFFFFF;
-            --text-color: #000000;
-            --border-color: #000000;
-            --button-bg-color: #f0f0f0;
-            --button-active-bg: #dcdcdc;
+            --bg: #FFFFFF;
+            --txt: #000000;
+            --btn-bg: #f0f0f0;
+            --warn: #d93025;
+            --border: #000000;
+            --accent: #007AFF;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: var(--background-color); color: var(--text-color); }
-        .page { display: none; width: 100%; height: 100%; padding: 20px; overflow-y: auto; flex-direction: column; }
+        body { font-family: -apple-system, sans-serif; background: var(--bg); color: var(--txt); line-height: 1.4; }
+        
+        .page { display: none; padding: 20px; flex-direction: column; min-height: 100vh; }
         .page.active { display: flex; }
-        .main-menu { display: flex; flex-direction: column; gap: 15px; justify-content: center; flex-grow: 1; }
-        .btn { padding: 20px; font-size: 1.2rem; text-align: center; border: 2px solid var(--border-color); border-radius: 8px; cursor: pointer; background-color: var(--button-bg-color); color: var(--text-color); width: 100%; -webkit-tap-highlight-color: transparent; }
-        .btn:active { background-color: var(--button-active-bg); }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
-        .header h1 { font-size: 1.5rem; text-align: right; }
-        .back-btn { font-size: 1.1rem; padding: 8px 15px; cursor: pointer; border: 1px solid var(--border-color); border-radius: 5px; background-color: transparent; color: var(--text-color); white-space: nowrap; }
-        .content { font-size: 1rem; line-height: 1.6; flex-grow: 1; }
-        .content p { margin-bottom: 0.5em; }
-        .content h2 { margin-top: 2em; margin-bottom: 1em; font-size: 1.3rem; border-bottom: 2px solid #ccc; padding-bottom: 5px; }
-        .content h3 { margin-top: 1.5em; margin-bottom: 0.5em; font-size: 1.1rem; font-weight: bold; }
-        .content details { margin-bottom: 1em; padding-left: 10px; border-left: 2px solid #e0e0e0; }
-        .content .indented-details { margin-left: 20px; } /* NEW STYLE FOR INDENTING */
-        .content summary { cursor: pointer; }
-        .content details > div { padding-left: 20px; margin-top: 10px; }
-        .content table { border-collapse: collapse; width: 100%; margin: 1em 0; }
-        .content th, .content td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        .content th { background-color: #f2f2f2; }
-        .content img { max-width: 100%; height: auto; margin: 1em 0; }
-        .tappable-ref { cursor: pointer; color: #0056b3; text-decoration: underline; text-decoration-style: dotted; }
-        .hidden-ref { display: none; font-style: italic; color: #555; background-color: #f0f0f0; padding: 2px 5px; border-radius: 4px; margin-left: 5px; }
-        .hidden { display: none !important; }
-        .disclaimer { font-size: 0.75rem; color: #6c757d; text-align: center; margin-bottom: 30px; padding: 0 20px; flex-shrink: 0; }
+
+        .btn {
+            padding: 18px; font-size: 1.1rem; text-align: center;
+            border: 2px solid var(--border); border-radius: 8px;
+            background: var(--btn-bg); margin-bottom: 12px; cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Form Styling */
+        .form-section { margin-bottom: 25px; border-top: 2px solid #eee; padding-top: 15px; }
+        .form-section h3 { font-size: 0.95rem; color: #333; margin-bottom: 15px; text-transform: uppercase; border-left: 4px solid var(--accent); padding-left: 10px; }
+        
+        .field { margin-bottom: 15px; }
+        .field label { display: block; font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; }
+        .field input, .field select {
+            width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem;
+        }
+        .field input[readonly] { background: #f9f9f9; color: #888; border-style: dashed; }
+
+        /* RWMA Grid Styles */
+        .rwma-container { display: flex; flex-direction: column; gap: 10px; }
+        .rwma-row { display: grid; grid-template-columns: 1fr 1.5fr; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+        .rwma-label { font-size: 0.85rem; font-weight: 500; }
+        .rwma-select { padding: 8px; border-radius: 4px; border: 1px solid #ddd; font-size: 0.8rem; }
+
+        .modal {
+            position: fixed; top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.85); display: none;
+            justify-content: center; align-items: center; z-index: 9999; padding: 20px;
+        }
+        .modal-content { background: #fff; padding: 25px; border-radius: 12px; width: 100%; max-width: 400px; text-align: center; }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; position: sticky; top: 0; background: #fff; z-index: 100; padding: 10px 0; }
+        .back-btn { padding: 8px 15px; border: 1px solid #000; border-radius: 5px; background: none; }
     </style>
 </head>
 <body>
 
     <div id="home-page" class="page active">
-        <p class="disclaimer">These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
-        <div class="main-menu">
-            <div class="btn" data-page="iheartscan">iHeartScan</div>
-            <div class="btn" data-page="standard-echo">Standard Echocardiography Protocol</div>
-            <div class="btn" data-page="pocus">POCUS</div>
-            <div class="btn" data-page="limited-lv">Limited LV Assessment</div>
-            <div class="btn" data-page="limited-rv">Limited RV Assessment</div>
-            <div class="btn" data-page="limited-valve">Limited Scan Protocol for Mitral and Aortic Valves</div>
-            <div class="btn" data-page="pathology-menu">By Pathology (Minimal Scan)</div>
+        <p style="font-size: 0.7rem; text-align: center; color: #666; margin-bottom: 20px;">
+            These protocols are not endorsed by any professional bodies. Use at your own risk.
+        </p>
+        <div class="main-menu" style="display: flex; flex-direction: column; justify-content: center; flex-grow: 1;">
+            <button class="btn" style="border-color: var(--warn); color: var(--warn);" onclick="openWarning()">POCUS PAH Report Form</button>
+            <button class="btn" onclick="showPage('iheartscan-page')">iHeartScan</button>
+            <button class="btn" onclick="showPage('pocus-page')">POCUS</button>
+            <button class="btn" onclick="showPage('pathology-menu-page')">By Pathology</button>
         </div>
     </div>
-    <div id="pathology-menu-page" class="page">
-        <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1 id="pathology-menu-title"></h1>
+
+    <div id="warning-dialog" class="modal">
+        <div class="modal-content">
+            <h2 style="color: var(--warn); margin-bottom: 15px;">⚠️ WARNING</h2>
+            <p style="margin-bottom: 20px;">This is an unsecure form. Do not enter sensitive patient details (Names, MRNs, or DOBs).</p>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn" style="flex:1;" onclick="closeModal('warning-dialog')">Cancel</button>
+                <button class="btn" style="flex:1; background: #000; color: #fff;" onclick="startForm()">Acknowledged</button>
+            </div>
         </div>
-        <div id="pathology-menu-content" class="content"></div>
     </div>
-    <div id="content-page" class="page">
+
+    <div id="report-form-page" class="page">
         <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1 id="content-page-title"></h1>
+            <button class="back-btn" onclick="showPage('home-page')">← Exit</button>
+            <h1>PAH Report Form</h1>
         </div>
-        <div id="content-page-content" class="content"></div>
+
+        <form id="pah-form">
+            <div class="form-section">
+                <h3>Patient Info (Secured)</h3>
+                <div class="field"><label>Patient Name</label><input type="text" readonly placeholder="ENTRY DISABLED"></div>
+                <div class="field"><label>MRN</label><input type="text" readonly placeholder="ENTRY DISABLED"></div>
+                <div class="field"><label>Operator</label><input type="text" name="operator"></div>
+                <div class="field"><label>Exam Date</label><input type="date" name="exam_date"></div>
+            </div>
+
+            <div class="form-section">
+                <h3>17-Segment RWMA Analysis</h3>
+                <p style="font-size: 0.75rem; color: #666; margin-bottom: 10px;">Assess motion for each segment :</p>
+                
+                <div class="rwma-container">
+                    <div class="rwma-row"><span class="rwma-label">Basal Ant (LAD)</span><select name="rwma_1" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+                    <div class="rwma-row"><span class="rwma-label">Basal Ant-Sept (LAD)</span><select name="rwma_2" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+                    <div class="rwma-row"><span class="rwma-label">Basal Inf-Sept (RCA)</span><select name="rwma_3" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+                    <div class="rwma-row"><span class="rwma-label">Basal Inf (RCA)</span><select name="rwma_4" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+                    <div class="rwma-row"><span class="rwma-label">Basal Inf-Lat (LCX)</span><select name="rwma_5" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+                    <div class="rwma-row"><span class="rwma-label">Basal Ant-Lat (LCX)</span><select name="rwma_6" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+                    
+                    <div class="rwma-row"><span class="rwma-label">Mid Ant (LAD)</span><select name="rwma_7" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+                    <div class="rwma-row"><span class="rwma-label">Mid Ant-Sept (LAD)</span><select name="rwma_8" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+                    <div class="rwma-row"><span class="rwma-label">Mid Inf-Sept (RCA)</span><select name="rwma_9" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+                    <div class="rwma-row"><span class="rwma-label">Mid Inf (RCA)</span><select name="rwma_10" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+                    <div class="rwma-row"><span class="rwma-label">Mid Inf-Lat (LCX)</span><select name="rwma_11" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+                    <div class="rwma-row"><span class="rwma-label">Mid Ant-Lat (LCX)</span><select name="rwma_12" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+
+                    <div class="rwma-row"><span class="rwma-label">Apical Ant (LAD)</span><select name="rwma_13" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+                    <div class="rwma-row"><span class="rwma-label">Apical Sept (LAD)</span><select name="rwma_14" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+                    <div class="rwma-row"><span class="rwma-label">Apical Inf (RCA)</span><select name="rwma_15" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+                    <div class="rwma-row"><span class="rwma-label">Apical Lat (LCX)</span><select name="rwma_16" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+                    <div class="rwma-row"><span class="rwma-label">Apex</span><select name="rwma_17" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+                    
+                    <div class="rwma-row"><span class="rwma-label">RV Free Wall (RCA)</span><select name="rwma_rv" class="rwma-select"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Apical Four Chamber</h3>
+                <div class="field"><label>TAPSE (mm) [cite: 148]</label><input type="number" name="tapse" placeholder="e.g. 18"></div>
+                <div class="field">
+                    <label>RV Fractional Area Change [cite: 159]</label>
+                    <select name="rv_fac">
+                        <option value="Normal (>35%)">Normal (>35%)</option>
+                        <option value="Reduced (<35%)">Reduced (<35%)</option>
+                        <option value="Severely Reduced (<17%)">Severely Reduced (<17%)</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>LV Ejection Fraction [cite: 160]</label>
+                    <select name="lv_ef">
+                        <option value="Normal (>50%)">Normal (>50%)</option>
+                        <option value="Mild Reduced (40-50%)">Mildly Reduced (40-50%)</option>
+                        <option value="Mod Reduced (30-40%)">Moderately Reduced (30-40%)</option>
+                        <option value="Severe Reduced (<30%)">Severely Reduced (<30%)</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="button" class="btn" style="background: #28a745; color: #fff; width: 100%; margin-top: 20px;" onclick="openEmailModal()">COMPLETE REPORT</button>
+        </form>
+        <div style="height: 50px;"></div>
+    </div>
+
+    <div id="email-dialog" class="modal">
+        <div class="modal-content">
+            <h2>Finish Report</h2>
+            <p style="margin: 15px 0;">Generating professional PDF summary...</p>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn" style="flex:1;" onclick="closeModal('email-dialog')">Back</button>
+                <button class="btn" style="flex:1; background: #28a745; color: #fff;" onclick="generatePDF()">Generate & Save</button>
+            </div>
+        </div>
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        let currentPageId = 'home-page';
-        const contentCache = {};
-
-        const init = () => {
-            setupEventListeners();
-            registerServiceWorker();
-            history.replaceState({ page: 'home-page' }, '', '#home');
-        };
-        
-        const parseMarkdown = (text) => {
-            const lines = text.split('\n');
-            let html = '';
-            let isTable = false;
-
-            for (let i = 0; i < lines.length; i++) {
-                const line = lines[i];
-                const trimmedLine = line.trim();
-
-                if (trimmedLine.startsWith('<')) { html += line; continue; }
-
-                if (trimmedLine.includes('|')) {
-                    if (!isTable) {
-                        html += '<table>';
-                        if (lines[i + 1] && lines[i + 1].includes('---')) {
-                            html += '<thead><tr>';
-                            trimmedLine.split('|').forEach(cell => { if (cell.trim()) html += `<th>${cell.trim()}</th>`; });
-                            html += '</tr></thead><tbody>';
-                            i++; 
-                            isTable = true;
-                        } else {
-                            html += '<tbody><tr>';
-                            trimmedLine.split('|').forEach(cell => { if (cell.trim()) html += `<td>${cell.trim()}</td>`; });
-                            html += '</tr>';
-                            isTable = true;
-                        }
-                    } else {
-                         html += '<tr>';
-                         trimmedLine.split('|').forEach(cell => { if (cell.trim()) html += `<td>${cell.trim()}</td>`; });
-                         html += '</tr>';
-                    }
-                    continue;
-                }
-                
-                if (isTable) { html += '</tbody></table>'; isTable = false; }
-                
-                if (trimmedLine.startsWith('## ')) html += `<h3>${trimmedLine.substring(3)}</h3>`;
-                else if (trimmedLine.startsWith('# ')) html += `<h2>${trimmedLine.substring(2)}</h2>`;
-                else if (trimmedLine.startsWith('![')) {
-                    const altMatch = trimmedLine.match(/!\[(.*?)\]/);
-                    const srcMatch = trimmedLine.match(/\((.*?)\)/);
-                    if (altMatch && srcMatch) html += `<img src="${srcMatch[1]}" alt="${altMatch[1]}">`;
-                }
-                else if (trimmedLine.startsWith('* ')) {
-                    const indent = line.search(/\S/);
-                    html += `<p style="margin-left: ${indent * 10}px;">&bull; ${trimmedLine.substring(1).replace(/\*(.*?)\*/g, '<em>$1</em>')}</p>`;
-                }
-                else if (trimmedLine.length > 0) {
-                    html += `<p>${trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>')}</p>`;
-                }
-            }
-            if (isTable) { html += '</tbody></table>'; }
-            return html;
-        };
-
-        const loadContent = async (pageId) => {
-            if (contentCache[pageId]) return contentCache[pageId];
-            
-            try {
-                const response = await fetch(`${pageId}.txt?v=${new Date().getTime()}`);
-                if (!response.ok) throw new Error('Content not found');
-                const text = await response.text();
-                
-                const lines = text.split('\n');
-                const title = lines.shift();
-                const body = lines.join('\n');
-                
-                const parsedContent = { title, body: parseMarkdown(body) };
-                contentCache[pageId] = parsedContent;
-                return parsedContent;
-            } catch (error) {
-                console.error(`Failed to load content for ${pageId}:`, error);
-                return { title: 'Error', body: '<p>Could not load protocol content.</p>' };
-            }
-        };
-
-        const renderPage = async (pageId) => {
+        function showPage(id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            currentPageId = pageId;
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
+        }
+        function openWarning() { document.getElementById('warning-dialog').style.display = 'flex'; }
+        function startForm() { closeModal('warning-dialog'); showPage('report-form-page'); }
+        function openEmailModal() { document.getElementById('email-dialog').style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-            if (pageId === 'home-page') {
-                document.getElementById('home-page').classList.add('active');
-                return;
-            }
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const form = document.getElementById('pah-form');
+            const data = new FormData(form);
+
+            doc.setFontSize(16);
+            doc.text("PAH POCUS CARDIAC ECHO REPORT", 20, 20);
             
-            const isSubMenu = pageId === 'pathology-menu';
-            const pageToShow = isSubMenu ? document.getElementById('pathology-menu-page') : document.getElementById('content-page');
-            const titleElement = isSubMenu ? document.getElementById('pathology-menu-title') : document.getElementById('content-page-title');
-            const contentElement = isSubMenu ? document.getElementById('pathology-menu-content') : document.getElementById('content-page-content');
-            
-            contentElement.innerHTML = '<p>Loading...</p>';
-            titleElement.textContent = 'Loading...';
-            pageToShow.classList.add('active');
+            doc.setFontSize(10);
+            doc.text(`Operator: ${data.get('operator') || 'N/A'}`, 20, 30);
+            doc.text(`Exam Date: ${data.get('exam_date') || 'N/A'}`, 20, 35);
+            doc.line(20, 40, 190, 40);
 
-            const content = await loadContent(pageId);
-            titleElement.textContent = content.title;
-            contentElement.innerHTML = content.body;
-        };
-        
-        const showPage = (pageId) => {
-            history.pushState({ page: pageId }, '', `#${pageId}`);
-            renderPage(pageId);
-        };
-
-        window.onpopstate = function(event) {
-            const pageIdToShow = (event.state && event.state.page) ? event.state.page : 'home-page';
-            renderPage(pageIdToShow);
-        };
-
-        const setupEventListeners = () => {
-            document.body.addEventListener('click', function(event) {
-                const target = event.target.closest('.btn[data-page]');
-                if (target) {
-                    showPage(target.dataset.page);
-                    return;
+            doc.setFontSize(12);
+            doc.text("17-SEGMENT WALL MOTION SUMMARY", 20, 50);
+            doc.setFontSize(8);
+            let y = 60;
+            for (let i = 1; i <= 17; i++) {
+                const val = data.get(`rwma_${i}`);
+                if (val !== 'Normal') {
+                    doc.text(`Segment ${i}: ${val}`, 25, y);
+                    y += 5;
                 }
-                const backButton = event.target.closest('.back-btn');
-                if (backButton) {
-                    history.back();
-                    return;
-                }
-                if (event.target.classList.contains('tappable-ref')) {
-                    const hiddenSpan = event.target.nextElementSibling;
-                    if (hiddenSpan && hiddenSpan.classList.contains('hidden-ref')) {
-                        const isVisible = hiddenSpan.style.display === 'inline';
-                        hiddenSpan.style.display = isVisible ? 'none' : 'inline';
-                    }
-                }
-            });
-        };
-        
-        const registerServiceWorker = () => {
-            if ('serviceWorker' in navigator) {
-                const swContent = `
-                    const CACHE_NAME = 'echo-app-cache-v2'; 
-                    const APP_SHELL_URLS = ['./', 'manifest.json', 'icon-512x512.png'];
-                    self.addEventListener('install', event => {
-                        event.waitUntil(
-                            caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL_URLS))
-                        );
-                    });
-                    self.addEventListener('fetch', event => {
-                        const url = new URL(event.request.url);
-                        if (url.pathname.endsWith('.txt')) {
-                            event.respondWith(
-                                caches.open(CACHE_NAME).then(cache => {
-                                    return fetch(event.request).then(response => {
-                                        cache.put(event.request, response.clone());
-                                        return response;
-                                    }).catch(() => {
-                                        return cache.match(event.request);
-                                    });
-                                })
-                            );
-                        } 
-                        else {
-                            event.respondWith(
-                                caches.match(event.request).then(response => {
-                                    return response || fetch(event.request);
-                                })
-                            );
-                        }
-                    });
-                    self.addEventListener('activate', event => {
-                        event.waitUntil(
-                            caches.keys().then(cacheNames => {
-                                return Promise.all(
-                                    cacheNames.map(cacheName => {
-                                        if (cacheName !== CACHE_NAME) {
-                                            return caches.delete(cacheName);
-                                        }
-                                    })
-                                );
-                            })
-                        );
-                    });
-                `;
-                const blob = new Blob([swContent], { type: 'application/javascript' });
-                const swUrl = URL.createObjectURL(blob);
-                navigator.serviceWorker.register(swUrl)
-                    .then(reg => console.log('Service Worker registered.'))
-                    .catch(err => console.error('SW registration failed:', err));
             }
-        };
-        
-        init();
-    });
+            if (y === 60) doc.text("All segments: Normal", 25, y);
+            
+            y += 10;
+            doc.setFontSize(12);
+            doc.text("CHAMBER QUANTIFICATION", 20, y);
+            doc.setFontSize(10);
+            y += 10;
+            doc.text(`TAPSE: ${data.get('tapse')} mm`, 20, y);
+            doc.text(`RV FAC: ${data.get('rv_fac')}`, 20, y + 7);
+            doc.text(`LV EF: ${data.get('lv_ef')}`, 20, y + 14);
+
+            doc.save(`Echo_Report_${data.get('exam_date') || 'export'}.pdf`);
+            alert("Report Generated. Save the file to your device.");
+            closeModal('email-dialog');
+            showPage('home-page');
+        }
     </script>
 </body>
 </html>
