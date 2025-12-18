@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Echo Protocols v18</title>
+    <title>Echo Protocols</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="white">
     <link rel="manifest" href="manifest.json">
@@ -65,7 +65,7 @@
 <body>
 
     <div id="home-page" class="page active">
-        <p class="disclaimer">V18. These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
+        <p class="disclaimer">V19. These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
         <div class="main-menu">
             <div class="btn" id="pah-trigger" style="border-color: #d93025; color: #d93025;">POCUS PAH Report Form</div>
             <div class="btn" data-page="iheartscan">iHeartScan</div>
@@ -511,17 +511,27 @@
                 <div class="input-group">
                     <label>Tricuspid Valve</label>
                     <select name="sum_v_tri">
-                        <option value="normal">Normal</option>
-                        <option value="regurgitation">Regurgitation</option>
-                        <option value="marked regurgitation">Marked regurgitation</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Regurgitation">Regurgitation</option>
+                        <option value="Marked regurgitation">Marked regurgitation</option>
                     </select>
                 </div>
                 <div class="input-group">
                     <label>Mitral Valve</label>
                     <select name="sum_v_mit">
-                        <option value="normal">Normal</option>
-                        <option value="regurgitation">Regurgitation</option>
-                        <option value="marked regurgitation">Marked regurgitation</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Regurgitation">Regurgitation</option>
+                        <option value="Marked regurgitation">Marked regurgitation</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Aortic Valve</label>
+                    <select name="sum_v_aor">
+                        <option value="Normal">Normal</option>
+                        <option value="Regurgitation">Regurgitation</option>
+                        <option value="Marked regurgitation">Marked regurgitation</option>
+                        <option value="Stenosis">Stenosis</option>
+                        <option value="Marked stenosis">Marked stenosis</option>
                     </select>
                 </div>
             </div>
@@ -547,6 +557,7 @@
         <div class="header"><button class="back-btn">&lt; Back</button><h1 id="pathology-menu-title"></h1></div>
         <div id="pathology-menu-content" class="content"></div>
     </div>
+
     <div id="content-page" class="page">
         <div class="header"><button class="back-btn">&lt; Back</button><h1 id="content-page-title"></h1></div>
         <div id="content-page-content" class="content"></div>
@@ -605,7 +616,6 @@
                     html += `<p>${trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>')}</p>`;
                 }
             }
-            if (isTable) { html += '</tbody></table>'; }
             return html;
         };
 
@@ -677,7 +687,6 @@
             y += 8;
             doc.line(20, y, 190, y); y += 8;
 
-            // Exhaustive section mapping
             const addField = (label, value) => {
                 if (y > 270) { doc.addPage(); y = 20; }
                 doc.text(`${label}: ${value || 'N/A'}`, 20, y);
@@ -713,7 +722,7 @@
             addField("LV Size / Func / RWMA", `${fd.get('sum_lv_size')} / ${fd.get('sum_lv_func')} / ${fd.get('sum_lv_rwma')}`);
             addField("RV Size / Func / Septum", `${fd.get('sum_rv_size')} / ${fd.get('sum_rv_func')} / ${fd.get('sum_septum')}`);
             addField("TAPSE / RVSP / Pericardium", `${fd.get('sum_tapse')} / ${fd.get('sum_rvsp')} / ${fd.get('sum_pericardium')}`);
-            addField("Valves (Tricuspid / Mitral)", `${fd.get('sum_v_tri')} / ${fd.get('sum_v_mit')}`);
+            addField("Valves (Tricuspid / Mitral / Aortic)", `${fd.get('sum_v_tri')} / ${fd.get('sum_v_mit')} / ${fd.get('sum_v_aor')}`);
             const states = Array.from(document.querySelectorAll('input[name="sum_haemo"]:checked')).map(cb => cb.value).join(', ');
             addField("Haemodynamic State", states);
 
@@ -724,10 +733,8 @@
         };
 
         window.onpopstate = (event) => renderPage(event.state?.page || 'home-page');
-        const registerServiceWorker = () => { /* SW Logic Untouched */ };
         init();
     });
     </script>
 </body>
 </html>
-
