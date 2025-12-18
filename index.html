@@ -20,6 +20,7 @@
             --border-color: #000000;
             --button-bg-color: #f0f0f0;
             --button-active-bg: #dcdcdc;
+            --warning-red: #d93025;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: var(--background-color); color: var(--text-color); }
@@ -42,7 +43,7 @@
 
         /* Report Form Styles */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: white; padding: 30px; border-radius: 12px; width: 100%; max-width: 400px; text-align: center; }
+        .modal-content { background: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 400px; text-align: center; }
         .form-section { margin-bottom: 25px; border-top: 1px solid #eee; padding-top: 15px; }
         .form-section h3 { margin-bottom: 15px; font-size: 1rem; text-transform: uppercase; color: #333; }
         .input-group { margin-bottom: 15px; text-align: left; }
@@ -52,14 +53,16 @@
         .rwma-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; align-items: center; text-align: left; }
         .check-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
         .check-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; background: #f4f4f4; padding: 8px; border-radius: 4px; }
+        
+        .form-footer { display: flex; gap: 10px; margin-top: 20px; }
     </style>
 </head>
 <body>
 
     <div id="home-page" class="page active">
-        <p class="disclaimer">These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
+        <p class="disclaimer">V23.These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
         <div class="main-menu">
-            <div class="btn" id="pah-trigger" style="border-color: #d93025; color: #d93025;">POCUS PAH Report Form</div>
+            <div class="btn" id="pah-trigger" style="border-color: var(--warning-red); color: var(--warning-red);">POCUS PAH Report Form</div>
             <div class="btn" data-page="iheartscan">iHeartScan</div>
             <div class="btn" data-page="standard-echo">Standard Echocardiography Protocol</div>
             <div class="btn" data-page="pocus">POCUS</div>
@@ -72,7 +75,7 @@
 
     <div id="warning-modal" class="modal">
         <div class="modal-content">
-            <h2 style="color:#d93025; margin-bottom:15px;">⚠️ WARNING</h2>
+            <h2 style="color:var(--warning-red); margin-bottom:15px;">⚠️ WARNING</h2>
             <p style="margin-bottom:20px;">This is an unsecure form. Do not enter sensitive patient details (Names, MRNs, or full DOBs).</p>
             <div style="display:flex; gap:10px;">
                 <div class="btn" id="cancel-warn" style="font-size:1rem; padding:12px;">Cancel</div>
@@ -85,7 +88,10 @@
         <div class="header"><button class="back-btn">&lt; Back</button><h1>PAH Report Form</h1></div>
         <form id="pah-form">
             <div id="dynamic-form-container"><p>Loading form fields...</p></div>
-            <div class="btn" id="btn-complete" style="background:#28a745; color:white; font-weight:bold; margin-top:20px;">COMPLETE & SHARE</div>
+            <div class="form-footer">
+                <div class="btn" id="btn-reset" style="background:#6c757d; color:white; font-size:1rem; flex: 1;">RESET</div>
+                <div class="btn" id="btn-complete" style="background:#28a745; color:white; font-weight:bold; flex: 2;">COMPLETE & SHARE</div>
+            </div>
         </form>
         <div style="height:60px;"></div>
     </div>
@@ -148,12 +154,11 @@
             const grid = document.getElementById('rwma-grid');
             if(grid) segments.forEach((s, i) => grid.innerHTML += `<div class="rwma-row"><span>${s}</span><select name="seg_${i}"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>`);
 
-            // Attach Unified Logic Engine
             container.addEventListener('input', runLogicEngine);
+            runLogicEngine(); // Initialize states
         };
 
         const runLogicEngine = () => {
-            // Part A: Math Calculations
             formMetadata.filter(f => f.calculation).forEach(field => {
                 const targetInput = document.getElementById(field.id);
                 if (targetInput) {
@@ -172,7 +177,6 @@
                 }
             });
 
-            // Part B: Conditional Visibility
             formMetadata.filter(f => f.condition).forEach(field => {
                 const el = document.getElementById(field.id) || document.querySelector(`[data-condition="${field.condition}"]`);
                 if (el) {
@@ -180,11 +184,9 @@
                     const triggerId = condition.split(' ')[0];
                     const triggerVal = document.getElementById(triggerId).value;
                     const check = condition.replace(triggerId, `'${triggerVal}'`);
-                    
-                    if (eval(check)) {
-                        el.style.display = 'block';
-                    } else {
-                        el.style.display = 'none';
+                    if (eval(check)) { el.style.display = 'block'; } 
+                    else { 
+                        el.style.display = 'none'; 
                         if (el.id === 'rwma-grid') el.querySelectorAll('select').forEach(s => s.value = 'Normal');
                     }
                 }
@@ -204,6 +206,13 @@
                 }
                 if (event.target.id === 'btn-complete') {
                     if (window.generateAndSharePDF) window.generateAndSharePDF();
+                }
+                if (event.target.id === 'btn-reset') {
+                    if (confirm("Clear all report data?")) {
+                        document.getElementById('pah-form').reset();
+                        runLogicEngine();
+                        window.scrollTo(0,0);
+                    }
                 }
                 if (event.target.closest('.back-btn')) history.back();
             });
