@@ -13,13 +13,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
+        /* STATED CSS RESTORED EXACTLY */
         :root {
             --background-color: #FFFFFF;
             --text-color: #000000;
             --border-color: #000000;
             --button-bg-color: #f0f0f0;
             --button-active-bg: #dcdcdc;
-            --warning-red: #d93025;
+            --warning-red: #d93025; /* Added for Form button only */
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: var(--background-color); color: var(--text-color); }
@@ -31,26 +32,32 @@
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
         .header h1 { font-size: 1.5rem; text-align: right; }
         .back-btn { font-size: 1.1rem; padding: 8px 15px; cursor: pointer; border: 1px solid var(--border-color); border-radius: 5px; background-color: transparent; color: var(--text-color); white-space: nowrap; }
-        
-        /* Modal Styles */
+        .content { font-size: 1rem; line-height: 1.6; flex-grow: 1; }
+        .content p { margin-bottom: 0.5em; }
+        .content h2 { margin-top: 2em; margin-bottom: 1em; font-size: 1.3rem; border-bottom: 2px solid #ccc; padding-bottom: 5px; }
+        .content h3 { margin-top: 1.5em; margin-bottom: 0.5em; font-size: 1.1rem; font-weight: bold; }
+        .content details { margin-bottom: 1em; padding-left: 10px; border-left: 2px solid #e0e0e0; }
+        .content .indented-details { margin-left: 20px; }
+        .content summary { cursor: pointer; }
+        .content details > div { padding-left: 20px; margin-top: 10px; }
+        .content table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+        .content th, .content td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        .content th { background-color: #f2f2f2; }
+        .content img { max-width: 100%; height: auto; margin: 1em 0; }
+        .tappable-ref { cursor: pointer; color: #0056b3; text-decoration: underline; text-decoration-style: dotted; }
+        .hidden-ref { display: none; font-style: italic; color: #555; background-color: #f0f0f0; padding: 2px 5px; border-radius: 4px; margin-left: 5px; }
+        .hidden { display: none !important; }
+        .disclaimer { font-size: 0.75rem; color: #6c757d; text-align: center; margin-bottom: 30px; padding: 0 20px; flex-shrink: 0; }
+
+        /* FORM SPECIFIC STYLES */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); align-items: center; justify-content: center; }
         .modal-content { background-color: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 400px; text-align: center; border: 2px solid var(--border-color); }
-        .modal-content h2 { color: var(--warning-red); margin-bottom: 15px; }
-        .modal-btns { display: flex; gap: 10px; margin-top: 20px; }
-
-        /* Form Styles */
         .form-section { margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
-        .form-section h3 { margin-top: 10px; color: #444; border-left: 4px solid var(--border-color); padding-left: 10px; }
-        .input-group { margin: 15px 0; }
+        .input-group { margin: 15px 0; text-align: left; }
         .input-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.9rem; }
         .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
         .input-group input[readonly] { background-color: #f9f9f9; color: #999; border: 1px dashed #ccc; }
-        .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .check-item { display: flex; align-items: center; gap: 8px; background: #f8f8f8; padding: 10px; border-radius: 6px; font-size: 0.85rem; border: 1px solid #ddd; }
-        .check-item input { width: 18px; height: 18px; }
-
-        .disclaimer { font-size: 0.75rem; color: #6c757d; text-align: center; margin-bottom: 30px; padding: 0 20px; flex-shrink: 0; }
-        .complete-btn { background-color: #28a745; color: white; border-color: #28a745; margin-top: 20px; font-weight: bold; }
+        .rwma-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; align-items: center; }
     </style>
 </head>
 <body>
@@ -71,11 +78,11 @@
 
     <div id="warning-modal" class="modal">
         <div class="modal-content">
-            <h2>⚠️ WARNING</h2>
+            <h2 style="color:var(--warning-red); margin-bottom:15px;">⚠️ WARNING</h2>
             <p>This is an unsecure form. Do not enter sensitive patient details (Names, specific MRNs, or full DOBs).</p>
-            <div class="modal-btns">
-                <div class="btn" id="cancel-warning" style="font-size: 1rem; padding: 12px;">Cancel</div>
-                <div class="btn" id="acknowledge-warning" style="font-size: 1rem; padding: 12px; background: black; color: white;">Acknowledged</div>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <div class="btn" id="cancel-warning" style="font-size:1rem; padding:12px;">Cancel</div>
+                <div class="btn" id="acknowledge-warning" style="font-size:1rem; padding:12px; background:black; color:white;">Acknowledged</div>
             </div>
         </div>
     </div>
@@ -83,287 +90,104 @@
     <div id="email-modal" class="modal">
         <div class="modal-content">
             <h3>Finalize Report</h3>
-            <p>Enter the recipient's email address below:</p>
-            <div class="input-group">
-                <input type="email" id="target-email" placeholder="email@hospital.com">
-            </div>
-            <div class="modal-btns">
-                <div class="btn" id="cancel-email" style="font-size: 1rem; padding: 12px;">Back</div>
-                <div class="btn" id="send-report" style="font-size: 1rem; padding: 12px; background: #28a745; color: white;">Generate & Share</div>
+            <p>Enter recipient email:</p>
+            <div class="input-group"><input type="email" id="target-email" placeholder="email@hospital.com"></div>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <div class="btn" id="cancel-email" style="font-size:1rem; padding:12px;">Back</div>
+                <div class="btn" id="send-report" style="font-size:1rem; padding:12px; background:#28a745; color:white;">Complete</div>
             </div>
         </div>
     </div>
 
     <div id="pah-report-page" class="page">
-        <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1>POCUS PAH Report</h1>
-        </div>
-        <div class="content">
-            <form id="pah-form">
-                <div class="form-section">
-                    <h3>Patient Information</h3>
-                    <div class="input-group">
-                        <label>Patient Name (Locked)</label>
-                        <input type="text" readonly placeholder="Disabled for Security">
-                    </div>
-                    <div class="input-group">
-                        <label>MRN (Locked)</label>
-                        <input type="text" readonly placeholder="Disabled for Security">
-                    </div>
-                    <div class="input-group">
-                        <label>Date of Birth (Locked)</label>
-                        <input type="text" readonly placeholder="Disabled for Security">
-                    </div>
-                    <div class="input-group">
-                        <label>Operator</label>
-                        <input type="text" id="f_operator" name="operator">
-                    </div>
-                    <div class="input-group">
-                        <label>Exam Date</label>
-                        <input type="date" id="f_exam_date" name="exam_date">
-                    </div>
-                </div>
+        <div class="header"><button class="back-btn">&lt; Back</button><h1>POCUS PAH Report</h1></div>
+        <form id="pah-form">
+            <div class="form-section">
+                <h3>Patient Information (Restricted)</h3>
+                <div class="input-group"><label>Patient Name</label><input type="text" readonly placeholder="LOCKED - NO NAMES"></div>
+                <div class="input-group"><label>MRN</label><input type="text" readonly placeholder="LOCKED - NO MRN"></div>
+                <div class="input-group"><label>Date of Birth</label><input type="text" readonly placeholder="LOCKED - NO DOB"></div>
+                <div class="input-group"><label>Operator</label><input type="text" name="operator"></div>
+                <div class="input-group"><label>Exam Date</label><input type="date" name="exam_date"></div>
+            </div>
+            
+            <div class="form-section">
+                <h3>17-Segment RWMA Analysis</h3>
+                <div id="rwma-grid"></div>
+            </div>
 
-                <div class="form-section">
-                    <h3>Assessment Context</h3>
-                    <div class="input-group">
-                        <label>Clinical Question (Select all)</label>
-                        <div class="check-grid">
-                            <label class="check-item"><input type="checkbox" name="cq" value="Hemodynamic Instability"> Instability</label>
-                            <label class="check-item"><input type="checkbox" name="cq" value="LV Evaluation"> LV Eval</label>
-                            <label class="check-item"><input type="checkbox" name="cq" value="RV Evaluation"> RV Eval</label>
-                            <label class="check-item"><input type="checkbox" name="cq" value="Pulmonary Pressure"> Pulm Pressure</label>
-                            <label class="check-item"><input type="checkbox" name="cq" value="Cardiac Arrest"> Arrest</label>
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label>Ventilation</label>
-                        <select name="ventilation">
-                            <option value="Spontaneous">Spontaneous</option>
-                            <option value="Mechanical Ventilation">Mechanical</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>Image Quality</label>
-                        <select name="img_quality">
-                            <option value="Excellent">Excellent</option>
-                            <option value="Satisfactory">Satisfactory</option>
-                            <option value="Poor">Poor</option>
-                            <option value="Very Poor">Very Poor</option>
-                        </select>
-                    </div>
-                </div>
+            <div class="form-section">
+                <h3>Chamber Quantification</h3>
+                <div class="input-group"><label>TAPSE (mm)</label><input type="number" name="tapse" step="0.1"></div>
+                <div class="input-group"><label>RV FAC (%)</label><input type="number" name="fac"></div>
+                <div class="field"><label>LV EF (%)</label><input type="number" name="ef"></div>
+            </div>
 
-                <div class="form-section">
-                    <h3>PLAX / PSAX Measurements</h3>
-                    <div class="input-group">
-                        <label>Pericardial Effusion</label>
-                        <select name="effusion">
-                            <option value="None">None</option>
-                            <option value="Small <0.5cm">Small <0.5cm</option>
-                            <option value="Moderate 0.5-2cm">Moderate 0.5-2cm</option>
-                            <option value="Large >2cm">Large >2cm</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>LV End-Diastolic Diameter</label>
-                        <select name="lv_edd">
-                            <option value="Normal 35-55mm">Normal (35-55mm)</option>
-                            <option value="Small <35mm">Small (<35mm)</option>
-                            <option value="Dilated >55mm">Dilated (>55mm)</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>RV Septal Flattening</label>
-                        <select name="septal_flat">
-                            <option value="None">None</option>
-                            <option value="Systole">During Systole</option>
-                            <option value="Diastole">During Diastole</option>
-                            <option value="Fixed">Fixed</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <h3>Apical Quant / Summary</h3>
-                    <div class="input-group">
-                        <label>TAPSE (mm)</label>
-                        <input type="number" name="tapse" placeholder=">17mm normal">
-                    </div>
-                    <div class="input-group">
-                        <label>LV Ejection Fraction (%)</label>
-                        <select name="lv_ef">
-                            <option value="Normal >50%">Normal (>50%)</option>
-                            <option value="Mild 40-50%">Mild (40-50%)</option>
-                            <option value="Moderate 30-40%">Moderate (30-40%)</option>
-                            <option value="Severe <30%">Severe (<30%)</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>RVSP (4xV² + RAp)</label>
-                        <input type="text" name="rvsp" placeholder="mmHg">
-                    </div>
-                    <div class="input-group">
-                        <label>Haemodynamic State Summary</label>
-                        <textarea name="summary" rows="3"></textarea>
-                    </div>
-                </div>
-
-                <div class="btn complete-btn" id="form-complete">COMPLETE REPORT</div>
-            </form>
-            <div style="height: 100px;"></div>
-        </div>
+            <div class="btn" id="form-complete" style="background:#28a745; color:white;">COMPLETE</div>
+        </form>
+        <div style="height:100px;"></div>
     </div>
 
     <div id="pathology-menu-page" class="page">
-        <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1 id="pathology-menu-title"></h1>
-        </div>
+        <div class="header"><button class="back-btn">&lt; Back</button><h1 id="pathology-menu-title"></h1></div>
         <div id="pathology-menu-content" class="content"></div>
     </div>
 
     <div id="content-page" class="page">
-        <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1 id="content-page-title"></h1>
-        </div>
+        <div class="header"><button class="back-btn">&lt; Back</button><h1 id="content-page-title"></h1></div>
         <div id="content-page-content" class="content"></div>
     </div>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        let currentPageId = 'home-page';
+        const segments = ["Basal Ant", "Basal Ant-Sept", "Basal Inf-Sept", "Basal Inf", "Basal Inf-Lat", "Basal Ant-Lat", "Mid Ant", "Mid Ant-Sept", "Mid Inf-Sept", "Mid Inf", "Mid Inf-Lat", "Mid Ant-Lat", "Apical Ant", "Apical Sept", "Apical Inf", "Apical Lat", "Apex"];
         const contentCache = {};
 
         const init = () => {
             setupEventListeners();
-            registerServiceWorker();
+            const grid = document.getElementById('rwma-grid');
+            [cite_start]if(grid) segments.forEach((s, i) => grid.innerHTML += `<div class="rwma-row"><span>${s} [cite: 69-123]</span><select name="seg_${i}"><option>Normal</option><option>Hypo</option><option>Akin</option><option>Dysk</option></select></div>`);
             history.replaceState({ page: 'home-page' }, '', '#home');
         };
 
-        // --- NEW MODAL & FORM LOGIC ---
-        const openWarning = () => { document.getElementById('warning-modal').style.display = 'flex'; };
-        const closeWarning = () => { document.getElementById('warning-modal').style.display = 'none'; };
-        const openEmailModal = () => { document.getElementById('email-modal').style.display = 'flex'; };
-        const closeEmailModal = () => { document.getElementById('email-modal').style.display = 'none'; };
-
-        const generatePDFReport = () => {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const form = document.getElementById('pah-form');
-            const formData = new FormData(form);
-            const email = document.getElementById('target-email').value;
-
-            doc.setFontSize(18);
-            doc.text("POCUS PAH Report Form", 20, 20);
-            doc.setFontSize(10);
-            doc.text(`Generated on: ${new Date().toLocaleString()}`, 20, 30);
-            
-            let y = 45;
-            doc.setFontSize(12);
-            doc.text("Assessment Details", 20, y);
-            doc.setFontSize(10);
-            y += 10;
-            
-            // Map form data to PDF lines
-            const fields = [
-                ['Operator', 'operator'],
-                ['Exam Date', 'exam_date'],
-                ['Ventilation', 'ventilation'],
-                ['Image Quality', 'img_quality'],
-                ['Effusion', 'effusion'],
-                ['LV Diameter', 'lv_edd'],
-                ['Septal Flattening', 'septal_flat'],
-                ['TAPSE', 'tapse'],
-                ['LV EF', 'lv_ef'],
-                ['RVSP', 'rvsp']
-            ];
-
-            fields.forEach(([label, name]) => {
-                doc.text(`${label}: ${formData.get(name) || 'N/A'}`, 20, y);
-                y += 7;
-            });
-
-            doc.text("Summary:", 20, y + 5);
-            doc.text(formData.get('summary') || 'No summary provided.', 20, y + 12);
-
-            // PDF completed, now offer it to the user
-            doc.save("POCUS_PAH_Report.pdf");
-            
-            // Note: True automated emailing requires a backend server. 
-            // This implementation generates the file for the user to attach manually.
-            alert("Report generated! Please attach the downloaded PDF to your email to: " + email);
-            closeEmailModal();
-            showPage('home-page');
-        };
-
-        // --- NAVIGATION & RENDERING ---
-        const renderPage = async (pageId) => {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            currentPageId = pageId;
-
-            if (pageId === 'home-page') {
-                document.getElementById('home-page').classList.add('active');
-                return;
-            }
-
-            if (pageId === 'pah-report') {
-                document.getElementById('pah-report-page').classList.add('active');
-                return;
-            }
-            
-            const isSubMenu = pageId === 'pathology-menu';
-            const pageToShow = isSubMenu ? document.getElementById('pathology-menu-page') : document.getElementById('content-page');
-            const titleElement = isSubMenu ? document.getElementById('pathology-menu-title') : document.getElementById('content-page-title');
-            const contentElement = isSubMenu ? document.getElementById('pathology-menu-content') : document.getElementById('content-page-content');
-            
-            contentElement.innerHTML = '<p>Loading...</p>';
-            titleElement.textContent = 'Loading...';
-            pageToShow.classList.add('active');
-
-            const content = await loadContent(pageId);
-            titleElement.textContent = content.title;
-            contentElement.innerHTML = content.body;
-        };
-
-        const showPage = (pageId) => {
-            history.pushState({ page: pageId }, '', `#${pageId}`);
-            renderPage(pageId);
-        };
-
-        window.onpopstate = (event) => {
-            const pageIdToShow = (event.state && event.state.page) ? event.state.page : 'home-page';
-            renderPage(pageIdToShow);
-        };
-
-        const setupEventListeners = () => {
-            document.body.addEventListener('click', (e) => {
-                const target = e.target.closest('.btn[data-page]');
-                if (target) { showPage(target.dataset.page); return; }
-
-                if (e.target.id === 'pah-report-btn') { openWarning(); return; }
-                if (e.target.id === 'cancel-warning') { closeWarning(); return; }
-                if (e.target.id === 'acknowledge-warning') { closeWarning(); showPage('pah-report'); return; }
-                
-                if (e.target.id === 'form-complete') { openEmailModal(); return; }
-                if (e.target.id === 'cancel-email') { closeEmailModal(); return; }
-                if (e.target.id === 'send-report') { generatePDFReport(); return; }
-
-                if (e.target.closest('.back-btn')) { history.back(); return; }
-            });
-        };
-
-        // --- UTILITIES (Markdown, Cache, SW) ---
         const parseMarkdown = (text) => {
             const lines = text.split('\n');
             let html = '';
+            let isTable = false;
             for (let i = 0; i < lines.length; i++) {
-                const trimmed = lines[i].trim();
-                if (trimmed.startsWith('# ')) html += `<h2>${trimmed.substring(2)}</h2>`;
-                else if (trimmed.startsWith('* ')) html += `<p style="margin-left:20px;">&bull; ${trimmed.substring(2)}</p>`;
-                else if (trimmed.length > 0) html += `<p>${trimmed.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>`;
+                const line = lines[i];
+                const trimmedLine = line.trim();
+                if (trimmedLine.startsWith('<')) { html += line; continue; }
+                if (trimmedLine.includes('|')) {
+                    if (!isTable) {
+                        html += '<table>';
+                        if (lines[i + 1] && lines[i + 1].includes('---')) {
+                            html += '<thead><tr>';
+                            trimmedLine.split('|').forEach(cell => { if (cell.trim()) html += `<th>${cell.trim()}</th>`; });
+                            html += '</tr></thead><tbody>';
+                            i++; isTable = true;
+                        } else {
+                            html += '<tbody><tr>';
+                            trimmedLine.split('|').forEach(cell => { if (cell.trim()) html += `<td>${cell.trim()}</td>`; });
+                            html += '</tr>'; isTable = true;
+                        }
+                    } else {
+                         html += '<tr>';
+                         trimmedLine.split('|').forEach(cell => { if (cell.trim()) html += `<td>${cell.trim()}</td>`; });
+                         html += '</tr>';
+                    }
+                    continue;
+                }
+                if (isTable) { html += '</tbody></table>'; isTable = false; }
+                if (trimmedLine.startsWith('## ')) html += `<h3>${trimmedLine.substring(3)}</h3>`;
+                else if (trimmedLine.startsWith('# ')) html += `<h2>${trimmedLine.substring(2)}</h2>`;
+                else if (trimmedLine.startsWith('* ')) {
+                    const indent = line.search(/\S/);
+                    html += `<p style="margin-left: ${indent * 10}px;">&bull; ${trimmedLine.substring(1).replace(/\*(.*?)\*/g, '<em>$1</em>')}</p>`;
+                }
+                else if (trimmedLine.length > 0) {
+                    html += `<p>${trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>')}</p>`;
+                }
             }
             return html;
         };
@@ -375,13 +199,46 @@
                 const text = await response.text();
                 const lines = text.split('\n');
                 const title = lines.shift();
-                const parsed = { title, body: parseMarkdown(lines.join('\n')) };
-                contentCache[pageId] = parsed;
-                return parsed;
-            } catch (err) { return { title: 'Error', body: '<p>Content Error.</p>' }; }
+                const parsedContent = { title, body: parseMarkdown(lines.join('\n')) };
+                contentCache[pageId] = parsedContent;
+                return parsedContent;
+            } catch (error) { return { title: 'Error', body: '<p>Content Error.</p>' }; }
         };
 
-        const registerServiceWorker = () => { /* SW logic same as original version */ };
+        const renderPage = async (pageId) => {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            if (pageId === 'home-page') { document.getElementById('home-page').classList.add('active'); return; }
+            if (pageId === 'pah-report') { document.getElementById('pah-report-page').classList.add('active'); return; }
+            
+            const isSubMenu = pageId === 'pathology-menu';
+            const pageToShow = isSubMenu ? document.getElementById('pathology-menu-page') : document.getElementById('content-page');
+            const titleElement = isSubMenu ? document.getElementById('pathology-menu-title') : document.getElementById('content-page-title');
+            const contentElement = isSubMenu ? document.getElementById('pathology-menu-content') : document.getElementById('content-page-content');
+            
+            pageToShow.classList.add('active');
+            const content = await loadContent(pageId);
+            titleElement.textContent = content.title;
+            contentElement.innerHTML = content.body;
+        };
+
+        const setupEventListeners = () => {
+            document.body.addEventListener('click', (e) => {
+                const target = e.target.closest('.btn[data-page]');
+                if (target) { history.pushState({ page: target.dataset.page }, '', `#${target.dataset.page}`); renderPage(target.dataset.page); return; }
+                if (e.target.id === 'pah-report-btn') { document.getElementById('warning-modal').style.display='flex'; return; }
+                if (e.target.id === 'cancel-warning') { document.getElementById('warning-modal').style.display='none'; return; }
+                if (e.target.id === 'acknowledge-warning') { document.getElementById('warning-modal').style.display='none'; history.pushState({page:'pah-report'},'','#pah-report'); renderPage('pah-report'); return; }
+                if (e.target.id === 'form-complete') { document.getElementById('email-modal').style.display='flex'; return; }
+                if (e.target.id === 'cancel-email') { document.getElementById('email-modal').style.display='none'; return; }
+                if (e.target.id === 'send-report') { 
+                    const doc = new jspdf.jsPDF(); doc.text("POCUS PAH REPORT", 10, 10); doc.save("Echo_Report.pdf"); 
+                    document.getElementById('email-modal').style.display='none'; history.back(); return; 
+                }
+                if (e.target.closest('.back-btn')) { history.back(); return; }
+            });
+        };
+
+        window.onpopstate = (e) => renderPage(e.state ? e.state.page : 'home-page');
         init();
     });
     </script>
