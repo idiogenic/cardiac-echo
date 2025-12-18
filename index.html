@@ -57,7 +57,7 @@
 <body>
 
     <div id="home-page" class="page active">
-        <p class="disclaimer">V21. These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
+        <p class="disclaimer">These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
         <div class="main-menu">
             <div class="btn" id="pah-trigger" style="border-color: #d93025; color: #d93025;">POCUS PAH Report Form</div>
             <div class="btn" data-page="iheartscan">iHeartScan</div>
@@ -116,7 +116,7 @@
             try {
                 const response = await fetch('form-structure.json');
                 const structure = await response.json();
-                formMetadata = structure.sections.flatMap(s => s.fields).filter(f => f.calculation);
+                formMetadata = structure.sections.flatMap(s => s.fields).filter(f => f.calculation || f.condition);
                 buildForm(structure);
             } catch (error) { console.error("JSON Load Error", error); }
         };
@@ -136,7 +136,7 @@
                     } else if (field.type === "checkbox-group") {
                         html += `<div class="input-group"><label>${field.label}</label><div class="check-grid">${field.options.map(opt => `<label class="check-item"><input type="checkbox" name="${field.id}" value="${opt}"> ${opt}</label>`).join('')}</div></div>`;
                     } else if (field.type === "rwma-grid") {
-                        html += `<div id="rwma-grid"></div>`;
+                        html += `<div id="rwma-grid" data-condition="${field.condition}" style="display:none;"></div>`;
                     }
                 });
                 html += `</div>`;
@@ -148,28 +148,45 @@
             const grid = document.getElementById('rwma-grid');
             if(grid) segments.forEach((s, i) => grid.innerHTML += `<div class="rwma-row"><span>${s}</span><select name="seg_${i}"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>`);
 
-            // Attach Calculation Engine listener
-            container.addEventListener('input', handleCalculations);
+            // Attach Unified Logic Engine
+            container.addEventListener('input', runLogicEngine);
         };
 
-        const handleCalculations = () => {
-            formMetadata.forEach(field => {
+        const runLogicEngine = () => {
+            // Part A: Math Calculations
+            formMetadata.filter(f => f.calculation).forEach(field => {
                 const targetInput = document.getElementById(field.id);
                 if (targetInput) {
                     try {
                         const formula = field.calculation;
                         const variables = formula.match(/[a-z_]+/g) || [];
-                        let evaluatedFormula = formula;
-                        
+                        let evalStr = formula;
                         variables.forEach(v => {
                             if (v === 'Math' || v === 'pow') return;
                             const val = parseFloat(document.getElementById(v)?.value) || 0;
-                            evaluatedFormula = evaluatedFormula.replace(new RegExp(`\\b${v}\\b`, 'g'), val);
+                            evalStr = evalStr.replace(new RegExp(`\\b${v}\\b`, 'g'), val);
                         });
+                        const res = eval(evalStr);
+                        targetInput.value = res > 0 ? res.toFixed(1) : "";
+                    } catch (e) {}
+                }
+            });
 
-                        const result = eval(evaluatedFormula);
-                        targetInput.value = result > 0 ? result.toFixed(1) : "";
-                    } catch (e) { console.error("Calculation Error", e); }
+            // Part B: Conditional Visibility
+            formMetadata.filter(f => f.condition).forEach(field => {
+                const el = document.getElementById(field.id) || document.querySelector(`[data-condition="${field.condition}"]`);
+                if (el) {
+                    const condition = field.condition; 
+                    const triggerId = condition.split(' ')[0];
+                    const triggerVal = document.getElementById(triggerId).value;
+                    const check = condition.replace(triggerId, `'${triggerVal}'`);
+                    
+                    if (eval(check)) {
+                        el.style.display = 'block';
+                    } else {
+                        el.style.display = 'none';
+                        if (el.id === 'rwma-grid') el.querySelectorAll('select').forEach(s => s.value = 'Normal');
+                    }
                 }
             });
         };
