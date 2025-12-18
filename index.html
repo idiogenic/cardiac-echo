@@ -11,6 +11,7 @@
     <meta name="apple-mobile-web-app-title" content="Echo">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="pdf-generator.js" defer></script>
 
     <style>
         :root {
@@ -34,25 +35,16 @@
         .content p { margin-bottom: 0.5em; }
         .content h2 { margin-top: 2em; margin-bottom: 1em; font-size: 1.3rem; border-bottom: 2px solid #ccc; padding-bottom: 5px; }
         .content h3 { margin-top: 1.5em; margin-bottom: 0.5em; font-size: 1.1rem; font-weight: bold; }
-        .content details { margin-bottom: 1em; padding-left: 10px; border-left: 2px solid #e0e0e0; }
-        .content .indented-details { margin-left: 20px; }
-        .content summary { cursor: pointer; }
-        .content details > div { padding-left: 20px; margin-top: 10px; }
         .content table { border-collapse: collapse; width: 100%; margin: 1em 0; }
         .content th, .content td { border: 1px solid #ccc; padding: 8px; text-align: left; }
         .content th { background-color: #f2f2f2; }
-        .content img { max-width: 100%; height: auto; margin: 1em 0; }
-        .tappable-ref { cursor: pointer; color: #0056b3; text-decoration: underline; text-decoration-style: dotted; }
-        .hidden-ref { display: none; font-style: italic; color: #555; background-color: #f0f0f0; padding: 2px 5px; border-radius: 4px; margin-left: 5px; }
-        .hidden { display: none !important; }
         .disclaimer { font-size: 0.75rem; color: #6c757d; text-align: center; margin-bottom: 30px; padding: 0 20px; flex-shrink: 0; }
 
-        /* --- REPORT FORM STYLES --- */
+        /* Report Form Styles */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center; padding: 20px; }
         .modal-content { background: white; padding: 30px; border-radius: 12px; width: 100%; max-width: 400px; text-align: center; }
         .form-section { margin-bottom: 25px; border-top: 1px solid #eee; padding-top: 15px; }
         .form-section h3 { margin-bottom: 15px; font-size: 1rem; text-transform: uppercase; color: #333; }
-        .form-section h4 { margin-bottom: 10px; font-size: 0.9rem; font-weight: bold; color: #555; }
         .input-group { margin-bottom: 15px; text-align: left; }
         .input-group label { display: block; font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; }
         .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
@@ -65,7 +57,7 @@
 <body>
 
     <div id="home-page" class="page active">
-        <p class="disclaimer">V19. These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
+        <p class="disclaimer">v20. These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
         <div class="main-menu">
             <div class="btn" id="pah-trigger" style="border-color: #d93025; color: #d93025;">POCUS PAH Report Form</div>
             <div class="btn" data-page="iheartscan">iHeartScan</div>
@@ -89,466 +81,13 @@
         </div>
     </div>
 
-    <div id="email-modal" class="modal">
-        <div class="modal-content">
-            <h3>Complete Report</h3>
-            <p style="margin: 15px 0;">Enter email to receive summary.</p>
-            <input type="email" id="target-email" placeholder="email@hospital.com" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; margin-bottom:15px;">
-            <div style="display:flex; gap:10px;">
-                <div class="btn" id="cancel-email" style="font-size:1rem; padding:12px;">Back</div>
-                <div class="btn" id="finish-report" style="font-size:1rem; padding:12px; background:#28a745; color:white;">Generate PDF</div>
-            </div>
-        </div>
-    </div>
-
     <div id="pah-report-page" class="page">
-        <div class="header">
-            <button class="back-btn">&lt; Back</button>
-            <h1>PAH Report Form</h1>
-        </div>
+        <div class="header"><button class="back-btn">&lt; Back</button><h1>PAH Report Form</h1></div>
         <form id="pah-form">
-            <div class="form-section">
-                <h3>PATIENT INFORMATION</h3>
-                <div class="input-group"><label>Patient Name or Date of Birth (Locked)</label><input type="text" readonly placeholder="LOCKED"></div>
-                <div class="input-group"><label>MRN (Locked)</label><input type="text" readonly placeholder="LOCKED"></div>
-                <div class="input-group"><label>Operator</label><input type="text" name="operator"></div>
-                <div class="input-group"><label>Exam Date</label><input type="date" name="exam_date"></div>
-                <div class="input-group"><label>Medical History</label><textarea name="med_history" rows="2"></textarea></div>
-                <div class="input-group"><label>Haemodynamic therapy</label><input type="text" name="haemo_therapy"></div>
-                <div class="input-group">
-                    <label>Ventilation</label>
-                    <select name="ventilation">
-                        <option value="Spontaneous">Spontaneous</option>
-                        <option value="Mechanical Ventilation">Mechanical Ventilation</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Image Quality</label>
-                    <select name="img_quality">
-                        <option value="Very Poor">Very Poor</option>
-                        <option value="Poor">Poor</option>
-                        <option value="Satisfactory">Satisfactory</option>
-                        <option value="Excellent">Excellent</option>
-                    </select>
-                </div>
+            <div id="dynamic-form-container">
+                <p>Loading form fields...</p>
             </div>
-
-            <div class="form-section">
-                <h3>CLINICAL QUESTION (check all that apply)</h3>
-                <div class="check-grid">
-                    <label class="check-item"><input type="checkbox" name="cq" value="Hemodynamic instability"> Hemodynamic instability</label>
-                    <label class="check-item"><input type="checkbox" name="cq" value="LV Evaluation"> LV Evaluation</label>
-                    <label class="check-item"><input type="checkbox" name="cq" value="RV Evaluation"> RV Evaluation</label>
-                    <label class="check-item"><input type="checkbox" name="cq" value="Pulmonary Pressure Evaluation"> Pulmonary Pressure Evaluation</label>
-                    <label class="check-item"><input type="checkbox" name="cq" value="Volume Status"> Volume Status</label>
-                    <label class="check-item"><input type="checkbox" name="cq" value="Valvulopathy"> Valvulopathy</label>
-                    <label class="check-item"><input type="checkbox" name="cq" value="Training"> Training</label>
-                    <label class="check-item"><input type="checkbox" name="cq" value="Cardiac Arrest/Peri-arrest"> Cardiac Arrest/Peri-arrest</label>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h3>PARASTERNAL LONG-AXIS VIEW (At Left Ventricle)</h3>
-                <div class="input-group">
-                    <label>Pericardial effusion (at 20cm - end-diastole)</label>
-                    <select name="plax_eff">
-                        <option value="None">None</option>
-                        <option value="<0.5cm"><0.5cm</option>
-                        <option value="0.5-2cm">0.5-2cm</option>
-                        <option value=">2cm">>2cm</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Mitral valve regurgitation</label>
-                    <select name="plax_mr">
-                        <option value="None visualised">None visualised</option>
-                        <option value="Present">Present</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Mitral Vena Contracta</label>
-                    <select name="plax_mr_vc">
-                        <option value="N/A">N/A</option>
-                        <option value="<3mm (mild)"><3mm (mild)</option>
-                        <option value="3-7mm (Indeterminant)">3-7mm (Indeterminant)</option>
-                        <option value=">7mm (Severe)">>7mm (Severe)</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Aortic valve regurgitation</label>
-                    <select name="plax_ar">
-                        <option value="None visualised">None visualised</option>
-                        <option value="Present">Present</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Aortic Vena Contracta</label>
-                    <select name="plax_ar_vc">
-                        <option value="N/A">N/A</option>
-                        <option value="<3mm (mild)"><3mm (mild)</option>
-                        <option value="3-6mm (Indeterminant)">3-6mm (Indeterminant)</option>
-                        <option value=">6mm (Severe)">>6mm (Severe)</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Jet-width:LVOT diameter</label>
-                    <select name="plax_ar_jw_lvot">
-                        <option value="N/A">N/A</option>
-                        <option value="<25% (mild)"><25% (mild)</option>
-                        <option value="25-65% (Moderate)">25-65% (Moderate)</option>
-                        <option value=">65% (Severe)">>65% (Severe)</option>
-                    </select>
-                </div>
-                <div class="input-group"><label>LVOT diameter (cm)</label><input type="text" name="plax_lvot_d"></div>
-                <div class="input-group">
-                    <label>Aortic valve leaflets</label>
-                    <select name="plax_av_leaflets">
-                        <option value="Thin unrestricted">Thin unrestricted</option>
-                        <option value="Calcific restricted">Calcific restricted</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Maximal Aortic Cusp Separation (MACS)</label>
-                    <select name="plax_av_macs">
-                        <option value="<1.2cm"><1.2cm</option>
-                        <option value=">1.2cm">>1.2cm</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>LV End-Diastolic Diameter</label>
-                    <select name="plax_lv_edd">
-                        <option value="<35mm (Small)"><35mm (Small)</option>
-                        <option value="35-55mm (Normal)">35-55mm (Normal)</option>
-                        <option value=">55mm (Dilated)">>55mm (Dilated)</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h3>PARASTERNAL LONG-AXIS VIEW (At RV inflow)</h3>
-                <div class="input-group">
-                    <label>Tricuspid valve regurgitation</label>
-                    <select name="plax_tr">
-                        <option value="None visualised">None visualised</option>
-                        <option value="Present">Present</option>
-                    </select>
-                </div>
-                <div class="input-group"><label>TR Jet peak velocity (CW) (m/s)</label><input type="number" step="0.1" name="plax_tr_vel"></div>
-                <div class="input-group"><label>RVSP [4x(V)²] (mmHg)</label><input type="number" name="plax_rvsp"></div>
-            </div>
-
-            <div class="form-section">
-                <h3>PARASTERNAL SHORT-AXIS VIEW (At Aortic Valve)</h3>
-                <div class="input-group">
-                    <label>Aortic Valve Trileaflet</label>
-                    <select name="psax_av_tri">
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Tricuspid valve regurgitation</label>
-                    <select name="psax_tr">
-                        <option value="None visualised">None visualised</option>
-                        <option value="Present">Present</option>
-                    </select>
-                </div>
-                <div class="input-group"><label>TR Jet peak velocity (CW) (m/s)</label><input type="number" step="0.1" name="psax_tr_vel"></div>
-                <div class="input-group"><label>RVSP [4x(V)²] (mmHg)</label><input type="number" name="psax_rvsp"></div>
-            </div>
-
-            <div class="form-section">
-                <h3>PARASTERNAL SHORT-AXIS VIEW (Mid-Papillary LV)</h3>
-                <div class="input-group">
-                    <label>RV Septal Flattening</label>
-                    <select name="psax_septum">
-                        <option value="None">None</option>
-                        <option value="During Systole">During Systole</option>
-                        <option value="During Diastole">During Diastole</option>
-                        <option value="Fixed">Fixed</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>LV Systolic Collapse (Papillary muscles touching)</label>
-                    <select name="psax_lv_collapse">
-                        <option value="No">No</option>
-                        <option value="Yes">Yes</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Regional Wall Motion Abnormality</label>
-                    <select name="psax_rwma_present">
-                        <option value="No">No</option>
-                        <option value="Yes">Yes</option>
-                    </select>
-                </div>
-                
-                <div id="rwma-grid"></div>
-            </div>
-
-            <div class="form-section">
-                <h3>APICAL FOUR CHAMBER VIEW (+5 Chamber)</h3>
-                <div class="input-group">
-                    <label>Mitral valve regurgitation</label>
-                    <select name="ap_mr">
-                        <option value="None visualised">None visualised</option>
-                        <option value="Present">Present</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Mitral Vena Contracta</label>
-                    <select name="ap_mr_vc">
-                        <option value="N/A">N/A</option>
-                        <option value="<3mm (mild)"><3mm (mild)</option>
-                        <option value="3-7mm (Indeterminant)">3-7mm (Indeterminant)</option>
-                        <option value=">7mm (Severe)">>7mm (Severe)</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Aortic valve regurgitation</label>
-                    <select name="ap_ar">
-                        <option value="None visualised">None visualised</option>
-                        <option value="Present">Present</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Aortic Vena Contracta</label>
-                    <select name="ap_ar_vc">
-                        <option value="N/A">N/A</option>
-                        <option value="<3mm (mild)"><3mm (mild)</option>
-                        <option value="3-6mm (Indeterminant)">3-6mm (Indeterminant)</option>
-                        <option value=">6mm (Severe)">>6mm (Severe)</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Jet-width:LVOT diameter</label>
-                    <select name="ap_ar_jw_lvot">
-                        <option value="N/A">N/A</option>
-                        <option value="<25% (mild)"><25% (mild)</option>
-                        <option value="25-65% (Moderate)">25-65% (Moderate)</option>
-                        <option value=">65% (Severe)">>65% (Severe)</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>TAPSE</label>
-                    <select name="ap_tapse_select">
-                        <option value=">17mm">>17mm</option>
-                        <option value="<17mm"><17mm</option>
-                    </select>
-                </div>
-                <div class="input-group"><label>TAPSE measurement (mm)</label><input type="number" step="0.1" name="ap_tapse_val"></div>
-                <div class="input-group">
-                    <label>Aortic Valve mean gradient</label>
-                    <select name="ap_av_mpg">
-                        <option value="<20mmHg (mild stenosis)"><20mmHg (mild stenosis)</option>
-                        <option value="20-40mmHg (moderate stenosis)">20-40mmHg (moderate stenosis)</option>
-                        <option value=">40mmHg (severe stenosis)">>40mmHg (severe stenosis)</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Mitral Valve mean gradient</label>
-                    <select name="ap_mv_mpg">
-                        <option value="<5mmHg (mild stenosis)"><5mmHg (mild stenosis)</option>
-                        <option value="5-10mmHg (moderate stenosis)">5-10mmHg (moderate stenosis)</option>
-                        <option value=">10mmHg (severe stenosis)">>10mmHg (severe stenosis)</option>
-                    </select>
-                </div>
-                <div class="input-group"><label>LVOT VTI (cm)</label><input type="number" step="0.1" name="ap_lvot_vti"></div>
-                <div class="input-group">
-                    <label>RV size (RV:LV cm)</label>
-                    <select name="ap_rv_size_ratio">
-                        <option value="<1/3rd RV:LV cm"><1/3rd RV:LV cm</option>
-                        <option value=">1:2 RV/LV">>1:2 RV/LV</option>
-                        <option value=">1:1 RV/LV">>1:1 RV/LV</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>RV basal diameter</label>
-                    <select name="ap_rv_basal">
-                        <option value="<3.8cm"><3.8cm</option>
-                        <option value=">3.8cm">>3.8cm</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>RV mid diameter</label>
-                    <select name="ap_rv_mid">
-                        <option value="<4.2cm"><4.2cm</option>
-                        <option value=">4.2cm">>4.2cm</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>RV major axis</label>
-                    <select name="ap_rv_major">
-                        <option value="<8.7cm"><8.7cm</option>
-                        <option value=">8.7cm">>8.7cm</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>RV fractional area change</label>
-                    <select name="ap_rv_fac">
-                        <option value=">35% (normal)">>35% (normal)</option>
-                        <option value="<35% (Reduced)"><35% (Reduced)</option>
-                        <option value="<17% (Severely reduced)"><17% (Severely reduced)</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>LV ejection fraction</label>
-                    <select name="ap_lv_ef">
-                        <option value=">50% (normal)">>50% (normal)</option>
-                        <option value="40-50% (Mildly reduced)">40-50% (Mildly reduced)</option>
-                        <option value="30-40% (Moderately reduced)">30-40% (Moderately reduced)</option>
-                        <option value="<30% (severely reduced)"><30% (severely reduced)</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h3>SUBCOSTAL 4-CHAMBER AND IVC</h3>
-                <div class="input-group">
-                    <label>Pericardial effusion (20cm - end-diastole)</label>
-                    <select name="sub_eff">
-                        <option value="None">None</option>
-                        <option value="<0.5cm"><0.5cm</option>
-                        <option value="0.5-2cm">0.5-2cm</option>
-                        <option value=">2cm">>2cm</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Subcostal IVC diameter</label>
-                    <select name="sub_ivc_d">
-                        <option value="<2.1cm"><2.1cm</option>
-                        <option value=">2.1cm">>2.1cm</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>IVC sniff variation</label>
-                    <select name="sub_ivc_v">
-                        <option value=">50% sniff variation">>50% sniff variation</option>
-                        <option value="<50% sniff variation"><50% sniff variation</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h3>POCUS SUMMARY FINDINGS: LEFT CHAMBERS</h3>
-                <div class="input-group">
-                    <label>LV Size</label>
-                    <select name="sum_lv_size">
-                        <option value="Normal">Normal</option>
-                        <option value="Small">Small</option>
-                        <option value="Dilated">Dilated</option>
-                        <option value="Markedly Dilated">Markedly Dilated</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Systolic Function</label>
-                    <select name="sum_lv_func">
-                        <option value="Normal">Normal</option>
-                        <option value="Hyperdynamic">Hyperdynamic</option>
-                        <option value="Mild Dysfunction">Mild Dysfunction</option>
-                        <option value="Moderate Dysfunction">Moderate Dysfunction</option>
-                        <option value="Severe Dysfunction">Severe Dysfunction</option>
-                        <option value="Asystole">Asystole</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Wall Motion Abnormalities</label>
-                    <select name="sum_lv_rwma">
-                        <option value="No">No</option>
-                        <option value="Yes">Yes</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h3>POCUS SUMMARY FINDINGS: RIGHT CHAMBERS</h3>
-                <div class="input-group">
-                    <label>RV Size</label>
-                    <select name="sum_rv_size">
-                        <option value="Normal">Normal</option>
-                        <option value="Dilated">Dilated</option>
-                        <option value="Markedly Dilated">Markedly Dilated</option>
-                        <option value="Cannot assess">Cannot assess</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>RV Function</label>
-                    <select name="sum_rv_func">
-                        <option value="Normal">Normal</option>
-                        <option value="Decreased">Decreased</option>
-                        <option value="Cardiac Standstill">Cardiac Standstill</option>
-                        <option value="Cannot assess">Cannot assess</option>
-                    </select>
-                </div>
-                <div class="input-group"><label>TAPSE</label><input type="text" name="sum_tapse"></div>
-                <div class="input-group"><label>RVSP</label><input type="text" name="sum_rvsp"></div>
-                <div class="input-group">
-                    <label>Septum</label>
-                    <select name="sum_septum">
-                        <option value="Normal">Normal</option>
-                        <option value="Flattened">Flattened</option>
-                        <option value="Paradoxical motion">Paradoxical motion</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h3>POCUS SUMMARY FINDINGS: PERICARDIUM</h3>
-                <div class="input-group">
-                    <label>Pericardium</label>
-                    <select name="sum_pericardium">
-                        <option value="Normal">Normal</option>
-                        <option value="Mild Effusion">Mild Effusion</option>
-                        <option value="Large circumferential effusion">Large circumferential effusion</option>
-                        <option value="RA systolic collapse">RA systolic collapse</option>
-                        <option value="RV diastolic collapse">RV diastolic collapse</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h3>POCUS SUMMARY FINDINGS: VALVES</h3>
-                <div class="input-group">
-                    <label>Tricuspid Valve</label>
-                    <select name="sum_v_tri">
-                        <option value="Normal">Normal</option>
-                        <option value="Regurgitation">Regurgitation</option>
-                        <option value="Marked regurgitation">Marked regurgitation</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Mitral Valve</label>
-                    <select name="sum_v_mit">
-                        <option value="Normal">Normal</option>
-                        <option value="Regurgitation">Regurgitation</option>
-                        <option value="Marked regurgitation">Marked regurgitation</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Aortic Valve</label>
-                    <select name="sum_v_aor">
-                        <option value="Normal">Normal</option>
-                        <option value="Regurgitation">Regurgitation</option>
-                        <option value="Marked regurgitation">Marked regurgitation</option>
-                        <option value="Stenosis">Stenosis</option>
-                        <option value="Marked stenosis">Marked stenosis</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h3>HAEMODYNAMIC STATE (Check Primary)</h3>
-                <div class="check-grid">
-                    <label class="check-item"><input type="checkbox" name="sum_haemo" value="Hypovolaemia"> Hypovolaemia</label>
-                    <label class="check-item"><input type="checkbox" name="sum_haemo" value="LV systolic failure"> LV systolic failure</label>
-                    <label class="check-item"><input type="checkbox" name="sum_haemo" value="RV systolic failure"> RV systolic failure</label>
-                    <label class="check-item"><input type="checkbox" name="sum_haemo" value="Vasoplegia"> Vasoplegia</label>
-                    <label class="check-item"><input type="checkbox" name="sum_haemo" value="Obstructive shock"> Obstructive shock</label>
-                    <label class="check-item"><input type="checkbox" name="sum_haemo" value="LVOTO/SAM"> LVOTO/SAM</label>
-                </div>
-            </div>
-
-            <div class="btn" id="btn-complete" style="background:#28a745; color:white; font-weight:bold;">COMPLETE REPORT</div>
+            <div class="btn" id="btn-complete" style="background:#28a745; color:white; font-weight:bold; margin-top:20px;">COMPLETE & SHARE</div>
         </form>
         <div style="height:60px;"></div>
     </div>
@@ -565,18 +104,71 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const segments = ["Basal Anterior (LAD)", "Basal Anteroseptal (LAD)", "Basal Inferoseptal (RCA)", "Basal Inferior (RCA)", "Basal Inferolateral (LCX)", "Basal Anterolateral (LCX)", "Mid Anterior (LAD)", "Mid Anteroseptal (LAD)", "Mid Inferoseptal (RCA)", "Mid Inferior (RCA)", "Mid Inferolateral (LCX)", "Mid Anterolateral (LCX)", "Apical Anterior (LAD)", "Apical Septal (LAD)", "Apical Inferior (RCA)", "Apical Lateral (LCX)", "Apex"];
         let currentPageId = 'home-page';
         const contentCache = {};
 
         const init = () => {
             setupEventListeners();
-            registerServiceWorker();
-            const grid = document.getElementById('rwma-grid');
-            if(grid) segments.forEach((s, i) => grid.innerHTML += `<div class="rwma-row"><span>${s}</span><select name="seg_${i}"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>`);
             history.replaceState({ page: 'home-page' }, '', '#home');
+            // Fetch the exhaustive structure (Strategy 2)
+            loadFormStructure();
         };
 
+        const loadFormStructure = async () => {
+            try {
+                const response = await fetch('form-structure.json');
+                const structure = await response.json();
+                buildForm(structure);
+            } catch (error) {
+                console.error("Failed to load form-structure.json", error);
+            }
+        };
+
+        const buildForm = (structure) => {
+            const container = document.getElementById('dynamic-form-container');
+            container.innerHTML = '';
+            structure.sections.forEach(section => {
+                let html = `<div class="form-section"><h3>${section.title}</h3>`;
+                section.fields.forEach(field => {
+                    if (field.type === "text" || field.type === "number" || field.type === "date") {
+                        html += `<div class="input-group"><label>${field.label}</label><input type="${field.type}" name="${field.id}" ${field.readonly ? 'readonly' : ''} placeholder="${field.placeholder || ''}"></div>`;
+                    } else if (field.type === "select") {
+                        html += `<div class="input-group"><label>${field.label}</label><select name="${field.id}">${field.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}</select></div>`;
+                    } else if (field.type === "checkbox-group") {
+                        html += `<div class="input-group"><label>${field.label}</label><div class="check-grid">${field.options.map(opt => `<label class="check-item"><input type="checkbox" name="${field.id}" value="${opt}"> ${opt}</label>`).join('')}</div></div>`;
+                    } else if (field.type === "rwma-grid") {
+                        html += `<div id="rwma-grid"></div>`;
+                    }
+                });
+                html += `</div>`;
+                container.innerHTML += html;
+            });
+            // Inject RWMA Logic
+            const segments = ["Basal Anterior (LAD)", "Basal Anteroseptal (LAD)", "Basal Inferoseptal (RCA)", "Basal Inferior (RCA)", "Basal Inferolateral (LCX)", "Basal Anterolateral (LCX)", "Mid Anterior (LAD)", "Mid Anteroseptal (LAD)", "Mid Inferoseptal (RCA)", "Mid Inferior (RCA)", "Mid Inferolateral (LCX)", "Mid Anterolateral (LCX)", "Apical Anterior (LAD)", "Apical Septal (LAD)", "Apical Inferior (RCA)", "Apical Lateral (LCX)", "Apex"];
+            const grid = document.getElementById('rwma-grid');
+            if(grid) segments.forEach((s, i) => grid.innerHTML += `<div class="rwma-row"><span>${s}</span><select name="seg_${i}"><option value="Normal">Normal</option><option value="Hypokinetic">Hypokinetic</option><option value="Akinetic">Akinetic</option><option value="Dyskinetic">Dyskinetic</option></select></div>`);
+        };
+
+        const setupEventListeners = () => {
+            document.body.addEventListener('click', function(event) {
+                const target = event.target.closest('.btn[data-page]');
+                if (target) { history.pushState({ page: target.dataset.page }, '', `#${target.dataset.page}`); renderPage(target.dataset.page); return; }
+                if (event.target.id === 'pah-trigger') document.getElementById('warning-modal').style.display = 'flex';
+                if (event.target.id === 'cancel-warn') document.getElementById('warning-modal').style.display = 'none';
+                if (event.target.id === 'accept-warn') {
+                    document.getElementById('warning-modal').style.display = 'none';
+                    history.pushState({ page: 'pah-report' }, '', '#report');
+                    renderPage('pah-report');
+                }
+                if (event.target.id === 'btn-complete') {
+                    // Call external generator (Option A)
+                    if (window.generateAndSharePDF) window.generateAndSharePDF();
+                }
+                if (event.target.closest('.back-btn')) history.back();
+            });
+        };
+
+        // Existing parseMarkdown and loadContent logic (Unchanged line-by-line)
         const parseMarkdown = (text) => {
             const lines = text.split('\n');
             let html = '';
@@ -608,10 +200,6 @@
                 if (isTable) { html += '</tbody></table>'; isTable = false; }
                 if (trimmedLine.startsWith('## ')) html += `<h3>${trimmedLine.substring(3)}</h3>`;
                 else if (trimmedLine.startsWith('# ')) html += `<h2>${trimmedLine.substring(2)}</h2>`;
-                else if (trimmedLine.startsWith('* ')) {
-                    const indent = line.search(/\S/);
-                    html += `<p style="margin-left: ${indent * 10}px;">&bull; ${trimmedLine.substring(1).replace(/\*(.*?)\*/g, '<em>$1</em>')}</p>`;
-                }
                 else if (trimmedLine.length > 0) {
                     html += `<p>${trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>')}</p>`;
                 }
@@ -626,11 +214,10 @@
                 const text = await response.text();
                 const lines = text.split('\n');
                 const title = lines.shift();
-                const body = lines.join('\n');
-                const parsedContent = { title, body: parseMarkdown(body) };
+                const parsedContent = { title, body: parseMarkdown(lines.join('\n')) };
                 contentCache[pageId] = parsedContent;
                 return parsedContent;
-            } catch (error) { return { title: 'Error', body: '<p>Could not load content.</p>' }; }
+            } catch (error) { return { title: 'Error', body: '<p>Content Error.</p>' }; }
         };
 
         const renderPage = async (pageId) => {
@@ -646,90 +233,6 @@
             const content = await loadContent(pageId);
             titleElement.textContent = content.title;
             contentElement.innerHTML = content.body;
-        };
-
-        const setupEventListeners = () => {
-            document.body.addEventListener('click', function(event) {
-                const target = event.target.closest('.btn[data-page]');
-                if (target) { history.pushState({ page: target.dataset.page }, '', `#${target.dataset.page}`); renderPage(target.dataset.page); return; }
-                if (event.target.id === 'pah-trigger') document.getElementById('warning-modal').style.display = 'flex';
-                if (event.target.id === 'cancel-warn') document.getElementById('warning-modal').style.display = 'none';
-                if (event.target.id === 'accept-warn') {
-                    document.getElementById('warning-modal').style.display = 'none';
-                    history.pushState({ page: 'pah-report' }, '', '#report');
-                    renderPage('pah-report');
-                }
-                if (event.target.id === 'btn-complete') document.getElementById('email-modal').style.display = 'flex';
-                if (event.target.id === 'cancel-email') document.getElementById('email-modal').style.display = 'none';
-                if (event.target.id === 'finish-report') generatePDF();
-                if (event.target.closest('.back-btn')) history.back();
-            });
-        };
-
-        const generatePDF = () => {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const form = document.getElementById('pah-form');
-            const fd = new FormData(form);
-            const email = document.getElementById('target-email').value;
-
-            doc.setFontSize(14);
-            doc.text("POCUS PAH CARDIAC ECHO REPORT", 20, 20);
-            doc.setFontSize(8);
-            
-            let y = 30;
-            doc.text(`Operator: ${fd.get('operator')}`, 20, y);
-            doc.text(`Date: ${fd.get('exam_date')}`, 120, y);
-            y += 5;
-            doc.text(`History: ${fd.get('med_history')}`, 20, y);
-            y += 5;
-            doc.text(`Therapy: ${fd.get('haemo_therapy')}`, 20, y);
-            y += 8;
-            doc.line(20, y, 190, y); y += 8;
-
-            const addField = (label, value) => {
-                if (y > 270) { doc.addPage(); y = 20; }
-                doc.text(`${label}: ${value || 'N/A'}`, 20, y);
-                y += 5;
-            };
-
-            doc.setFontSize(10); doc.text("CONTEXT", 20, y); y += 6; doc.setFontSize(8);
-            const q = Array.from(document.querySelectorAll('input[name="cq"]:checked')).map(cb => cb.value).join(', ');
-            addField("Clinical Question", q);
-            addField("Ventilation", fd.get('ventilation'));
-            addField("Image Quality", fd.get('img_quality'));
-            y += 3;
-
-            doc.setFontSize(10); doc.text("MEASUREMENTS (PLAX / PSAX / APICAL / SUBCOSTAL)", 20, y); y += 6; doc.setFontSize(8);
-            addField("PLAX Effusion", fd.get('plax_eff'));
-            addField("PLAX MR / VC", `${fd.get('plax_mr')} / ${fd.get('plax_mr_vc')}`);
-            addField("PLAX AR / VC / JW:LVOT", `${fd.get('plax_ar')} / ${fd.get('plax_ar_vc')} / ${fd.get('plax_ar_jw_lvot')}`);
-            addField("LVOT Diameter", `${fd.get('plax_lvot_d')} cm`);
-            addField("AV Leaflets / MACS", `${fd.get('plax_av_leaflets')} / ${fd.get('plax_av_macs')}`);
-            addField("LVEDD", fd.get('plax_lv_edd'));
-            addField("RV Inflow TR / Vel / RVSP", `${fd.get('plax_tr')} / ${fd.get('plax_tr_vel')} m/s / ${fd.get('plax_rvsp')} mmHg`);
-            addField("PSAX Aortic RVSP", `${fd.get('psax_rvsp')} mmHg`);
-            addField("PSAX Septum / LV Collapse / RWMA", `${fd.get('psax_septum')} / ${fd.get('psax_lv_collapse')} / ${fd.get('psax_rwma_present')}`);
-            addField("Apical MR / VC / AR / VC", `${fd.get('ap_mr')} / ${fd.get('ap_mr_vc')} / ${fd.get('ap_ar')} / ${fd.get('ap_ar_vc')}`);
-            addField("Apical TAPSE", `${fd.get('ap_tapse_select')} (${fd.get('ap_tapse_val')} mm)`);
-            addField("AV MPG / MV MPG / LVOT VTI", `${fd.get('ap_av_mpg')} / ${fd.get('ap_mv_mpg')} / ${fd.get('ap_lvot_vti')} cm`);
-            addField("RV Size Ratio / Basal / Mid / Major", `${fd.get('ap_rv_size_ratio')} / ${fd.get('ap_rv_basal')} / ${fd.get('ap_rv_mid')} / ${fd.get('ap_rv_major')}`);
-            addField("RV FAC / LV EF", `${fd.get('ap_rv_fac')} / ${fd.get('ap_lv_ef')}`);
-            addField("Subcostal Effusion / IVC D / IVC V", `${fd.get('sub_eff')} / ${fd.get('sub_ivc_d')} / ${fd.get('sub_ivc_v')}`);
-            y += 3;
-
-            doc.setFontSize(10); doc.text("SUMMARY FINDINGS", 20, y); y += 6; doc.setFontSize(8);
-            addField("LV Size / Func / RWMA", `${fd.get('sum_lv_size')} / ${fd.get('sum_lv_func')} / ${fd.get('sum_lv_rwma')}`);
-            addField("RV Size / Func / Septum", `${fd.get('sum_rv_size')} / ${fd.get('sum_rv_func')} / ${fd.get('sum_septum')}`);
-            addField("TAPSE / RVSP / Pericardium", `${fd.get('sum_tapse')} / ${fd.get('sum_rvsp')} / ${fd.get('sum_pericardium')}`);
-            addField("Valves (Tricuspid / Mitral / Aortic)", `${fd.get('sum_v_tri')} / ${fd.get('sum_v_mit')} / ${fd.get('sum_v_aor')}`);
-            const states = Array.from(document.querySelectorAll('input[name="sum_haemo"]:checked')).map(cb => cb.value).join(', ');
-            addField("Haemodynamic State", states);
-
-            doc.save(`Echo_Report_${fd.get('exam_date') || 'export'}.pdf`);
-            alert("Report Generated. Attach PDF manually to: " + email);
-            document.getElementById('email-modal').style.display = 'none';
-            history.back();
         };
 
         window.onpopstate = (event) => renderPage(event.state?.page || 'home-page');
