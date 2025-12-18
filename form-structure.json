@@ -1,11 +1,62 @@
 {
   "sections": [
     {
-      "title": "Clinical Question (check all that apply)",
+      "title": "PATIENT INFORMATION",
+      "fields": [
+        {
+          "id": "patient_name",
+          "label": "Patient Name or Date of Birth (Secured)",
+          "type": "text",
+          "readonly": true,
+          "placeholder": "LOCKED FOR SECURITY"
+        },
+        {
+          "id": "patient_mrn",
+          "label": "MRN (Secured)",
+          "type": "text",
+          "readonly": true,
+          "placeholder": "LOCKED FOR SECURITY"
+        },
+        {
+          "id": "operator",
+          "label": "Operator",
+          "type": "text"
+        },
+        {
+          "id": "exam_date",
+          "label": "Exam Date",
+          "type": "date"
+        },
+        {
+          "id": "med_history",
+          "label": "Medical History",
+          "type": "text"
+        },
+        {
+          "id": "haemo_therapy",
+          "label": "Haemodynamic therapy",
+          "type": "text"
+        },
+        {
+          "id": "ventilation",
+          "label": "Ventilation",
+          "type": "select",
+          "options": ["Spontaneous", "Mechanical Ventilation"]
+        },
+        {
+          "id": "img_quality",
+          "label": "Image Quality",
+          "type": "select",
+          "options": ["Very Poor", "Poor", "Satisfactory", "Excellent"]
+        }
+      ]
+    },
+    {
+      "title": "CLINICAL QUESTION (check all that apply)",
       "fields": [
         {
           "id": "cq",
-          "label": "Reason for Scan",
+          "label": "Clinical Questions",
           "type": "checkbox-group",
           "options": [
             "Hemodynamic instability",
@@ -21,7 +72,7 @@
       ]
     },
     {
-      "title": "Parasternal Long-Axis View (at Left Ventricle)",
+      "title": "PARASTERNAL LONG-AXIS VIEW (At Left Ventricle)",
       "fields": [
         {
           "id": "plax_eff",
@@ -37,7 +88,7 @@
         },
         {
           "id": "plax_mr_vc",
-          "label": "Mitral Vena Contracta",
+          "label": "Vena Contracta (MV)",
           "type": "select",
           "options": ["N/A", "<3mm (mild)", "3-7mm (Indeterminant)", ">7mm (Severe)"]
         },
@@ -49,7 +100,7 @@
         },
         {
           "id": "plax_ar_vc",
-          "label": "Aortic Vena Contracta",
+          "label": "Vena Contracta (AV)",
           "type": "select",
           "options": ["N/A", "<3mm (mild)", "3-6mm (Indeterminant)", ">6mm (Severe)"]
         },
@@ -61,9 +112,8 @@
         },
         {
           "id": "plax_lvot_d",
-          "label": "LVOT Diameter (cm)",
-          "type": "text",
-          "placeholder": "Enter measurement"
+          "label": "LVOT diameter (cm)",
+          "type": "text"
         },
         {
           "id": "plax_av_leaflets",
@@ -86,7 +136,55 @@
       ]
     },
     {
-      "title": "Parasternal Short-Axis View (Mid-Papillary LV)",
+      "title": "PARASTERNAL LONG-AXIS VIEW (At RV inflow)",
+      "fields": [
+        {
+          "id": "plax_tr",
+          "label": "Tricuspid valve regurgitation",
+          "type": "select",
+          "options": ["None visualised", "Present"]
+        },
+        {
+          "id": "plax_tr_vel",
+          "label": "TR Jet peak velocity (CW) (m/s)",
+          "type": "number"
+        },
+        {
+          "id": "plax_rvsp",
+          "label": "RVSP [4x(V)²] (mmHg)",
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "title": "PARASTERNAL SHORT-AXIS VIEW (At Aortic Valve)",
+      "fields": [
+        {
+          "id": "psax_av_tri",
+          "label": "Aortic Valve Trileaflet",
+          "type": "select",
+          "options": ["Yes", "No"]
+        },
+        {
+          "id": "psax_tr",
+          "label": "Tricuspid valve regurgitation",
+          "type": "select",
+          "options": ["None visualised", "Present"]
+        },
+        {
+          "id": "psax_tr_vel",
+          "label": "TR Jet peak velocity (CW) (m/s)",
+          "type": "number"
+        },
+        {
+          "id": "psax_rvsp",
+          "label": "RVSP [4x(V)²] (mmHg)",
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "title": "PARASTERNAL SHORT-AXIS VIEW (Mid-Papillary LV)",
       "fields": [
         {
           "id": "psax_septum",
@@ -101,14 +199,209 @@
           "options": ["No", "Yes"]
         },
         {
-            "id": "rwma_section",
-            "label": "17-Segment Regional Wall Motion",
-            "type": "rwma-grid"
+          "id": "psax_rwma_present",
+          "label": "Regional Wall Motion Abnormality",
+          "type": "select",
+          "options": ["No", "Yes"]
+        },
+        {
+          "id": "rwma_grid_input",
+          "label": "17-Segment RWMA Analysis",
+          "type": "rwma-grid"
         }
       ]
     },
     {
-      "title": "POCUS Summary Findings: Valves",
+      "title": "APICAL FOUR CHAMBER VIEW (+5 Chamber)",
+      "fields": [
+        {
+          "id": "ap_mr",
+          "label": "Mitral valve regurgitation",
+          "type": "select",
+          "options": ["None visualised", "Present"]
+        },
+        {
+          "id": "ap_mr_vc",
+          "label": "Vena Contracta (MV)",
+          "type": "select",
+          "options": ["N/A", "<3mm (mild)", "3-7mm (Indeterminant)", ">7mm (Severe)"]
+        },
+        {
+          "id": "ap_ar",
+          "label": "Aortic valve regurgitation",
+          "type": "select",
+          "options": ["None visualised", "Present"]
+        },
+        {
+          "id": "ap_ar_vc",
+          "label": "Vena Contracta (AV)",
+          "type": "select",
+          "options": ["N/A", "<3mm (mild)", "3-6mm (Indeterminant)", ">6mm (Severe)"]
+        },
+        {
+          "id": "ap_ar_jw_lvot",
+          "label": "Jet-width:LVOT diameter",
+          "type": "select",
+          "options": ["N/A", "<25% (mild)", "25-65% (Moderate)", ">65% (Severe)"]
+        },
+        {
+          "id": "ap_tapse_select",
+          "label": "TAPSE",
+          "type": "select",
+          "options": [">17mm", "<17mm"]
+        },
+        {
+          "id": "ap_tapse_val",
+          "label": "TAPSE measurement (mm)",
+          "type": "number"
+        },
+        {
+          "id": "ap_av_mpg",
+          "label": "Aortic Valve mean gradient",
+          "type": "select",
+          "options": ["<20mmHg (mild stenosis)", "20-40mmHg (moderate stenosis)", ">40mmHg (severe stenosis)"]
+        },
+        {
+          "id": "ap_mv_mpg",
+          "label": "Mitral Valve mean gradient",
+          "type": "select",
+          "options": ["<5mmHg (mild stenosis)", "5-10mmHg (moderate stenosis)", ">10mmHg (severe stenosis)"]
+        },
+        {
+          "id": "ap_lvot_vti",
+          "label": "LVOT VTI (cm)",
+          "type": "number"
+        },
+        {
+          "id": "ap_rv_size_ratio",
+          "label": "RV size (RV:LV cm)",
+          "type": "select",
+          "options": ["<1/3rd RV:LV cm", ">1:2 RV/LV", ">1:1 RV/LV"]
+        },
+        {
+          "id": "ap_rv_basal",
+          "label": "RV basal diameter",
+          "type": "select",
+          "options": ["<3.8cm", ">3.8cm"]
+        },
+        {
+          "id": "ap_rv_mid",
+          "label": "RV mid diameter",
+          "type": "select",
+          "options": ["<4.2cm", ">4.2cm"]
+        },
+        {
+          "id": "ap_rv_major",
+          "label": "RV major axis",
+          "type": "select",
+          "options": ["<8.7cm", ">8.7cm"]
+        },
+        {
+          "id": "ap_rv_fac",
+          "label": "RV fractional area change",
+          "type": "select",
+          "options": [">35% (normal)", "<35% (Reduced)", "<17% (Severely reduced)"]
+        },
+        {
+          "id": "ap_lv_ef",
+          "label": "LV ejection fraction",
+          "type": "select",
+          "options": [">50% (normal)", "40-50% (Mildly reduced)", "30-40% (Moderately reduced)", "<30% (severely reduced)"]
+        }
+      ]
+    },
+    {
+      "title": "SUBCOSTAL 4-CHAMBER AND IVC",
+      "fields": [
+        {
+          "id": "sub_eff",
+          "label": "Pericardial effusion (at 20cm - end-diastole)",
+          "type": "select",
+          "options": ["None", "<0.5cm", "0.5-2cm", ">2cm"]
+        },
+        {
+          "id": "sub_ivc_d",
+          "label": "Subcostal IVC diameter",
+          "type": "select",
+          "options": ["<2.1cm", ">2.1cm"]
+        },
+        {
+          "id": "sub_ivc_v",
+          "label": "IVC sniff variation",
+          "type": "select",
+          "options": [">50% sniff variation", "<50% sniff variation"]
+        }
+      ]
+    },
+    {
+      "title": "POCUS SUMMARY FINDINGS: LEFT CHAMBERS",
+      "fields": [
+        {
+          "id": "sum_lv_size",
+          "label": "LV Size",
+          "type": "select",
+          "options": ["Normal", "Small", "Dilated", "Markedly Dilated"]
+        },
+        {
+          "id": "sum_lv_func",
+          "label": "Systolic Function",
+          "type": "select",
+          "options": ["Normal", "Hyperdynamic", "Mild Dysfunction", "Moderate Dysfunction", "Severe Dysfunction", "Asystole"]
+        },
+        {
+          "id": "sum_lv_rwma",
+          "label": "Wall Motion Abnormalities",
+          "type": "select",
+          "options": ["No", "Yes"]
+        }
+      ]
+    },
+    {
+      "title": "POCUS SUMMARY FINDINGS: RIGHT CHAMBERS",
+      "fields": [
+        {
+          "id": "sum_rv_size",
+          "label": "RV Size",
+          "type": "select",
+          "options": ["Normal", "Dilated", "Markedly Dilated", "Cannot assess"]
+        },
+        {
+          "id": "sum_rv_func",
+          "label": "RV Function",
+          "type": "select",
+          "options": ["Normal", "Decreased", "Cardiac Standstill", "Cannot assess"]
+        },
+        {
+          "id": "sum_tapse",
+          "label": "TAPSE",
+          "type": "text"
+        },
+        {
+          "id": "sum_rvsp",
+          "label": "RVSP",
+          "type": "text"
+        },
+        {
+          "id": "sum_septum",
+          "label": "Septum",
+          "type": "select",
+          "options": ["Normal", "Flattened", "Paradoxical motion"]
+        }
+      ]
+    },
+    {
+      "title": "POCUS SUMMARY FINDINGS: PERICARDIUM",
+      "fields": [
+        {
+          "id": "sum_pericardium",
+          "label": "Pericardium",
+          "type": "select",
+          "options": ["Normal", "Mild Effusion", "Large circumferential effusion", "RA systolic collapse", "RV diastolic collapse"]
+        }
+      ]
+    },
+    {
+      "title": "POCUS SUMMARY FINDINGS: VALVES",
       "fields": [
         {
           "id": "sum_v_tri",
@@ -135,7 +428,7 @@
       "fields": [
         {
           "id": "sum_haemo",
-          "label": "Haemodynamic State",
+          "label": "Primary Haemodynamic State",
           "type": "checkbox-group",
           "options": [
             "Hypovolaemia",
