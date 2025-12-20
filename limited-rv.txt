@@ -46,7 +46,11 @@ Limited RV Assessment
   </div>
 </details>
 
-<p>&bull; <span class="tappable-ref">TAPSE</span> - M-mode through the lateral part of the tricuspid annulus<span class="hidden-ref">(<17mm suggests dysfunction)</span></p>
+<p>&bull; <span class="tappable-ref">TAPSE</span> - M-mode through the lateral part of the tricuspid annulus<span class="hidden-ref">(<17mm suggests RV dysfunction)</span></p>
+
+<p>&bull; <span class="tappable-ref">S'</span> - PW Doppler w/ gate at lateral tricuspid annulus then TDI<span class="hidden-ref">(<9.5cm/s suggests RV dysfunction)</span></p>
+
+
 
 
 
