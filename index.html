@@ -27,9 +27,12 @@
         html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: var(--background-color); color: var(--text-color); }
         .page { display: none; width: 100%; height: 100%; padding: 20px; overflow-y: auto; flex-direction: column; }
         .page.active { display: flex; }
+        
+        /* REVERTED MENU SPACING */
         .main-menu { display: flex; flex-direction: column; gap: 15px; justify-content: center; flex-grow: 1; }
         .btn { padding: 20px; font-size: 1.2rem; text-align: center; border: 2px solid var(--border-color); border-radius: 8px; cursor: pointer; background-color: var(--button-bg-color); color: var(--text-color); width: 100%; -webkit-tap-highlight-color: transparent; }
         .btn:active { background-color: var(--button-active-bg); }
+        
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
         .header h1 { font-size: 1.5rem; text-align: right; }
         .back-btn { font-size: 1.1rem; padding: 8px 15px; cursor: pointer; border: 1px solid var(--border-color); border-radius: 5px; background-color: transparent; color: var(--text-color); white-space: nowrap; }
@@ -68,7 +71,7 @@
 <body>
 
     <div id="home-page" class="page active">
-        <p class="disclaimer">V27. These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
+        <p class="disclaimer">V28. These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
         <div class="main-menu">
             <div class="btn" id="pah-trigger" style="border-color: var(--warning-red); color: var(--warning-red);">POCUS PAH Report Form</div>
             <div class="btn" data-page="iheartscan">iHeartScan</div>
@@ -107,8 +110,7 @@
 
     <div id="pathology-menu-page" class="page">
         <div class="header"><button class="back-btn">&lt; Back</button><h1 id="pathology-menu-title"></h1></div>
-        <div id="pathology-menu-content" class="content"></div>
-    </div>
+        <div id="pathology-menu-content" class="content main-menu"></div> </div>
 
     <div id="content-page" class="page">
         <div class="header"><button class="back-btn">&lt; Back</button><h1 id="content-page-title"></h1></div>
@@ -239,9 +241,7 @@
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i];
                 const trimmed = line.trim();
-                
                 if (trimmed.includes('<span')) { html += `<p>${trimmed}</p>`; continue; }
-
                 if (trimmed.includes('|')) {
                     if (!isTable) {
                         html += '<table>';
@@ -258,7 +258,6 @@
                     continue;
                 }
                 if (isTable) { html += '</tbody></table>'; isTable = false; }
-                
                 if (trimmed.startsWith('## ')) html += `<h3>${trimmed.substring(3)}</h3>`;
                 else if (trimmed.startsWith('# ')) html += `<h2>${trimmed.substring(2)}</h2>`;
                 else if (trimmed.startsWith('* ')) {
