@@ -29,6 +29,9 @@
         .page.active { display: flex; }
         
         .main-menu { display: flex; flex-direction: column; gap: 15px; justify-content: center; flex-grow: 1; }
+        /* Fix for Pathology sub-page spacing inconsistency */
+        .main-menu p { margin: 0; padding: 0; width: 100%; display: flex; flex-direction: column; gap: 15px; }
+        
         .btn { padding: 20px; font-size: 1.2rem; text-align: center; border: 2px solid var(--border-color); border-radius: 8px; cursor: pointer; background-color: var(--button-bg-color); color: var(--text-color); width: 100%; -webkit-tap-highlight-color: transparent; }
         .btn:active { background-color: var(--button-active-bg); }
         
@@ -70,7 +73,7 @@
 <body>
 
     <div id="home-page" class="page active">
-        <p class="disclaimer">V29. These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
+        <p class="disclaimer">V30. These protocols are not endorsed by any professional bodies. Use at your own risk.</p>
         <div class="main-menu">
             <div class="btn" id="pah-trigger" style="border-color: var(--warning-red); color: var(--warning-red);">POCUS PAH Report Form</div>
             <div class="btn" data-page="iheartscan">iHeartScan</div>
@@ -109,7 +112,8 @@
 
     <div id="pathology-menu-page" class="page">
         <div class="header"><button class="back-btn">&lt; Back</button><h1 id="pathology-menu-title"></h1></div>
-        <div id="pathology-menu-content" class="main-menu"></div> </div>
+        <div id="pathology-menu-content" class="main-menu"></div>
+    </div>
 
     <div id="content-page" class="page">
         <div class="header"><button class="back-btn">&lt; Back</button><h1 id="content-page-title"></h1></div>
